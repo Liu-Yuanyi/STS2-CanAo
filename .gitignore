@@ -1,0 +1,29 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Rider / Visual Studio
+.idea/
+.vs/
+
+# Godot generated
+.godot/
+godot/.godot/
+
+# Build staging
+build/
+
+# Logs and local evidence
+*.log
+local/
+artifacts/
+
+# Generated packages
+*.pck
+*.zip
+
+# OS
+Thumbs.db
+.DS_Store

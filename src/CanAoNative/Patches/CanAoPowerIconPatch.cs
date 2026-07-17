@@ -1,0 +1,106 @@
+using System.Reflection;
+using CanAoNative.Powers;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Models;
+
+namespace CanAoNative.Patches;
+
+/// <summary>
+/// Applies optional, narrowly-scoped Power icon fallbacks. Reflection is used
+/// to locate the current game getters so a renamed/removed UI property does not
+/// make Mod initialization fail; gameplay remains available even if this
+/// compatibility patch cannot be applied.
+/// </summary>
+public static class CanAoPowerIconPatch
+{
+    private const string SmallFallback =
+        "res://images/atlases/power_atlas.sprites/strength_power.tres";
+
+    private const string BigFallback =
+        "res://images/powers/strength_power.png";
+
+    public static void TryApply(
+        Harmony harmony,
+        Logger log)
+    {
+        ArgumentNullException.ThrowIfNull(harmony);
+        ArgumentNullException.ThrowIfNull(log);
+
+        TryPatchGetter(
+            harmony,
+            log,
+            "PackedIconPath",
+            nameof(PackedIconPostfix));
+
+        TryPatchGetter(
+            harmony,
+            log,
+            "ResolvedBigIconPath",
+            nameof(BigIconPostfix));
+    }
+
+    private static void TryPatchGetter(
+        Harmony harmony,
+        Logger log,
+        string propertyName,
+        string postfixName)
+    {
+        MethodInfo? getter =
+            AccessTools.PropertyGetter(typeof(PowerModel), propertyName);
+
+        MethodInfo? postfix =
+            AccessTools.Method(typeof(CanAoPowerIconPatch), postfixName);
+
+        if (getter == null || postfix == null)
+        {
+            log.Info(
+                $"CANAO_POWER_ICON_PATCH_SKIPPED: {propertyName}");
+            return;
+        }
+
+        try
+        {
+            harmony.Patch(
+                getter,
+                postfix: new HarmonyMethod(postfix));
+
+            log.Info(
+                $"CANAO_POWER_ICON_PATCH_APPLIED: {propertyName}");
+        }
+        catch (Exception ex)
+        {
+            log.Info(
+                $"CANAO_POWER_ICON_PATCH_SKIPPED: {propertyName}; " +
+                $"{ex.GetType().Name}: {ex.Message}");
+        }
+    }
+
+    private static void PackedIconPostfix(
+        PowerModel __instance,
+        ref string __result)
+    {
+        if (IsCanAoPower(__instance))
+            __result = SmallFallback;
+    }
+
+    private static void BigIconPostfix(
+        PowerModel __instance,
+        ref string __result)
+    {
+        if (IsCanAoPower(__instance))
+            __result = BigFallback;
+    }
+
+    private static bool IsCanAoPower(PowerModel power) =>
+        power is StarPower
+            or MoonPower
+            or FengWeiPower
+            or TemporaryFengWeiPower
+            or FengYanBuXiPower
+            or YuHuoBannerPower
+            or YuHuoBannerTemporaryStrengthPower
+            or PanXuanPower
+            or TianFengJunZhenPower
+            or CanAoProbePower;
+}

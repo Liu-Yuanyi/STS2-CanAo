@@ -1,0 +1,20 @@
+{
+  "CAN_AO_PROBE_POWER.title": "CanAo Probe Power",
+  "CAN_AO_PROBE_POWER.description": "Tick down by 1 each turn.",
+  "STAR_POWER.title": "Star",
+  "STAR_POWER.description": "Temporary resource. Cleared at end of turn.",
+  "MOON_POWER.title": "Moon",
+  "MOON_POWER.description": "Temporary resource. Cleared at end of turn.",
+  "FENG_WEI_POWER.title": "FengWei",
+  "FENG_WEI_POWER.description": "Increases Star-Moon Strike damage and block by 1 per stack. Can be negative.",
+  "FENG_YAN_BU_XI_POWER.title": "FengYan BuXi",
+  "FENG_YAN_BU_XI_POWER.description": "Your 浴火 cards trigger 1 extra time per stack.",
+  "YU_HUO_BANNER_POWER.title": "YuHuo War Banner",
+  "YU_HUO_BANNER_POWER.description": "After each successful YuHuo trigger, gain 2 temporary Strength per stack.",
+  "TEMPORARY_FENG_WEI_POWER.title": "Temporary FengWei",
+  "TEMPORARY_FENG_WEI_POWER.description": "A FengWei adjustment that lasts for this turn.",
+  "PAN_XUAN_POWER.title": "Circling Guard",
+  "PAN_XUAN_POWER.description": "Whenever you generate a Star-Moon Strike this turn, gain {Amount} Block.",
+  "TIAN_FENG_JUN_ZHEN_POWER.title": "Heavenly Phoenix Formation",
+  "TIAN_FENG_JUN_ZHEN_POWER.description": "Whenever you generate a Star-Moon Strike, deal {Amount} damage to ALL enemies."
+}
