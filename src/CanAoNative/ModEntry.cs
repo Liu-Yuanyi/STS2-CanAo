@@ -15,7 +15,7 @@ public static class ModEntry
 {
     public const string ModId = "CanAoNative";
     public const string BuildMarker =
-        "CANAO_NATIVE_R6_STARMOON_EVENTS_20260717";
+        "CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717";
 
     private static readonly Logger Log =
         new(ModId, LogType.Generic);
@@ -57,6 +57,11 @@ public static class ModEntry
         ModHelper.AddModelToPool<ColorlessCardPool, PanXuanCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, XingYueFaMoCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, TianFengJunZhenCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, ZhengZhaoCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, YuHuoStrikeCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, FenGaoJiGuiCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, QingGongCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, FengGuZaiRanCard>();
 
         Harmony harmony =
             new($"{ModId}.RuntimePatches");
@@ -83,6 +88,11 @@ public static class ModEntry
             $"PanXuanPower={ModelDb.GetId(typeof(PanXuanPower))}, " +
             $"XingYueFaMo={ModelDb.GetId(typeof(XingYueFaMoCard))}, " +
             $"TianFengJunZhen={ModelDb.GetId(typeof(TianFengJunZhenCard))}, " +
-            $"TianFengJunZhenPower={ModelDb.GetId(typeof(TianFengJunZhenPower))}");
+            $"TianFengJunZhenPower={ModelDb.GetId(typeof(TianFengJunZhenPower))}, " +
+            $"ZhengZhao={ModelDb.GetId(typeof(ZhengZhaoCard))}, " +
+            $"YuHuoStrike={ModelDb.GetId(typeof(YuHuoStrikeCard))}, " +
+            $"FenGaoJiGui={ModelDb.GetId(typeof(FenGaoJiGuiCard))}, " +
+            $"QingGong={ModelDb.GetId(typeof(QingGongCard))}, " +
+            $"FengGuZaiRan={ModelDb.GetId(typeof(FengGuZaiRanCard))}");
     }
 }

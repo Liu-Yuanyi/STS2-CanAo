@@ -32,5 +32,17 @@
   "XING_YUE_FA_MO_CARD.title": "Star-Moon Exorcism",
   "XING_YUE_FA_MO_CARD.description": "Deal {Damage:diff()} damage. If you generated a Star-Moon Strike this turn, gain 1 Star and 1 Moon.",
   "TIAN_FENG_JUN_ZHEN_CARD.title": "Heavenly Phoenix Formation",
-  "TIAN_FENG_JUN_ZHEN_CARD.description": "Whenever you generate a Star-Moon Strike, deal {Damage:diff()} damage to ALL enemies."
+  "TIAN_FENG_JUN_ZHEN_CARD.description": "Whenever you generate a Star-Moon Strike, deal {Damage:diff()} damage to ALL enemies.",
+  "ZHENG_ZHAO_CARD.title": "Conscription",
+  "ZHENG_ZHAO_CARD.description": "YuHuo. Draw {Cards:diff()} cards.",
+  "YU_HUO_STRIKE_CARD.title": "YuHuo Strike",
+  "YU_HUO_STRIKE_CARD.description": "YuHuo. Deal {Damage:diff()} damage. If this card is triggered by YuHuo, gain {Cards:diff()} Moon.",
+  "FEN_GAO_JI_GUI_CARD.title": "Midnight Oil",
+  "FEN_GAO_JI_GUI_CARD.description": "Exhaust up to {Cards:diff()} cards from your hand. If at least 1 of them had YuHuo, gain 1 Star and 1 Moon. Exhaust.",
+  "FEN_GAO_JI_GUI_CARD.selectionScreenPrompt": "Choose up to {Amount} cards to Exhaust.",
+  "QING_GONG_CARD.title": "Palace Purge",
+  "QING_GONG_CARD.description": "Exhaust all non-YuHuo Skill cards in your hand. Gain {Block:diff()} [gold]Block[/gold] for each card Exhausted. Exhaust.",
+  "FENG_GU_ZAI_RAN_CARD.title": "Phoenix Bone Rekindle",
+  "FENG_GU_ZAI_RAN_CARD.description": "Choose a YuHuo card in your Exhaust pile and add it to your hand. It costs {Cards:diff()} less this turn. Exhaust.",
+  "FENG_GU_ZAI_RAN_CARD.selectionScreenPrompt": "Choose a YuHuo card to add to your hand."
 }

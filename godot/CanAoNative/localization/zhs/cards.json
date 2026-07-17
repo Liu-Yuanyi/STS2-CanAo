@@ -32,5 +32,17 @@
   "XING_YUE_FA_MO_CARD.title": "星月伐魔",
   "XING_YUE_FA_MO_CARD.description": "造成{Damage:diff()}点伤害。若本回合生成过【星月合击】，获得1星和1月。",
   "TIAN_FENG_JUN_ZHEN_CARD.title": "天凤军阵",
-  "TIAN_FENG_JUN_ZHEN_CARD.description": "每当你生成【星月合击】时，对所有敌人造成{Damage:diff()}点伤害。"
+  "TIAN_FENG_JUN_ZHEN_CARD.description": "每当你生成【星月合击】时，对所有敌人造成{Damage:diff()}点伤害。",
+  "ZHENG_ZHAO_CARD.title": "征召",
+  "ZHENG_ZHAO_CARD.description": "浴火。抽{Cards:diff()}张牌。",
+  "YU_HUO_STRIKE_CARD.title": "浴火打击",
+  "YU_HUO_STRIKE_CARD.description": "浴火。造成{Damage:diff()}点伤害。若本牌因浴火触发，获得{Cards:diff()}月。",
+  "FEN_GAO_JI_GUI_CARD.title": "焚膏继晷",
+  "FEN_GAO_JI_GUI_CARD.description": "消耗不超过{Cards:diff()}张手牌。若至少消耗1张浴火牌，获得1星与1月。消耗。",
+  "FEN_GAO_JI_GUI_CARD.selectionScreenPrompt": "选择至多{Amount}张手牌消耗。",
+  "QING_GONG_CARD.title": "清宫",
+  "QING_GONG_CARD.description": "消耗手牌中所有非浴火技能牌。每消耗1张，获得{Block:diff()}点[gold]格挡[/gold]。消耗。",
+  "FENG_GU_ZAI_RAN_CARD.title": "凤骨再燃",
+  "FENG_GU_ZAI_RAN_CARD.description": "从消耗牌堆选择1张浴火牌加入手牌，它本回合费用-{Cards:diff()}。消耗。",
+  "FENG_GU_ZAI_RAN_CARD.selectionScreenPrompt": "选择1张浴火牌加入手牌。"
 }
