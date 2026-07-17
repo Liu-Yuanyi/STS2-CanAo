@@ -19,7 +19,7 @@ if (-not (Test-Path $GameDir)) {
 }
 
 & (Join-Path $PSScriptRoot "Verify-NoBaseLib.ps1")
-& (Join-Path $PSScriptRoot "Verify-R6.ps1")
+& (Join-Path $PSScriptRoot "Verify-R7.ps1")
 
 Get-Process SlayTheSpire2, Godot -ErrorAction SilentlyContinue |
     Stop-Process -Force
@@ -122,7 +122,7 @@ if ($Unexpected) {
 Write-Host ""
 Write-Host "Deployment verified."
 Write-Host "Expected runtime log marker:"
-Write-Host "  CANAO_NATIVE_R6_STARMOON_EVENTS_20260717"
+Write-Host "  CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717"
 Write-Host ""
 Get-ChildItem $InstallDir |
     Select-Object Name, Length, LastWriteTime

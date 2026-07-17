@@ -1,0 +1,228 @@
+$ErrorActionPreference = "Stop"
+
+$Root = Split-Path $PSScriptRoot -Parent
+$SourceRoot = Join-Path $Root "src\CanAoNative"
+$ManifestPath = Join-Path $Root "packaging\CanAoNative.json"
+$CardsLocZh = Join-Path $Root "godot\CanAoNative\localization\zhs\cards.json"
+$CardsLocEn = Join-Path $Root "godot\CanAoNative\localization\eng\cards.json"
+
+$StrictUtf8 = [System.Text.UTF8Encoding]::new($false, $true)
+$Utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+
+function Read-Utf8Strict([string]$Path) {
+    if (-not (Test-Path $Path)) {
+        throw ("Required file missing: {0}" -f $Path)
+    }
+
+    try {
+        return [System.IO.File]::ReadAllText($Path, $StrictUtf8)
+    }
+    catch {
+        throw ("File is not valid UTF-8: {0}`n{1}" -f $Path, $_)
+    }
+}
+
+function Get-NormalizedTextSha256([string]$Path) {
+    $Text = Read-Utf8Strict $Path
+    $Normalized = $Text.Replace("`r`n", "`n").Replace("`r", "`n")
+    $Bytes = $Utf8NoBom.GetBytes($Normalized)
+    $Sha = [System.Security.Cryptography.SHA256]::Create()
+
+    try {
+        $HashText = [BitConverter]::ToString($Sha.ComputeHash($Bytes))
+        return $HashText.Replace("-", "").ToLowerInvariant()
+    }
+    finally {
+        $Sha.Dispose()
+    }
+}
+
+$RequiredFiles = @(
+    "Cards\ZhengZhaoCard.cs",
+    "Cards\YuHuoStrikeCard.cs",
+    "Cards\FenGaoJiGuiCard.cs",
+    "Cards\QingGongCard.cs",
+    "Cards\FengGuZaiRanCard.cs",
+    "Rules\Exhaust\ExhaustRecord.cs",
+    "Rules\Exhaust\IExhaustEvents.cs",
+    "Rules\Exhaust\ExhaustCombatState.cs",
+    "Rules\Exhaust\ExhaustListenerRegistry.cs",
+    "Rules\Exhaust\ExhaustService.cs"
+)
+
+foreach ($RelativePath in $RequiredFiles) {
+    $Path = Join-Path $SourceRoot $RelativePath
+    if (-not (Test-Path $Path)) {
+        throw ("R7 source file missing: {0}" -f $Path)
+    }
+}
+
+# Preserve the already user-validated R5/R6 gameplay core. R7 intentionally
+# changes CanAoCombatRules and ModEntry, so those files are validated
+# structurally below rather than frozen here.
+$VerifiedHashes = [ordered]@{
+    "Cards\FeatherRanksCard.cs" = "b85c4b790e6b4eb0dddb38a88e94b15c7bdb3568749cef003a65bbdd6d039141"
+    "Cards\SacrificialPreparationCard.cs" = "d4b3ed638d6e3bfc9248323cf3afcdf5501d7e40623ed5c700dba1e79473dfee"
+    "Cards\StarMoonStrike.cs" = "b38ef7bbc64acac8906377d59836c90acc0b3240d931f5725d0a3c4a19957dcd"
+    "Cards\YuHuoBannerCard.cs" = "9892d7f9bc9ca5791b8774715575325aaba35a0c1efe0b3b79b7df5d9682cd4a"
+    "Cards\ShiWeiCard.cs" = "143c3b2a1ac8470bedc0e6840ac93fc5985c39f96b5b48785d7640aa4b7fbe1c"
+    "Cards\ZanBiFengMangCard.cs" = "0a12a0e9dd909840efd46d1f1dc201d90d1a9b10ee9d3151e9abcfcf5732dd95"
+    "Powers\FengWeiPower.cs" = "1d3df1fdfd1a7f272ca3c9e7fe44a38c0b7b6ebde470fda8b07010c542eb716b"
+    "Powers\YuHuoBannerPower.cs" = "2f33f4294354c90ae8941ec5208597d4d5f54562d76637ca04ff0226d99ad50a"
+    "Powers\YuHuoBannerTemporaryStrengthPower.cs" = "66e32ad32cc12d7fc4bc415e2b19a2b6c65fe1e62809fd45f1538747d3054d27"
+    "Rules\FengWei\FengWeiService.cs" = "c88a0cae39486db68fad2c0beab7ca612dce20b27677b7541a6ef91559022461"
+    "Rules\YuHuo\YuHuoCombatState.cs" = "3f12ec54d3d35da3c94d5427653dca446b439d389ec877c3fadc1dce66d123c1"
+    "Rules\YuHuo\YuHuoResolver.cs" = "2e63f9cbb43fcd449d63d70d6f922c4fa91f951aa12c837cc69d436470c1468e"
+    "Rules\YuHuo\YuHuoService.cs" = "bca86dcb0ed4a5caa7c0c9945eac654e90278da406ae4cb4c4c94be3f38edbe3"
+    "Patches\YuHuoExhaustPatch.cs" = "82441b3866502fc8087dfeec059f15eb3ab36b112911a2240a2a457a648e292b"
+    "Cards\PanXuanCard.cs" = "a0f2d3928daf5a5b2a47271ee5f37fdc9644172aab050f8d7d30aa2707cc1db8"
+    "Cards\XingYueFaMoCard.cs" = "8722da5ebc3abe61688fe8925bf54423ff1ed688169352ad94592174abe2096f"
+    "Cards\TianFengJunZhenCard.cs" = "a5ab3e7c8d55ccb8ad97dc546026fb2674442022e7558d78830218019433e596"
+    "Powers\PanXuanPower.cs" = "1dcce5ef0c3b7704af54b7b85cf9a2457fd75233fabf1aeef4535d33abb8f5e8"
+    "Powers\TianFengJunZhenPower.cs" = "2cc7e9d0ac165b7df7c82b7afd68764ba2ab5de316a6ec6a8b6a962129a93e58"
+    "Powers\TemporaryFengWeiPower.cs" = "0b1a10135751d7e6e90d7277edbee14a23be420a05427f770916ba5881003a02"
+    "Rules\StarMoon\IStarMoonEvents.cs" = "b227296dfc8799a702b0a6eadf050e8a31d75c77bbe99bbaae0cb6c0b462aa93"
+    "Rules\StarMoon\StarMoonCombatState.cs" = "843e44301a7fd185dc9410051cece9346855daae420d39c7eda99b7c045c87c4"
+    "Rules\StarMoon\StarMoonGenerationContext.cs" = "9a4becae516e5b031d97971908c2a16b3ce7c76105818f5946a7db44f472856a"
+    "Rules\StarMoon\StarMoonPlayedContext.cs" = "2a54e2c28b363e4dda18b8667c2dd323cd60eb3b98daf25367d543a9ca852497"
+    "Rules\StarMoon\StarMoonListenerRegistry.cs" = "d739a1117a12fa959479450d56880f5ef11bb99e3273a0e85944b25a40d6ebcb"
+    "Rules\StarMoon\StarMoonService.cs" = "c21b96c9f674c543b10de1661c69f2b6961d63b6a33860768da20198155afa5a"
+    "Rules\StarMoonHelper.cs" = "9f94f956a9b856117ec01dadf94156d11d6286c27ba9903882ddfba059c76424"
+}
+
+foreach ($Entry in $VerifiedHashes.GetEnumerator()) {
+    $Path = Join-Path $SourceRoot $Entry.Key
+    $Actual = Get-NormalizedTextSha256 $Path
+
+    if ($Actual -ne $Entry.Value) {
+        throw (
+            "Verified R5/R6 source changed unexpectedly: {0}`nExpected: {1}`nActual:   {2}" -f
+            $Entry.Key,
+            $Entry.Value,
+            $Actual
+        )
+    }
+}
+
+$SourceFiles = Get-ChildItem $SourceRoot -Recurse -Filter "*.cs"
+$SourceText = ($SourceFiles | ForEach-Object {
+    Read-Utf8Strict $_.FullName
+}) -join "`n"
+
+$RequiredMarkers = @(
+    "CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717",
+    "enum CanAoExhaustCause",
+    "record ExhaustRecord",
+    "interface IAfterCanAoCardExhausted",
+    "class ExhaustCombatState",
+    "class ExhaustService",
+    "RecordAndNotify",
+    "GetRecordsThisTurn",
+    "AfterCardExhausted",
+    "class ZhengZhaoCard",
+    "class YuHuoStrikeCard",
+    "class FenGaoJiGuiCard",
+    "class QingGongCard",
+    "class FengGuZaiRanCard",
+    "ref Task __result"
+)
+
+foreach ($Marker in $RequiredMarkers) {
+    if (-not $SourceText.Contains($Marker)) {
+        throw ("R7 source marker missing: {0}" -f $Marker)
+    }
+}
+
+$ForbiddenRegexPatterns = @(
+    "TaskHelper\.RunSafely",
+    "\basync\s+void\b",
+    "\.Wait\s*\(",
+    "\.Result\b",
+    "ModelDb\.Inject",
+    "\bInjectModels\b",
+    "static\s+int\s+ExtraTriggers",
+    "HashSet<CardModel>\s+TemporaryYuHuo"
+)
+
+foreach ($Pattern in $ForbiddenRegexPatterns) {
+    if ($SourceText -match $Pattern) {
+        throw ("Forbidden R7 source pattern found: {0}" -f $Pattern)
+    }
+}
+
+$CombatRulesPath = Join-Path $SourceRoot "Rules\CanAoCombatRules.cs"
+$CombatRules = Read-Utf8Strict $CombatRulesPath
+
+foreach ($Marker in @(
+    "AfterCardPlayedLate",
+    "StarMoonService.RecordPlayed",
+    "StarMoonService.NotifyAfterPlayed",
+    "AfterSideTurnEndLate",
+    "StarMoonService.ClearTurnForPlayers",
+    "RemoveExpiredForPlayers",
+    "AfterCardExhausted",
+    "ExhaustService.RecordAndNotify",
+    "ExhaustService.ClearForPlayers"
+)) {
+    if (-not $CombatRules.Contains($Marker)) {
+        throw ("CanAoCombatRules R7 marker missing: {0}" -f $Marker)
+    }
+}
+
+if ($CombatRules.Contains("public override Task BeforeSideTurnEnd(")) {
+    throw "CanAoCombatRules still clears temporary state in BeforeSideTurnEnd."
+}
+
+$ExhaustServicePath = Join-Path $SourceRoot "Rules\Exhaust\ExhaustService.cs"
+$ExhaustServiceText = Read-Utf8Strict $ExhaustServicePath
+
+foreach ($Marker in @(
+    "YuHuoService.HasYuHuo",
+    "YuHuoService.IsResolving",
+    "NotifyAfterExhausted",
+    "GetState(combatState).Record"
+)) {
+    if (-not $ExhaustServiceText.Contains($Marker)) {
+        throw ("ExhaustService R7 marker missing: {0}" -f $Marker)
+    }
+}
+
+$CardKeys = @(
+    "ZHENG_ZHAO_CARD.title",
+    "ZHENG_ZHAO_CARD.description",
+    "YU_HUO_STRIKE_CARD.title",
+    "YU_HUO_STRIKE_CARD.description",
+    "FEN_GAO_JI_GUI_CARD.title",
+    "FEN_GAO_JI_GUI_CARD.description",
+    "FEN_GAO_JI_GUI_CARD.selectionScreenPrompt",
+    "QING_GONG_CARD.title",
+    "QING_GONG_CARD.description",
+    "FENG_GU_ZAI_RAN_CARD.title",
+    "FENG_GU_ZAI_RAN_CARD.description",
+    "FENG_GU_ZAI_RAN_CARD.selectionScreenPrompt"
+)
+
+foreach ($LocPath in @($CardsLocZh, $CardsLocEn)) {
+    $Loc = (Read-Utf8Strict $LocPath) | ConvertFrom-Json
+
+    foreach ($Key in $CardKeys) {
+        if ($null -eq $Loc.PSObject.Properties[$Key]) {
+            throw ("Card localization key missing in {0}: {1}" -f
+                $LocPath, $Key)
+        }
+    }
+}
+
+$Manifest = (Read-Utf8Strict $ManifestPath) | ConvertFrom-Json
+
+if ($Manifest.version -ne "0.0.7") {
+    throw ("Unexpected R7 manifest version: {0}" -f $Manifest.version)
+}
+
+if ($Manifest.min_game_version -ne "0.109.0") {
+    throw ("Unexpected minimum game version: {0}" -f
+        $Manifest.min_game_version)
+}
+
+Write-Host "Verified R5/R6 gameplay-core hashes passed."
+Write-Host "R7 exhaust event layer, UTF-8, manifest and localization verification passed."
