@@ -1,5 +1,6 @@
 using CanAoNative.Cards;
 using CanAoNative.Powers;
+using CanAoNative.Rules.Exhaust;
 using CanAoNative.Rules.StarMoon;
 using CanAoNative.Rules.YuHuo;
 using MegaCrit.Sts2.Core.Combat;
@@ -63,6 +64,29 @@ public sealed class CanAoCombatRules : AbstractModel
     }
 
     /// <summary>
+    /// Single funnel for every game exhaust path (normal play, other card
+    /// effects, Ethereal, 浴火 resolution). ExhaustService snapshots the
+    /// facts, updates per-player turn history and notifies listeners.
+    /// </summary>
+    public override async Task AfterCardExhausted(
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        bool causedByEthereal)
+    {
+        ICombatState? combatState =
+            card.CombatState ?? card.Owner?.Creature?.CombatState;
+
+        if (combatState == null)
+            return;
+
+        await ExhaustService.RecordAndNotify(
+            choiceContext,
+            combatState,
+            card,
+            causedByEthereal);
+    }
+
+    /// <summary>
     /// Clear turn-only Mod state only after the complete side-turn pipeline.
     /// This intentionally preserves temporary YuHuo through Ethereal exhaust
     /// and allows normal after-turn listeners to inspect Star-Moon history.
@@ -90,6 +114,10 @@ public sealed class CanAoCombatRules : AbstractModel
                 .RemoveExpiredForPlayers(endingPlayers);
 
             StarMoonService.ClearTurnForPlayers(
+                combatState,
+                endingPlayers);
+
+            ExhaustService.ClearForPlayers(
                 combatState,
                 endingPlayers);
         }
