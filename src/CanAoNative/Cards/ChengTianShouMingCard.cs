@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
+using CanAoNative.Pools;
 
 namespace CanAoNative.Cards;
 
@@ -19,7 +19,7 @@ public sealed class ChengTianShouMingCard : CardModel
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
 
     public override CardPoolModel Pool =>
-        ModelDb.CardPool<ColorlessCardPool>();
+        ModelDb.CardPool<CanAoCardPool>();
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

@@ -19,5 +19,11 @@
   "GU_WANG_YU_ZUO_RELIC.flavor": "王座之上，只余一人。",
   "DI_GUO_SHUI_QI_RELIC.title": "帝国税契",
   "DI_GUO_SHUI_QI_RELIC.description": "每场战斗开始时，将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。你每次打出[gold]诏令[/gold]后，失去{Cards:diff()}金币。",
-  "DI_GUO_SHUI_QI_RELIC.flavor": "帝国的恩惠，从不免费。"
+  "DI_GUO_SHUI_QI_RELIC.flavor": "帝国的恩惠，从不免费。",
+  "DI_GUO_NIAN_BIAO_RELIC.title": "帝国年表",
+  "DI_GUO_NIAN_BIAO_RELIC.description": "每场战斗第一次打出攻击牌时，获得2点[gold]星[/gold]；第一次打出技能牌时，获得2点[gold]月[/gold]。",
+  "DI_GUO_NIAN_BIAO_RELIC.flavor": "编年自此始。",
+  "DI_GUO_SHI_CE_RELIC.title": "帝国史册",
+  "DI_GUO_SHI_CE_RELIC.description": "每回合第一次打出攻击牌时，获得1点[gold]星[/gold]；第一次打出技能牌时，获得1点[gold]月[/gold]。",
+  "DI_GUO_SHI_CE_RELIC.flavor": "每一页，都是一次重生。"
 }

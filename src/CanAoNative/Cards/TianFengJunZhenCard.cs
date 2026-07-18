@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
+using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
@@ -19,7 +19,7 @@ public sealed class TianFengJunZhenCard : CardModel
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
 
     public override CardPoolModel Pool =>
-        ModelDb.CardPool<ColorlessCardPool>();
+        ModelDb.CardPool<CanAoCardPool>();
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

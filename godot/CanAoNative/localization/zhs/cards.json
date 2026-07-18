@@ -61,5 +61,14 @@
   "TIAN_FENG_XING_TAI_CARD.title": "天凤形态",
   "TIAN_FENG_XING_TAI_CARD.description": "获得{Cards:diff()}点[gold]凤威[/gold]。每回合开始时，将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
   "XING_YUE_WANG_GUAN_CARD.title": "星月王冠",
-  "XING_YUE_WANG_GUAN_CARD.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击[/gold]。"
+  "XING_YUE_WANG_GUAN_CARD.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击[/gold]。",
+  "CAN_AO_STRIKE_CARD.title": "打击",
+  "CAN_AO_STRIKE_CARD.description": "造成{Damage:diff()}点伤害。",
+  "CAN_AO_DEFEND_CARD.title": "防御",
+  "CAN_AO_DEFEND_CARD.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
+  "FENG_YU_CAN_HUO_CARD.title": "凤羽残火",
+  "FENG_YU_CAN_HUO_CARD.description": "造成{Damage:diff()}点伤害。",
+  "JI_HUO_CARD.title": "祭火",
+  "JI_HUO_CARD.description": "[gold]消耗[/gold]不超过{Cards:diff()}张[gold]手牌[/gold]。",
+  "JI_HUO_CARD.selectionScreenPrompt": "选择至多{Amount}张手牌消耗。"
 }

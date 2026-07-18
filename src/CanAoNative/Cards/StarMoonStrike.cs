@@ -4,7 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
+using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
@@ -13,7 +13,7 @@ namespace CanAoNative.Cards;
 /// Star-Moon Strike (星月合击): 0-cost derived attack.
 /// Deals 4(6) damage and gains 3(5) block. Ethereal. Exhaust.
 /// Each point of FengWei adds +1 damage and +1 block (min 0).
-/// Not in any loot pool, but uses ColorlessCardPool for visuals.
+/// Not in the loot pool, but uses CanAoCardPool for visuals.
 /// </summary>
 public sealed class StarMoonStrike : CardModel
 {
@@ -21,8 +21,8 @@ public sealed class StarMoonStrike : CardModel
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
     public override bool GainsBlock => true;
 
-    /// <summary>Use ColorlessCardPool for visual rendering.</summary>
-    public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
+    /// <summary>Use CanAoCardPool for visual rendering.</summary>
+    public override CardPoolModel Pool => ModelDb.CardPool<CanAoCardPool>();
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

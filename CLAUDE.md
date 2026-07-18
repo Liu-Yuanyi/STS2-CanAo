@@ -2,14 +2,14 @@
 
 ## 项目目标
 
-为《杀戮尖塔 2》v0.108.0 开发“残傲”原生 Mod。
+为《杀戮尖塔 2》v0.109.0 开发“残傲”原生 Mod。
 
-当前版本：**R9，基线为用户实机验证通过的 R8 工作区**。
+当前版本：**R10，基线为用户实机验证通过的 R9 工作区**。
 
 构建标记：
 
 ```text
-CANAO_NATIVE_R9_RELICS_POTIONS_20260717
+CANAO_NATIVE_R10_CHARACTER_20260717
 ```
 
 ## 已完成
@@ -30,7 +30,12 @@ CANAO_NATIVE_R9_RELICS_POTIONS_20260717
 - 传令、密诏（弃牌堆版、不消耗）、王权、帝国余威、承天受命、天凤形态；
 - 星月王冠（稀有能力牌）；
 - 天凤军印、青鸾羽衣、合击武典、涅槃火种、战碑、孤王玉座、帝国税契；
-- 琼浆、凤威酒、御令瓶。
+- 琼浆、凤威酒、御令瓶（均可投掷任意玩家）；
+- **正式角色残傲与专属三池**（`CanAoCardPool/RelicPool/PotionPool`）；
+- 基础卡：打击、防御、凤羽残火、祭火；
+- 起始遗物：帝国年表（Orobas 升级：帝国史册）；
+- `AllCharacters` 追加补丁与占位视觉资源；
+- 探针卡移出玩家可见卡池。
 
 ## 诏令系统
 
@@ -126,7 +131,7 @@ CanAoCombatRules.AfterSideTurnEndLate
 
 ## R5/R6/R7/R8 基线保护
 
-`scripts/Verify-R9.ps1` 会验证未被 R9 有意修改的 R5–R8 核心文件 SHA-256，尤其包括：
+`scripts/Verify-R10.ps1` 会验证未被 R10 有意修改的 R5–R9 核心文件 SHA-256，尤其包括：
 
 - 浴火 Patch、Service、State、Resolver；
 - 羽列千军、牺牲准备、浴火军旗；
@@ -160,13 +165,12 @@ CanAoCombatRules.AfterSideTurnEndLate
 
 ## 下一阶段建议
 
-R10 正式角色与专属卡池（在 20–30 张卡稳定后）：
+R11+：完整卡表、平衡与正式美术：
 
-- `CharacterModel` 与角色选择界面；
-- 专属 `CardPoolModel`/`RelicPoolModel`/`PotionPoolModel`；
-- 起始卡组与起始遗物（帝国年表）；
-- 专属图片与角色颜色；
-- 清理探针卡。
+- 按设计稿补齐剩余卡牌（先古牌、多人专属卡）；
+- 专属卡图、角色立绘、Power 图标替换占位资源；
+- 图鉴自定义过滤页（UI 补丁）；
+- 数值平衡与多人验证。
 
 ## 待办
 

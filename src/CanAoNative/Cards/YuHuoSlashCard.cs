@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
+using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
@@ -28,8 +28,8 @@ public sealed class YuHuoSlashCard : CardModel, IIntrinsicYuHuo
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
 
-    /// <summary>Use ColorlessCardPool for visual rendering.</summary>
-    public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
+    /// <summary>Use CanAoCardPool for visual rendering.</summary>
+    public override CardPoolModel Pool => ModelDb.CardPool<CanAoCardPool>();
 
     /// <summary>浴火 trait — identified by IIntrinsicYuHuo interface.</summary>
     public bool HasIntrinsicYuHuo => true;

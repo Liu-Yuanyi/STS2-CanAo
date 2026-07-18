@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.CardPools;
+using CanAoNative.Pools;
 
 namespace CanAoNative.Cards;
 
@@ -15,7 +15,7 @@ namespace CanAoNative.Cards;
 /// 诏令：0 费衍生技能。保留，消耗。
 /// 消耗 1 张手牌：攻击牌 → 获得 1（2）星；技能牌 → 获得 1（2）月；
 /// 能力牌 → 获得 1（2）星与 1（2）月。
-/// Not in any loot pool, but uses ColorlessCardPool for visuals.
+/// Not in the loot pool, but uses CanAoCardPool for visuals.
 /// </summary>
 public sealed class EdictCard : CardModel
 {
@@ -23,7 +23,7 @@ public sealed class EdictCard : CardModel
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
 
     public override CardPoolModel Pool =>
-        ModelDb.CardPool<ColorlessCardPool>();
+        ModelDb.CardPool<CanAoCardPool>();
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
