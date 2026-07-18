@@ -75,9 +75,16 @@ public static class ModEntry
 
         ModHelper.AddModelToPool<SharedRelicPool, NiePanHuoZhongRelic>();
         ModHelper.AddModelToPool<SharedRelicPool, XingYueWangGuanRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, TianFengJunYinRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, QingLuanYuYiRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, HeJiWuDianRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, ZhanBeiRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, GuWangYuZuoRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, DiGuoShuiQiRelic>();
 
         ModHelper.AddModelToPool<SharedPotionPool, FengWeiJiuPotion>();
         ModHelper.AddModelToPool<SharedPotionPool, YuLingPingPotion>();
+        ModHelper.AddModelToPool<SharedPotionPool, QiongJiangPotion>();
 
         Harmony harmony =
             new($"{ModId}.RuntimePatches");
@@ -122,6 +129,13 @@ public static class ModEntry
             $"NiePanHuoZhong={ModelDb.GetId(typeof(NiePanHuoZhongRelic))}, " +
             $"XingYueWangGuan={ModelDb.GetId(typeof(XingYueWangGuanRelic))}, " +
             $"FengWeiJiu={ModelDb.GetId(typeof(FengWeiJiuPotion))}, " +
-            $"YuLingPing={ModelDb.GetId(typeof(YuLingPingPotion))}");
+            $"YuLingPing={ModelDb.GetId(typeof(YuLingPingPotion))}, " +
+            $"TianFengJunYin={ModelDb.GetId(typeof(TianFengJunYinRelic))}, " +
+            $"QingLuanYuYi={ModelDb.GetId(typeof(QingLuanYuYiRelic))}, " +
+            $"HeJiWuDian={ModelDb.GetId(typeof(HeJiWuDianRelic))}, " +
+            $"ZhanBei={ModelDb.GetId(typeof(ZhanBeiRelic))}, " +
+            $"GuWangYuZuo={ModelDb.GetId(typeof(GuWangYuZuoRelic))}, " +
+            $"DiGuoShuiQi={ModelDb.GetId(typeof(DiGuoShuiQiRelic))}, " +
+            $"QiongJiang={ModelDb.GetId(typeof(QiongJiangPotion))}");
     }
 }

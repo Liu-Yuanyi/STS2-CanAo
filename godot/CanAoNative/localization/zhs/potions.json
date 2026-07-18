@@ -2,5 +2,7 @@
   "FENG_WEI_JIU_POTION.title": "凤威酒",
   "FENG_WEI_JIU_POTION.description": "获得{FengWeiPower:diff()}点[gold]凤威[/gold]，在本回合获得{Cards:diff()}点[gold]凤威[/gold]。",
   "YU_LING_PING_POTION.title": "御令瓶",
-  "YU_LING_PING_POTION.description": "将{Cards:diff()}张[gold]诏令+[/gold]加入[gold]手牌[/gold]。"
+  "YU_LING_PING_POTION.description": "将{Cards:diff()}张[gold]诏令+[/gold]加入[gold]手牌[/gold]。",
+  "QIONG_JIANG_POTION.title": "琼浆",
+  "QIONG_JIANG_POTION.description": "获得{MoonPower:diff()}点[gold]月[/gold]。"
 }
