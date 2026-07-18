@@ -33,12 +33,17 @@ public sealed class GuWangYuZuoRelic : RelicModel
         HoverTipFactory.Static(StaticHoverTip.Energy)
     ];
 
-    public override Task AfterSideTurnEndLate(
+    /// <summary>
+    /// BeforeSideTurnEnd runs before the hand is flushed at turn end
+    /// (FlushPlayerHand happens later in EndPlayerTurnPhaseTwoInternal),
+    /// so it is the only hook where "hand is empty at turn end" can be
+    /// evaluated truthfully.
+    /// </summary>
+    public override Task BeforeSideTurnEnd(
         PlayerChoiceContext choiceContext,
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        // Only snapshot on the OWNER's side-turn end; see QingLuanYuYiRelic.
         if (side == Owner.Creature.Side
             && participants.Contains(Owner.Creature))
         {

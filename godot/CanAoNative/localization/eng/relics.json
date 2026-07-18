@@ -6,7 +6,7 @@
   "TIAN_FENG_JUN_YIN_RELIC.description": "Whenever you play an [gold]Edict[/gold], gain {Block:diff()} [gold]Block[/gold].",
   "TIAN_FENG_JUN_YIN_RELIC.flavor": "The seal falls like a mountain; orders are absolute.",
   "QING_LUAN_YU_YI_RELIC.title": "Azure Phoenix Plumage",
-  "QING_LUAN_YU_YI_RELIC.description": "At the start of your turn, if you had at least {Block:diff()} [gold]Block[/gold] left over last turn, gain 1 [gold]Moon[/gold].",
+  "QING_LUAN_YU_YI_RELIC.description": "At the start of your turn, if you have at least {Block:diff()} [gold]Block[/gold] left after enemy attacks, gain 1 [gold]Moon[/gold].",
   "QING_LUAN_YU_YI_RELIC.flavor": "The plumage still holds its warmth.",
   "HE_JI_WU_DIAN_RELIC.title": "Tome of Convergence",
   "HE_JI_WU_DIAN_RELIC.description": "Your every [blue]{Cards}[/blue]th [gold]Star-Moon Strike[/gold] has its effects doubled.",

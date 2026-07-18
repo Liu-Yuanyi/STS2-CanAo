@@ -8,16 +8,16 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 星月王冠：每回合前 Amount 次获得凤威（永久或临时）时，
-/// 各获得 1 张星月合击。同一次行动造成的多段凤威（如凤威酒）
-/// 只计一次获得。
+/// 星月王冠：每回合第一次获得凤威（永久或临时）时，
+/// 一次性获得 Amount 张星月合击。同一次行动造成的多段凤威
+/// （如凤威酒）只计一次获得。
 /// </summary>
 public sealed class XingYueWangGuanPower : PowerModel
 {
-    private readonly HashSet<object> _triggerSourcesThisTurn =
+    private readonly HashSet<object> _gainSourcesThisTurn =
         new(ReferenceEqualityComparer.Instance);
 
-    private int _triggersThisTurn;
+    private bool _triggeredThisTurn;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -29,7 +29,7 @@ public sealed class XingYueWangGuanPower : PowerModel
         Creature? applier,
         CardModel? cardSource)
     {
-        if (_triggersThisTurn >= Amount
+        if (_triggeredThisTurn
             || amount <= 0
             || power is not (FengWeiPower or TemporaryFengWeiPower)
             || !ReferenceEquals(power.Owner, Owner)
@@ -42,16 +42,16 @@ public sealed class XingYueWangGuanPower : PowerModel
         // applies both). Treat each distinct source as one gain.
         object sourceKey =
             (object?)cardSource ?? (object?)applier ?? power;
-        if (!_triggerSourcesThisTurn.Add(sourceKey))
+        if (!_gainSourcesThisTurn.Add(sourceKey))
             return;
 
-        _triggersThisTurn++;
+        _triggeredThisTurn = true;
         Flash();
 
         await StarMoonService.Generate(
             choiceContext,
             player,
-            1,
+            (int)Amount,
             applier,
             cardSource);
     }
@@ -62,8 +62,8 @@ public sealed class XingYueWangGuanPower : PowerModel
     {
         if (ReferenceEquals(player.Creature, Owner))
         {
-            _triggersThisTurn = 0;
-            _triggerSourcesThisTurn.Clear();
+            _triggeredThisTurn = false;
+            _gainSourcesThisTurn.Clear();
         }
 
         return Task.CompletedTask;

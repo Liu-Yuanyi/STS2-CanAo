@@ -13,13 +13,13 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Relics;
 
 /// <summary>
-/// 青鸾羽衣：回合开始时，若上回合剩余至少 5 点格挡，获得 1 月。
-/// Block is still intact at the owner's side-turn end and only clears at the
-/// next turn start, so the snapshot happens in AfterSideTurnEndLate.
+/// 青鸾羽衣：在你的回合开始时，若敌方攻击后你仍剩余至少 5 点格挡，
+/// 获得 1 月。敌方 side-turn 结束（敌人已行动完）是"被打完之后"的
+/// 快照点；己方回合开始时结算。
 /// </summary>
 public sealed class QingLuanYuYiRelic : RelicModel
 {
-    private bool _hadEnoughBlockLastTurn;
+    private bool _qualifiedAfterEnemyTurn;
 
     public override RelicRarity Rarity => RelicRarity.Uncommon;
 
@@ -39,13 +39,11 @@ public sealed class QingLuanYuYiRelic : RelicModel
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        // Only snapshot on the OWNER's side-turn end. Assigning on every
-        // side-turn end would let the enemy's later turn end wipe the flag
-        // before the owner's next turn starts.
-        if (side == Owner.Creature.Side
-            && participants.Contains(Owner.Creature))
+        // The enemy's side-turn end is "after the enemy finished attacking".
+        // Evaluating here captures the block that actually survived.
+        if (side != Owner.Creature.Side)
         {
-            _hadEnoughBlockLastTurn =
+            _qualifiedAfterEnemyTurn =
                 Owner.Creature.Block >= DynamicVars.Block.BaseValue;
         }
 
@@ -56,13 +54,13 @@ public sealed class QingLuanYuYiRelic : RelicModel
         PlayerChoiceContext choiceContext,
         Player player)
     {
-        if (!_hadEnoughBlockLastTurn
+        if (!_qualifiedAfterEnemyTurn
             || !ReferenceEquals(player, Owner))
         {
             return;
         }
 
-        _hadEnoughBlockLastTurn = false;
+        _qualifiedAfterEnemyTurn = false;
         Flash();
 
         await PowerCmd.Apply<MoonPower>(

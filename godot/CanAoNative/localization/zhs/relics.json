@@ -6,7 +6,7 @@
   "TIAN_FENG_JUN_YIN_RELIC.description": "你每次打出[gold]诏令[/gold]后，获得{Block:diff()}点[gold]格挡[/gold]。",
   "TIAN_FENG_JUN_YIN_RELIC.flavor": "印出如山，军令必行。",
   "QING_LUAN_YU_YI_RELIC.title": "青鸾羽衣",
-  "QING_LUAN_YU_YI_RELIC.description": "回合开始时，若上回合剩余至少{Block:diff()}点[gold]格挡[/gold]，获得1点[gold]月[/gold]。",
+  "QING_LUAN_YU_YI_RELIC.description": "在你的回合开始时，若敌方攻击后你仍剩余至少{Block:diff()}点[gold]格挡[/gold]，获得1点[gold]月[/gold]。",
   "QING_LUAN_YU_YI_RELIC.flavor": "羽衣轻覆，残温犹在。",
   "HE_JI_WU_DIAN_RELIC.title": "合击武典",
   "HE_JI_WU_DIAN_RELIC.description": "你的每第[blue]{Cards}[/blue]张[gold]星月合击[/gold]，效果翻倍。",
