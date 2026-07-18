@@ -62,7 +62,12 @@ public sealed class ZhanBeiRelic : RelicModel
             null);
     }
 
-    public override decimal ModifyBlockAdditive(
+    /// <summary>
+    /// ModifyBlockAdditive is a DELTA channel (0 = unchanged); the
+    /// multiplicative channel is where suppression belongs. Returning 0 here
+    /// zeroes the strike's block gain on the owner's first turn.
+    /// </summary>
+    public override decimal ModifyBlockMultiplicative(
         Creature target,
         decimal block,
         ValueProp props,
@@ -80,6 +85,6 @@ public sealed class ZhanBeiRelic : RelicModel
             return 0m;
         }
 
-        return block;
+        return 1m;
     }
 }

@@ -38,10 +38,13 @@ public sealed class GuWangYuZuoRelic : RelicModel
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        _handWasEmptyAtTurnEnd =
-            side == Owner.Creature.Side
-            && participants.Contains(Owner.Creature)
-            && Owner.PlayerCombatState.Hand.IsEmpty;
+        // Only snapshot on the OWNER's side-turn end; see QingLuanYuYiRelic.
+        if (side == Owner.Creature.Side
+            && participants.Contains(Owner.Creature))
+        {
+            _handWasEmptyAtTurnEnd =
+                Owner.PlayerCombatState.Hand.IsEmpty;
+        }
 
         return Task.CompletedTask;
     }

@@ -39,10 +39,15 @@ public sealed class QingLuanYuYiRelic : RelicModel
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        _hadEnoughBlockLastTurn =
-            side == Owner.Creature.Side
-            && participants.Contains(Owner.Creature)
-            && Owner.Creature.Block >= DynamicVars.Block.BaseValue;
+        // Only snapshot on the OWNER's side-turn end. Assigning on every
+        // side-turn end would let the enemy's later turn end wipe the flag
+        // before the owner's next turn starts.
+        if (side == Owner.Creature.Side
+            && participants.Contains(Owner.Creature))
+        {
+            _hadEnoughBlockLastTurn =
+                Owner.Creature.Block >= DynamicVars.Block.BaseValue;
+        }
 
         return Task.CompletedTask;
     }

@@ -155,6 +155,8 @@ CanAoCombatRules.AfterSideTurnEndLate
 13. 每次只做一个可独立验收的小阶段。
 14. 消耗事实只通过 `ExhaustService` 记录和查询。
 15. 诏令生成与打出事实只通过 `EdictService` 记录和查询。
+16. `ModifyBlockAdditive`/`ModifyDamageAdditive` 是**增量**通道（返回 0 = 不变）；翻倍、归零等倍率修改必须用 `ModifyBlockMultiplicative`/`ModifyDamageMultiplicative`（返回 1 = 不变）。
+17. 回合末快照类状态只能在**所有者己方 side-turn 结束**时赋值；在每个 side-turn 结束都赋值会被敌方回合结束清掉。
 
 ## 下一阶段建议
 

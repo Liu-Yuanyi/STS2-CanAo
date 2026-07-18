@@ -79,7 +79,11 @@ public sealed class HeJiWuDianRelic : RelicModel
         return 2m;
     }
 
-    public override decimal ModifyBlockAdditive(
+    /// <summary>
+    /// Independent multiplicative zone: doubling lives here, never in the
+    /// additive channel (which is a delta, 0 = unchanged).
+    /// </summary>
+    public override decimal ModifyBlockMultiplicative(
         Creature target,
         decimal block,
         ValueProp props,
@@ -94,10 +98,10 @@ public sealed class HeJiWuDianRelic : RelicModel
             || !isStarMoonStrike
             || !ReferenceEquals(target, Owner.Creature))
         {
-            return block;
+            return 1m;
         }
 
-        return block * 2m;
+        return 2m;
     }
 
     public override Task BeforeCombatStart()
