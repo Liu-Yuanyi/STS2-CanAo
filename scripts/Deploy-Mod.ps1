@@ -70,6 +70,9 @@ try {
         --pack $BuiltPck `
         --action add `
         --file "godot/CanAoNative" `
+        --file "godot/scenes" `
+        --file "godot/images" `
+        --file "godot/materials" `
         --remove-prefix "godot/" `
         --set-godot-version 4.5.0 `
         --quieter

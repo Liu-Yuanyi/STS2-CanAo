@@ -55,6 +55,10 @@ public sealed class CanAo : CharacterModel
         "res://images/packed/character_select/char_select_ironclad_locked.png";
     protected override string MapMarkerPath =>
         "res://images/packed/map/icons/map_marker_ironclad.png";
+    public override string CharacterSelectSfx =>
+        "event:/sfx/characters/ironclad/ironclad_select";
+    public override string CharacterTransitionSfx =>
+        "event:/sfx/ui/wipe_ironclad";
 
     public override List<string> GetArchitectAttackVfx() =>
     [
