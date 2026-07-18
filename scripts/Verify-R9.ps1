@@ -46,8 +46,15 @@ function Get-NormalizedTextSha256([string]$Path) {
 $RequiredFiles = @(
     "Relics\NiePanHuoZhongRelic.cs",
     "Relics\XingYueWangGuanRelic.cs",
+    "Relics\TianFengJunYinRelic.cs",
+    "Relics\QingLuanYuYiRelic.cs",
+    "Relics\HeJiWuDianRelic.cs",
+    "Relics\ZhanBeiRelic.cs",
+    "Relics\GuWangYuZuoRelic.cs",
+    "Relics\DiGuoShuiQiRelic.cs",
     "Potions\FengWeiJiuPotion.cs",
-    "Potions\YuLingPingPotion.cs"
+    "Potions\YuLingPingPotion.cs",
+    "Potions\QiongJiangPotion.cs"
 )
 
 foreach ($RelativePath in $RequiredFiles) {
@@ -86,7 +93,7 @@ $VerifiedHashes = [ordered]@{
     "Rules\StarMoon\StarMoonGenerationContext.cs" = "9a4becae516e5b031d97971908c2a16b3ce7c76105818f5946a7db44f472856a"
     "Rules\StarMoon\StarMoonPlayedContext.cs" = "2a54e2c28b363e4dda18b8667c2dd323cd60eb3b98daf25367d543a9ca852497"
     "Rules\StarMoon\StarMoonListenerRegistry.cs" = "d739a1117a12fa959479450d56880f5ef11bb99e3273a0e85944b25a40d6ebcb"
-    "Rules\StarMoon\StarMoonService.cs" = "c21b96c9f674c543b10de1661c69f2b6961d63b6a33860768da20198155afa5a"
+    "Rules\StarMoon\StarMoonService.cs" = "158187bb559ecad8804cfa29622e804721172719b0f9006bb2fd481fab567ede"
     "Rules\StarMoonHelper.cs" = "9f94f956a9b856117ec01dadf94156d11d6286c27ba9903882ddfba059c76424"
     "Rules\Exhaust\ExhaustRecord.cs" = "d7559b5bee7b41b58e0b4c98454a886fd21ef6cec8c28b80559b92f3b7562f97"
     "Rules\Exhaust\IExhaustEvents.cs" = "da4c1234f28df6f831724cd78ad67505110e3a02f709be44a94ed6690582db58"
@@ -109,7 +116,7 @@ $VerifiedHashes = [ordered]@{
     "Rules\Edict\EdictService.cs" = "8a6089eacd61359d24454f529b0eb5f8604538e16870e02a83fd674874ef4a99"
     "Cards\EdictCard.cs" = "bb4cf99271ccde789868b695211cd276bef308de668c03819ed31cde3f5e5a70"
     "Cards\ChuanLingCard.cs" = "5ca3e77e46a698b836d309bbd231afb2859667aab54d2be629716d8a3526f2e7"
-    "Cards\MiZhaoCard.cs" = "7e86e2996edf59131e05c8b7e23d92ae0ae893a83893153345480234d56c778b"
+    "Cards\MiZhaoCard.cs" = "aebb3f09ee6e8828c7253bdeebc798c803d76737d54cd87b7008437656895188"
     "Cards\WangQuanCard.cs" = "4b7083d920cf4d483c568d2055a6cff2a0cde2a6e95ad3b96820552607600ebe"
     "Cards\DiGuoYuWeiCard.cs" = "8d019864c88b0a799ccea48d493b36bd7d77b91ad7eaf7862c9444f05e49d767"
     "Powers\DiGuoYuWeiPower.cs" = "8ce5226b0b95ca5b22aab54f88f2ca22ec988f237aee0c084ca7d38afdd6709b"
@@ -141,13 +148,21 @@ $RequiredMarkers = @(
     "CANAO_NATIVE_R9_RELICS_POTIONS_20260717",
     "class NiePanHuoZhongRelic",
     "class XingYueWangGuanRelic",
+    "class TianFengJunYinRelic",
+    "class QingLuanYuYiRelic",
+    "class HeJiWuDianRelic",
+    "class ZhanBeiRelic",
+    "class GuWangYuZuoRelic",
+    "class DiGuoShuiQiRelic",
     "class FengWeiJiuPotion",
     "class YuLingPingPotion",
+    "class QiongJiangPotion",
     "IYuHuoTriggerCountModifier",
     "RelicRarity.Rare",
+    "RelicRarity.Shop",
     "PotionRarity.Uncommon",
-    "PotionRarity.Rare",
     "PileType.Discard",
+    "ModifyBlockAdditive",
     "CardCmd.Upgrade",
     "ref Task __result"
 )
@@ -227,7 +242,19 @@ $RelicKeys = @(
     "NIE_PAN_HUO_ZHONG_RELIC.flavor",
     "XING_YUE_WANG_GUAN_RELIC.title",
     "XING_YUE_WANG_GUAN_RELIC.description",
-    "XING_YUE_WANG_GUAN_RELIC.flavor"
+    "XING_YUE_WANG_GUAN_RELIC.flavor",
+    "TIAN_FENG_JUN_YIN_RELIC.title",
+    "TIAN_FENG_JUN_YIN_RELIC.description",
+    "QING_LUAN_YU_YI_RELIC.title",
+    "QING_LUAN_YU_YI_RELIC.description",
+    "HE_JI_WU_DIAN_RELIC.title",
+    "HE_JI_WU_DIAN_RELIC.description",
+    "ZHAN_BEI_RELIC.title",
+    "ZHAN_BEI_RELIC.description",
+    "GU_WANG_YU_ZUO_RELIC.title",
+    "GU_WANG_YU_ZUO_RELIC.description",
+    "DI_GUO_SHUI_QI_RELIC.title",
+    "DI_GUO_SHUI_QI_RELIC.description"
 )
 
 foreach ($LocPath in @($RelicsLocZh, $RelicsLocEn)) {
@@ -245,7 +272,9 @@ $PotionKeys = @(
     "FENG_WEI_JIU_POTION.title",
     "FENG_WEI_JIU_POTION.description",
     "YU_LING_PING_POTION.title",
-    "YU_LING_PING_POTION.description"
+    "YU_LING_PING_POTION.description",
+    "QIONG_JIANG_POTION.title",
+    "QIONG_JIANG_POTION.description"
 )
 
 foreach ($LocPath in @($PotionsLocZh, $PotionsLocEn)) {
