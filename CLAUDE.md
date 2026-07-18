@@ -4,12 +4,12 @@
 
 为《杀戮尖塔 2》v0.108.0 开发“残傲”原生 Mod。
 
-当前版本：**R7，基线为用户实机验证通过的 R6 工作区**。
+当前版本：**R8，基线为用户实机验证通过的 R7 工作区**。
 
 构建标记：
 
 ```text
-CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX2
+CANAO_NATIVE_R8_EDICT_SYSTEM_20260717
 ```
 
 ## 已完成
@@ -24,7 +24,25 @@ CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX2
 - 按战斗、按玩家保存的星月回合计数；
 - 盘旋、星月伐魔、天凤军阵；
 - 统一消耗事件层和按玩家消耗回合历史；
-- 征召、浴火打击、焚膏继晷、清宫、凤骨再燃。
+- 征召、浴火打击、焚膏继晷、清宫、凤骨再燃；
+- 卡牌文本与悬浮规范（浴火关键词行、星/月/凤威/星月合击悬浮）；
+- 诏令衍生牌与 `EdictService` 事件层；
+- 传令、密诏、王权、帝国余威、承天受命、天凤形态。
+
+## 诏令系统
+
+统一使用：
+
+```text
+EdictService
+EdictCombatState
+EdictPlayedContext
+IAfterEdictPlayed
+```
+
+所有生成诏令的卡牌、遗物、Power 必须走 `EdictService.Generate`；
+所有"本回合第几次打出诏令"的判断必须读 `EdictService`，
+不得自行使用静态变量或分散计数。
 
 ## 消耗事件层
 
@@ -92,7 +110,7 @@ IAfterStarMoonPlayed
 
 ## 回合清理语义
 
-临时浴火、星月回合历史和消耗回合历史由：
+临时浴火、星月回合历史、消耗回合历史和诏令回合历史由：
 
 ```text
 CanAoCombatRules.AfterSideTurnEndLate
@@ -103,16 +121,18 @@ CanAoCombatRules.AfterSideTurnEndLate
 `TemporaryFengWeiPower` 和 `PanXuanPower` 同样在
 `AfterSideTurnEndLate` 归零。
 
-## R5/R6 基线保护
+## R5/R6/R7 基线保护
 
-`scripts/Verify-R7.ps1` 会验证未被 R7 有意修改的 R5+R6 核心文件 SHA-256，尤其包括：
+`scripts/Verify-R8.ps1` 会验证未被 R8 有意修改的 R5+R6+R7 核心文件 SHA-256，尤其包括：
 
 - 浴火 Patch、Service、State、Resolver；
 - 羽列千军、牺牲准备、浴火军旗；
 - 永久凤威与 `FengWeiService`；
 - 示威、暂避锋芒；
 - 星月合击本体与星月事件层；
-- 盘旋、星月伐魔、天凤军阵。
+- 盘旋、星月伐魔、天凤军阵；
+- 消耗事件层与 R7 五张卡；
+- 浴火展示补丁与悬浮提示。
 
 ## 不可违反的规则
 
@@ -130,14 +150,25 @@ CanAoCombatRules.AfterSideTurnEndLate
 12. PowerShell 读取源码与 JSON 时显式使用 UTF-8。
 13. 每次只做一个可独立验收的小阶段。
 14. 消耗事实只通过 `ExhaustService` 记录和查询。
+15. 诏令生成与打出事实只通过 `EdictService` 记录和查询。
 
 ## 下一阶段建议
 
-R8 建立诏令系统（衍生牌【诏令】与 `EdictService`），优先支持：
+R9 建立遗物、药水与存档兼容，优先支持：
 
-- 传令；
-- 密诏；
-- 王权；
-- 帝国余威；
-- 承天受命；
-- 天凤形态。
+- 涅槃火种；
+- 星月王冠；
+- 凤威酒；
+- 御令瓶；
+- 中途存档与读档兼容。
+
+## 待办
+
+- **星月合击图鉴不可见**：FIX2 已移除 `shouldShowInCardLibrary: false`，
+  用户实机仍未在图鉴看到。排查方向：
+  1. `NCardLibraryGrid` 只遍历 `ModelDb.AllCards`，确认未入任何卡池的
+     衍生模型是否包含在内（星月合击未 `AddModelToPool`）；
+  2. Token 稀有度归入 Misc 页，且未发现时只显示剪影——确认用户是否
+     在 Misc 页寻找、是否已"发现"；
+  3. 对比原生 Shiv 的注册路径（`TokenCardPool`），必要时把衍生牌注册进
+     `TokenCardPool` 或检查 `AllCards` 的过滤条件。
