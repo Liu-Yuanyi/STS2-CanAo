@@ -18,7 +18,7 @@ public sealed class FengWeiJiuPotion : PotionModel
 {
     public override PotionRarity Rarity => PotionRarity.Uncommon;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
-    public override TargetType TargetType => TargetType.Self;
+    public override TargetType TargetType => TargetType.AnyPlayer;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -35,19 +35,21 @@ public sealed class FengWeiJiuPotion : PotionModel
         PlayerChoiceContext choiceContext,
         Creature? target)
     {
-        Player owner = Owner
+        PotionModel.AssertValidForTargetedPotion(target);
+
+        Player player = target.Player
             ?? throw new InvalidOperationException(
-                "FengWei Wine requires an owner.");
+                "FengWei Wine requires a player target.");
 
         await FengWeiService.GainPermanent(
             choiceContext,
-            owner,
+            player,
             DynamicVars["FengWeiPower"].BaseValue,
             null);
 
         await FengWeiService.ModifyTemporary(
             choiceContext,
-            owner,
+            player,
             DynamicVars.Cards.BaseValue,
             null);
     }

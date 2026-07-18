@@ -9,14 +9,11 @@ namespace CanAoNative.Powers;
 
 /// <summary>
 /// 星月王冠：每回合第一次获得凤威（永久或临时）时，
-/// 一次性获得 Amount 张星月合击。同一次行动造成的多段凤威
-/// （如凤威酒）只计一次获得。
+/// 一次性获得 Amount 张星月合击。首个触发即锁存，
+/// 同回合后续获得（如凤威酒的第二段）自然被忽略。
 /// </summary>
 public sealed class XingYueWangGuanPower : PowerModel
 {
-    private readonly HashSet<object> _gainSourcesThisTurn =
-        new(ReferenceEqualityComparer.Instance);
-
     private bool _triggeredThisTurn;
 
     public override PowerType Type => PowerType.Buff;
@@ -38,13 +35,6 @@ public sealed class XingYueWangGuanPower : PowerModel
             return;
         }
 
-        // One action can apply several FengWei powers (e.g. FengWei Wine
-        // applies both). Treat each distinct source as one gain.
-        object sourceKey =
-            (object?)cardSource ?? (object?)applier ?? power;
-        if (!_gainSourcesThisTurn.Add(sourceKey))
-            return;
-
         _triggeredThisTurn = true;
         Flash();
 
@@ -61,10 +51,7 @@ public sealed class XingYueWangGuanPower : PowerModel
         Player player)
     {
         if (ReferenceEquals(player.Creature, Owner))
-        {
             _triggeredThisTurn = false;
-            _gainSourcesThisTurn.Clear();
-        }
 
         return Task.CompletedTask;
     }

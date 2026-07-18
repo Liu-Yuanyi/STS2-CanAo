@@ -2,6 +2,7 @@ using CanAoNative.Cards;
 using CanAoNative.Rules.Edict;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -17,7 +18,7 @@ public sealed class YuLingPingPotion : PotionModel
 {
     public override PotionRarity Rarity => PotionRarity.Rare;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
-    public override TargetType TargetType => TargetType.Self;
+    public override TargetType TargetType => TargetType.AnyPlayer;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -33,9 +34,15 @@ public sealed class YuLingPingPotion : PotionModel
         PlayerChoiceContext choiceContext,
         Creature? target)
     {
+        PotionModel.AssertValidForTargetedPotion(target);
+
+        Player player = target.Player
+            ?? throw new InvalidOperationException(
+                "Imperial Edict Vial requires a player target.");
+
         await EdictService.Generate(
             choiceContext,
-            Owner,
+            player,
             DynamicVars.Cards.IntValue,
             PileType.Hand,
             upgraded: true);

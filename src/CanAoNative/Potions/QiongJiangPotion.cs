@@ -17,7 +17,7 @@ public sealed class QiongJiangPotion : PotionModel
 {
     public override PotionRarity Rarity => PotionRarity.Common;
     public override PotionUsage Usage => PotionUsage.CombatOnly;
-    public override TargetType TargetType => TargetType.Self;
+    public override TargetType TargetType => TargetType.AnyPlayer;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -33,9 +33,11 @@ public sealed class QiongJiangPotion : PotionModel
         PlayerChoiceContext choiceContext,
         Creature? target)
     {
+        PotionModel.AssertValidForTargetedPotion(target);
+
         await PowerCmd.Apply<MoonPower>(
             choiceContext,
-            Owner.Creature,
+            target,
             DynamicVars["MoonPower"].BaseValue,
             Owner.Creature,
             null);
