@@ -72,9 +72,12 @@ public static class EdictService
             generated.Add(edict);
         }
 
-        // Mirrors native generated-card previews (Overclock, Severance) so
-        // the addition is visible and the pile visuals complete in order.
-        CardCmd.PreviewCardPileAdd(addResults);
+        // Mirrors native generated-card previews (Overclock, Severance) for
+        // non-hand destinations so the addition is visible and the pile
+        // visuals complete in order. Hand-bound tokens appear directly,
+        // like Shiv-style generation.
+        if (pileType != PileType.Hand)
+            CardCmd.PreviewCardPileAdd(addResults);
 
         return generated;
     }

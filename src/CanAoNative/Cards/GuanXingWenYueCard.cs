@@ -84,9 +84,6 @@ public sealed class GuanXingWenYueCard : CardModel
             }
         }
 
-        await CardPileCmd.RemoveFromCombat(guanXing);
-        await CardPileCmd.RemoveFromCombat(wenYue);
-
         if (StarMoonService.GetGeneratedThisTurn(owner)
             != generatedBefore)
         {

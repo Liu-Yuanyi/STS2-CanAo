@@ -124,5 +124,22 @@
   "WANG_SHI_QIN_ZHENG_CARD.title": "Royal Expedition",
   "WANG_SHI_QIN_ZHENG_CARD.description": "Deal {Damage:diff()} damage. On a killing blow, add 1 [gold]Edict[/gold] to your [gold]Hand[/gold].",
   "PO_ZHEN_CARD.title": "Formation Breaker",
-  "PO_ZHEN_CARD.description": "Deal {Damage:diff()} damage. If the target is Weak or Vulnerable, gain {Cards:diff()} [gold]Moon[/gold]."
+  "PO_ZHEN_CARD.description": "Deal {Damage:diff()} damage. If the target is Weak or Vulnerable, gain {Cards:diff()} [gold]Moon[/gold].",
+  "ZHUI_XING_WEI_YUE_CARD.title": "Starfall to Moon",
+  "ZHUI_XING_WEI_YUE_CARD.description": "If you have [gold]Star[/gold], lose 1 [gold]Star[/gold] and gain 2 [gold]Moon[/gold]. If this generated a [gold]Star-Moon Strike[/gold], draw 1 card.",
+  "ZHAO_YUE_CHENG_XING_CARD.title": "Moonlit Starforge",
+  "ZHAO_YUE_CHENG_XING_CARD.description": "Gain {Block:diff()} [gold]Block[/gold]. If you have [gold]Moon[/gold], lose 1 [gold]Moon[/gold] and gain 2 [gold]Star[/gold].",
+  "YUAN_JUN_CARD.title": "Reinforcements",
+  "YUAN_JUN_CARD.description": "Add {Cards:diff()} Strikes with [gold]YuHuo[/gold] to your [gold]Hand[/gold]. Exhaust.",
+  "CUI_HUO_CARD.title": "Quench",
+  "CUI_HUO_CARD.description": "Gain {Cards:diff()} [gold]Strength[/gold] this turn. Add a copy of this card to your [gold]Hand[/gold].",
+  "CHANG_MING_CARD.title": "Long Cry",
+  "CHANG_MING_CARD.description": "Move up to {Cards:diff()} cards from your [gold]Exhaust Pile[/gold] to your [gold]Draw Pile[/gold]. Exhaust.",
+  "CHANG_MING_CARD.selectionScreenPrompt": "Choose up to {Amount} cards to move to your Draw Pile.",
+  "BU_ZHAO_CARD.title": "Proclaim",
+  "BU_ZHAO_CARD.description": "(Multiplayer only) All other players gain 1 [gold]Edict[/gold].",
+  "FENG_HUO_CARD.title": "Beacon Fire",
+  "FENG_HUO_CARD.description": "Gain {Energy:energyIcons()}. Draw {Cards:diff()} cards.",
+  "WAN_LING_QI_FA_CARD.title": "Ten Thousand Edicts",
+  "WAN_LING_QI_FA_CARD.description": "Add X{IfUpgraded:show:+1|} [gold]Edicts[/gold] to your [gold]Hand[/gold]."
 }
