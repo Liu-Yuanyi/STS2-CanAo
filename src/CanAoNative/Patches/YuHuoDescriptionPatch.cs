@@ -1,15 +1,16 @@
 using CanAoNative.Rules.YuHuo;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 
 namespace CanAoNative.Patches;
 
 /// <summary>
-/// Adds localized 浴火 text only to cards that received temporary 浴火.
+/// Renders 浴火 like a native keyword: a gold title on its own line in front
+/// of the description. Intrinsic 浴火 is type-based and therefore also shows
+/// on canonical (library template) cards; temporary 浴火 is read from the
+/// combat-scoped state on mutable instances only.
 /// </summary>
 [HarmonyPatch(
     typeof(CardModel),
@@ -18,43 +19,16 @@ namespace CanAoNative.Patches;
     typeof(Creature))]
 public static class YuHuoDescriptionPatch
 {
-    private const string SuffixLocKey = "YU_HUO_TEMP_SUFFIX";
-
     private static void Postfix(
         CardModel __instance,
         ref string __result)
     {
-        // Canonical (library template) models throw CanonicalModelException
-        // when Owner is accessed. They can never hold temporary 浴火 anyway.
-        if (__instance.IsCanonical)
+        if (!YuHuoDisplay.HasYuHuo(__instance))
             return;
 
-        if (__instance is IIntrinsicYuHuo
-            {
-                HasIntrinsicYuHuo: true
-            })
-        {
-            return;
-        }
+        string prefix = YuHuoDisplay.KeywordLine;
 
-        ICombatState? combatState =
-            __instance.CombatState
-            ?? __instance.Owner?.Creature?.CombatState;
-
-        if (combatState == null
-            || !YuHuoService.HasYuHuo(__instance, combatState))
-        {
-            return;
-        }
-
-        string suffix =
-            new LocString("cards", SuffixLocKey)
-                .GetFormattedText();
-
-        if (!string.IsNullOrWhiteSpace(suffix)
-            && !__result.EndsWith(suffix, StringComparison.Ordinal))
-        {
-            __result += suffix;
-        }
+        if (!__result.StartsWith(prefix, StringComparison.Ordinal))
+            __result = prefix + "\n" + __result;
     }
 }
