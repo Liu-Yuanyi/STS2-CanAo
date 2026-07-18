@@ -1,3 +1,4 @@
+using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -11,6 +12,9 @@ public sealed class GuanXingOptionCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+
+    public override CardPoolModel Pool =>
+        ModelDb.CardPool<CanAoCardPool>();
 
     public GuanXingOptionCard()
         : base(

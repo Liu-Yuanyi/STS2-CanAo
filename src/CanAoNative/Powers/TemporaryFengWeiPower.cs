@@ -13,7 +13,10 @@ namespace CanAoNative.Powers;
 /// <summary>
 /// Turn-only 凤威 adjustment. Positive and negative amounts are both valid.
 /// It contributes to Star-Moon Strike in the same additive hook pipeline as
-/// permanent FengWeiPower, then returns to zero after the owner's complete turn-end pipeline.
+/// permanent FengWeiPower, then removes itself after the owner's complete
+/// turn-end pipeline. Removal (rather than restoring to zero with a positive
+/// delta) keeps "gained FengWei" listeners from mistaking turn-end cleanup
+/// of a negative value for a genuine gain.
 /// </summary>
 public sealed class TemporaryFengWeiPower : PowerModel
 {
@@ -59,12 +62,6 @@ public sealed class TemporaryFengWeiPower : PowerModel
             return;
         }
 
-        await PowerCmd.ModifyAmount(
-            choiceContext,
-            this,
-            -Amount,
-            Owner,
-            cardSource: null,
-            silent: true);
+        await PowerCmd.Remove(this);
     }
 }

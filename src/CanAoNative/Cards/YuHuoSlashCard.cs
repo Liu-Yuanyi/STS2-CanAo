@@ -67,6 +67,6 @@ public sealed class YuHuoSlashCard : CardModel, IIntrinsicYuHuo
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
     }
 }

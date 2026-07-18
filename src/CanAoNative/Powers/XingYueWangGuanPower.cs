@@ -28,7 +28,6 @@ public sealed class XingYueWangGuanPower : PowerModel
     {
         if (_triggeredThisTurn
             || amount <= 0
-            || power.Amount <= 0m
             || power is not (FengWeiPower or TemporaryFengWeiPower)
             || !ReferenceEquals(power.Owner, Owner)
             || Owner.Player is not Player player)
