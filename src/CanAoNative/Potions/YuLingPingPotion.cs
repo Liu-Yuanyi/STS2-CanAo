@@ -26,7 +26,7 @@ public sealed class YuLingPingPotion : PotionModel
 
     public override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard<EdictCard>()
+        HoverTipFactory.FromCard<EdictCard>(upgrade: true)
     ];
 
     protected override async Task OnUse(

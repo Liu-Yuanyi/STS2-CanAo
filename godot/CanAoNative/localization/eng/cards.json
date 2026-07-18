@@ -51,7 +51,7 @@
   "CHUAN_LING_CARD.title": "Herald",
   "CHUAN_LING_CARD.description": "Add 1 [gold]Edict[/gold] to your [gold]Hand[/gold].",
   "MI_ZHAO_CARD.title": "Secret Edict",
-  "MI_ZHAO_CARD.description": "Add 1 [gold]Edict{IfUpgraded:show(+|)}[/gold] to your [gold]Discard Pile[/gold].",
+  "MI_ZHAO_CARD.description": "Add 1 [gold]Edict{IfUpgraded:show:+|}[/gold] to your [gold]Discard Pile[/gold].",
   "WANG_QUAN_CARD.title": "Royal Authority",
   "WANG_QUAN_CARD.description": "[gold]Exhaust[/gold] all [gold]Edicts[/gold] in your [gold]Hand[/gold]. For each card [gold]Exhausted[/gold], gain 1 [gold]FengWei[/gold] and draw 1 card.",
   "DI_GUO_YU_WEI_CARD.title": "Imperial Legacy",
