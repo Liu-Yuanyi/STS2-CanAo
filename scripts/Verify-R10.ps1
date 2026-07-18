@@ -130,7 +130,7 @@ $VerifiedHashes = [ordered]@{
     "Relics\GuWangYuZuoRelic.cs" = "fc65be457a8e9afdf9c80ff0a03e3c4c9e0fe3f6211d493ada2185f82b74899c"
     "Relics\DiGuoShuiQiRelic.cs" = "1c0ed0677ea2ec41cd3b5a3ac20b52636d341cbf6acc6f20a69ccea7bb0e35fa"
     "Cards\XingYueWangGuanCard.cs" = "521be5098e6240be07aac625977bd1f1cfb7e2ea24c2611adee7d44051e18c8b"
-    "Powers\XingYueWangGuanPower.cs" = "cb6d593ec75fffb16ca723bb08c170bf53ed11b50956c29ab3bd60b913db3c42"
+    "Powers\XingYueWangGuanPower.cs" = "046404135012f2368ffdb840cc5f3475178d71f6a9cb1726df02ef5bb0a4dc7b"
     "Potions\FengWeiJiuPotion.cs" = "36347c09f467016b19e4320d4a3fe05fcb265d9e4764c84d59770352340ca933"
     "Potions\YuLingPingPotion.cs" = "332e628a13f8f2858972360f9b11d0de8b7673f60d55de3963a63ffd87ef0ec1"
     "Potions\QiongJiangPotion.cs" = "e6990887b1e66fa6d57296c8ad41ca404cac302c38492793dbefeed0c1d98bdb"
@@ -163,6 +163,9 @@ $RequiredMarkers = @(
     "class CanAoPotionPool",
     "class CanAoAllCharactersPatch",
     "class TouchOfOrobasUpgradePatch",
+    "class CanAoCardLibraryFilterPatch",
+    "class ElitesEpochCharacterPatch",
+    "class YuHuoUpgradeDescriptionPatch",
     "class CanAoStrikeCard",
     "class CanAoDefendCard",
     "class FengYuCanHuoCard",

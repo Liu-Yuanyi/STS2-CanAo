@@ -1,40 +1,35 @@
 using CanAoNative.Pools;
+using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 防御：获得 5（8）点格挡。
+/// 孤月明：获得 7（11）月，每拥有一张其他手牌，数值 -2。
 /// </summary>
-public sealed class CanAoDefendCard : CardModel
+public sealed class GuYueMingCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
-    public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    protected override HashSet<CardTag> CanonicalTags =>
-    [
-        CardTag.Defend
-    ];
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Move)
+        new CardsVar(7)
     ];
 
-    public CanAoDefendCard()
+    public GuYueMingCard()
         : base(
-            canonicalEnergyCost: 1,
+            canonicalEnergyCost: 2,
             type: CardType.Skill,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.Self)
     {
     }
@@ -43,14 +38,28 @@ public sealed class CanAoDefendCard : CardModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        await CreatureCmd.GainBlock(
-            Owner.Creature,
-            DynamicVars.Block,
-            cardPlay);
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "GuYueMing requires a card owner.");
+
+        int moon = Math.Max(
+            0,
+            DynamicVars.Cards.IntValue
+            - 2 * owner.PlayerCombatState.Hand.Cards.Count);
+
+        if (moon <= 0)
+            return;
+
+        await PowerCmd.Apply<MoonPower>(
+            choiceContext,
+            owner.Creature,
+            moon,
+            owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Cards.UpgradeValueBy(4m);
     }
 }

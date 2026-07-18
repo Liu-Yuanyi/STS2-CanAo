@@ -1,7 +1,8 @@
 using CanAoNative.Pools;
-using CanAoNative.Rules.YuHuo;
+using CanAoNative.Rules.Exhaust;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -10,9 +11,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤羽残火：浴火。造成 10（14）点伤害。
+/// 燃羽突袭：造成 5（6）点伤害。本回合每消耗过一张牌，伤害便增加 2（3）。
 /// </summary>
-public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
+public sealed class RanYuTuXiCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -20,18 +21,17 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    public bool HasIntrinsicYuHuo => true;
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move)
+        new DamageVar(5m, ValueProp.Move),
+        new CardsVar(2)
     ];
 
-    public FengYuCanHuoCard()
+    public RanYuTuXiCard()
         : base(
-            canonicalEnergyCost: 1,
+            canonicalEnergyCost: 0,
             type: CardType.Attack,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.AnyEnemy)
     {
     }
@@ -42,7 +42,16 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "RanYu TuXi requires a card owner.");
+
+        decimal damage =
+            DynamicVars.Damage.BaseValue
+            + DynamicVars.Cards.BaseValue
+              * ExhaustService.GetExhaustedThisTurn(owner);
+
+        await DamageCmd.Attack(damage)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
@@ -50,6 +59,7 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(1m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

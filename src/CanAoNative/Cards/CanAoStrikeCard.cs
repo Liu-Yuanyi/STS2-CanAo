@@ -19,6 +19,11 @@ public sealed class CanAoStrikeCard : CardModel
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
+    protected override HashSet<CardTag> CanonicalTags =>
+    [
+        CardTag.Strike
+    ];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(6m, ValueProp.Move)

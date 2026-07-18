@@ -1,6 +1,8 @@
 using CanAoNative.Pools;
+using CanAoNative.Rules.FengWei;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -9,9 +11,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 防御：获得 5（8）点格挡。
+/// 抱火：获得 4（7）点格挡。若你的凤威大于 0，额外获得等量格挡。
 /// </summary>
-public sealed class CanAoDefendCard : CardModel
+public sealed class BaoHuoCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -20,21 +22,16 @@ public sealed class CanAoDefendCard : CardModel
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    protected override HashSet<CardTag> CanonicalTags =>
-    [
-        CardTag.Defend
-    ];
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Move)
+        new BlockVar(4m, ValueProp.Move)
     ];
 
-    public CanAoDefendCard()
+    public BaoHuoCard()
         : base(
-            canonicalEnergyCost: 1,
+            canonicalEnergyCost: 0,
             type: CardType.Skill,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.Self)
     {
     }
@@ -43,9 +40,20 @@ public sealed class CanAoDefendCard : CardModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "BaoHuo requires a card owner.");
+
+        decimal block = DynamicVars.Block.BaseValue;
+
+        decimal fengWei = FengWeiService.GetEffectiveAmount(owner);
+        if (fengWei > 0m)
+            block += fengWei;
+
         await CreatureCmd.GainBlock(
-            Owner.Creature,
-            DynamicVars.Block,
+            owner.Creature,
+            block,
+            ValueProp.Move,
             cardPlay);
     }
 

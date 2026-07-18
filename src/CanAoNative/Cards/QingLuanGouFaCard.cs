@@ -1,7 +1,8 @@
 using CanAoNative.Pools;
-using CanAoNative.Rules.YuHuo;
+using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -10,9 +11,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤羽残火：浴火。造成 10（14）点伤害。
+/// 青鸾勾法：造成 10（15）点伤害。获得 1 星。
 /// </summary>
-public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
+public sealed class QingLuanGouFaCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -20,18 +21,16 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    public bool HasIntrinsicYuHuo => true;
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(10m, ValueProp.Move)
     ];
 
-    public FengYuCanHuoCard()
+    public QingLuanGouFaCard()
         : base(
             canonicalEnergyCost: 1,
             type: CardType.Attack,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.AnyEnemy)
     {
     }
@@ -42,14 +41,25 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "QingLuan GouFa requires a card owner.");
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
+
+        await PowerCmd.Apply<StarPower>(
+            choiceContext,
+            owner.Creature,
+            1m,
+            owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(5m);
     }
 }

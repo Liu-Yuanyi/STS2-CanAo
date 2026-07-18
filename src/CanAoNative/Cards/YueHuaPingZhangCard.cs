@@ -1,6 +1,8 @@
 using CanAoNative.Pools;
+using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -9,9 +11,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 防御：获得 5（8）点格挡。
+/// 月华屏障：获得 6（8）点格挡。若你有月，额外获得 4（6）点格挡。
 /// </summary>
-public sealed class CanAoDefendCard : CardModel
+public sealed class YueHuaPingZhangCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -20,21 +22,17 @@ public sealed class CanAoDefendCard : CardModel
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    protected override HashSet<CardTag> CanonicalTags =>
-    [
-        CardTag.Defend
-    ];
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Move)
+        new BlockVar(6m, ValueProp.Move),
+        new CardsVar(4)
     ];
 
-    public CanAoDefendCard()
+    public YueHuaPingZhangCard()
         : base(
             canonicalEnergyCost: 1,
             type: CardType.Skill,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.Self)
     {
     }
@@ -43,14 +41,25 @@ public sealed class CanAoDefendCard : CardModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "YueHua PingZhang requires a card owner.");
+
+        decimal block = DynamicVars.Block.BaseValue;
+
+        if (owner.Creature.GetPower<MoonPower>() is { Amount: > 0 })
+            block += DynamicVars.Cards.BaseValue;
+
         await CreatureCmd.GainBlock(
-            Owner.Creature,
-            DynamicVars.Block,
+            owner.Creature,
+            block,
+            ValueProp.Move,
             cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.Cards.UpgradeValueBy(2m);
     }
 }

@@ -10,12 +10,13 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤羽残火：浴火。造成 10（14）点伤害。
+/// 焚羽守势：浴火。获得 13（18）点格挡。
 /// </summary>
-public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
+public sealed class FenYuShouShiCard : CardModel, IIntrinsicYuHuo
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
@@ -24,15 +25,15 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move)
+        new BlockVar(13m, ValueProp.Move)
     ];
 
-    public FengYuCanHuoCard()
+    public FenYuShouShiCard()
         : base(
-            canonicalEnergyCost: 1,
-            type: CardType.Attack,
-            rarity: CardRarity.Basic,
-            targetType: TargetType.AnyEnemy)
+            canonicalEnergyCost: 2,
+            type: CardType.Skill,
+            rarity: CardRarity.Common,
+            targetType: TargetType.Self)
     {
     }
 
@@ -40,16 +41,14 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
-
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this, cardPlay)
-            .Targeting(cardPlay.Target)
-            .Execute(choiceContext);
+        await CreatureCmd.GainBlock(
+            Owner.Creature,
+            DynamicVars.Block,
+            cardPlay);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(5m);
     }
 }

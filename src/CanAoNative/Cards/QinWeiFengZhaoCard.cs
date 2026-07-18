@@ -1,7 +1,7 @@
 using CanAoNative.Pools;
-using CanAoNative.Rules.YuHuo;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -10,9 +10,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤羽残火：浴火。造成 10（14）点伤害。
+/// 亲卫奉诏：造成 8（13）点伤害。若你手牌中有【诏令】，抽 2 张牌。
 /// </summary>
-public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
+public sealed class QinWeiFengZhaoCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -20,18 +20,17 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    public bool HasIntrinsicYuHuo => true;
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move)
+        new DamageVar(8m, ValueProp.Move),
+        new CardsVar(2)
     ];
 
-    public FengYuCanHuoCard()
+    public QinWeiFengZhaoCard()
         : base(
             canonicalEnergyCost: 1,
             type: CardType.Attack,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.AnyEnemy)
     {
     }
@@ -42,14 +41,29 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "QinWei FengZhao requires a card owner.");
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
+
+        if (!owner.PlayerCombatState.Hand.Cards.Any(
+                card => card is EdictCard))
+        {
+            return;
+        }
+
+        await CardPileCmd.Draw(
+            choiceContext,
+            DynamicVars.Cards.BaseValue,
+            owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(5m);
     }
 }

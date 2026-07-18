@@ -1,7 +1,8 @@
 using CanAoNative.Pools;
-using CanAoNative.Rules.YuHuo;
+using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -10,29 +11,28 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤羽残火：浴火。造成 10（14）点伤害。
+/// 星辉护阵：获得 7（11）点格挡。获得 1 星。
 /// </summary>
-public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
+public sealed class XingHuiHuZhenCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    public bool HasIntrinsicYuHuo => true;
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move)
+        new BlockVar(7m, ValueProp.Move)
     ];
 
-    public FengYuCanHuoCard()
+    public XingHuiHuZhenCard()
         : base(
             canonicalEnergyCost: 1,
-            type: CardType.Attack,
-            rarity: CardRarity.Basic,
-            targetType: TargetType.AnyEnemy)
+            type: CardType.Skill,
+            rarity: CardRarity.Common,
+            targetType: TargetType.Self)
     {
     }
 
@@ -40,16 +40,25 @@ public sealed class FengYuCanHuoCard : CardModel, IIntrinsicYuHuo
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "XingHui HuZhen requires a card owner.");
 
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this, cardPlay)
-            .Targeting(cardPlay.Target)
-            .Execute(choiceContext);
+        await CreatureCmd.GainBlock(
+            owner.Creature,
+            DynamicVars.Block,
+            cardPlay);
+
+        await PowerCmd.Apply<StarPower>(
+            choiceContext,
+            owner.Creature,
+            1m,
+            owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 }

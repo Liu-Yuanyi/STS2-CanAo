@@ -1,5 +1,5 @@
 using CanAoNative.Pools;
-using MegaCrit.Sts2.Core.CardSelection;
+using CanAoNative.Rules.FengWei;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -10,9 +10,10 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 祭火：消耗不超过 2（3）张手牌。消耗。
+/// 取势败中：失去 1 点凤威，获得 1 费，抽 1 张牌。消耗。
+/// 升级后获得保留。
 /// </summary>
-public sealed class JiHuoCard : CardModel
+public sealed class QuShiBaiZhongCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -27,14 +28,15 @@ public sealed class JiHuoCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(2)
+        new EnergyVar(1),
+        new CardsVar(1)
     ];
 
-    public JiHuoCard()
+    public QuShiBaiZhongCard()
         : base(
             canonicalEnergyCost: 0,
             type: CardType.Skill,
-            rarity: CardRarity.Basic,
+            rarity: CardRarity.Common,
             targetType: TargetType.Self)
     {
     }
@@ -45,37 +47,26 @@ public sealed class JiHuoCard : CardModel
     {
         Player owner = Owner
             ?? throw new InvalidOperationException(
-                "JiHuo requires a card owner.");
+                "QuShi BaiZhong requires a card owner.");
 
-        int maxSelect = Math.Min(
-            DynamicVars.Cards.IntValue,
-            owner.PlayerCombatState.Hand.Cards.Count);
+        await FengWeiService.GainPermanent(
+            choiceContext,
+            owner,
+            -1m,
+            this);
 
-        if (maxSelect <= 0)
-            return;
+        await PlayerCmd.GainEnergy(
+            DynamicVars.Energy.IntValue,
+            owner);
 
-        CardSelectorPrefs prefs = new(
-            SelectionScreenPrompt,
-            0,
-            maxSelect);
-
-        List<CardModel> selected =
-            (await CardSelectCmd.FromHand(
-                choiceContext,
-                owner,
-                prefs,
-                null,
-                this))
-            .ToList();
-
-        foreach (CardModel card in selected)
-        {
-            await CardCmd.Exhaust(choiceContext, card);
-        }
+        await CardPileCmd.Draw(
+            choiceContext,
+            DynamicVars.Cards.BaseValue,
+            owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        AddKeyword(CardKeyword.Retain);
     }
 }
