@@ -1,8 +1,10 @@
 using CanAoNative.Powers;
+using CanAoNative.Rules;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
 
@@ -19,6 +21,11 @@ public sealed class YuHuoBannerCard : CardModel
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<ColorlessCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        CanAoHoverTips.YuHuo
+    ];
 
     public YuHuoBannerCard()
         : base(

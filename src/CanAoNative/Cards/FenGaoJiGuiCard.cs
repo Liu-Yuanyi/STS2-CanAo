@@ -1,10 +1,12 @@
 using CanAoNative.Powers;
+using CanAoNative.Rules;
 using CanAoNative.Rules.Exhaust;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
@@ -22,6 +24,13 @@ public sealed class FenGaoJiGuiCard : CardModel
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<ColorlessCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<StarPower>(),
+        HoverTipFactory.FromPower<MoonPower>(),
+        CanAoHoverTips.YuHuo
+    ];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

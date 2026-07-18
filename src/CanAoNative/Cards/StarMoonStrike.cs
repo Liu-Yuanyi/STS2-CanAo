@@ -41,8 +41,7 @@ public sealed class StarMoonStrike : CardModel
             canonicalEnergyCost: 0,
             type: CardType.Attack,
             rarity: CardRarity.Token,
-            targetType: TargetType.AnyEnemy,
-            shouldShowInCardLibrary: false)
+            targetType: TargetType.AnyEnemy)
     {
     }
 

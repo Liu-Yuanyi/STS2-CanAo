@@ -1,6 +1,8 @@
+using CanAoNative.Powers;
 using CanAoNative.Rules.FengWei;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 
 namespace CanAoNative.Cards;
@@ -10,6 +12,11 @@ public sealed class GainFengWeiCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<FengWeiPower>()
+    ];
 
     public GainFengWeiCard()
         : base(
