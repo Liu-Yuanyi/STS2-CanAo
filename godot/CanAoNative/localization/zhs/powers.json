@@ -6,15 +6,15 @@
   "MOON_POWER.title": "月",
   "MOON_POWER.description": "临时资源。回合结束时清除。",
   "FENG_WEI_POWER.title": "凤威",
-  "FENG_WEI_POWER.description": "每有1层，星月合击的伤害和格挡提高1点。可以为负数。",
+  "FENG_WEI_POWER.description": "每有1层，[gold]星月合击[/gold]的伤害和格挡提高1点。可以为负数。",
   "FENG_YAN_BU_XI_POWER.title": "凤焰不息",
-  "FENG_YAN_BU_XI_POWER.description": "你的浴火牌额外触发1次。可叠加。",
+  "FENG_YAN_BU_XI_POWER.description": "你的[gold]浴火[/gold]牌额外触发1次。可叠加。",
   "YU_HUO_BANNER_POWER.title": "浴火军旗",
-  "YU_HUO_BANNER_POWER.description": "每层使你在每次浴火效果成功触发后，本回合获得2点力量。",
+  "YU_HUO_BANNER_POWER.description": "每层使你在每次[gold]浴火[/gold]效果成功触发后，本回合获得2点[gold]力量[/gold]。",
   "TEMPORARY_FENG_WEI_POWER.title": "临时凤威",
   "TEMPORARY_FENG_WEI_POWER.description": "仅在本回合生效的凤威修正。",
   "PAN_XUAN_POWER.title": "盘旋",
-  "PAN_XUAN_POWER.description": "本回合每生成1张【星月合击】，获得{Amount}点格挡。",
+  "PAN_XUAN_POWER.description": "本回合每生成1张[gold]星月合击[/gold]，获得{Amount}点格挡。",
   "TIAN_FENG_JUN_ZHEN_POWER.title": "天凤军阵",
-  "TIAN_FENG_JUN_ZHEN_POWER.description": "每当你生成【星月合击】时，对所有敌人造成{Amount}点伤害。"
+  "TIAN_FENG_JUN_ZHEN_POWER.description": "每当你生成[gold]星月合击[/gold]时，对所有敌人造成{Amount}点伤害。"
 }
