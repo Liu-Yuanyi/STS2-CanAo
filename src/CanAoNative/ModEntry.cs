@@ -1,12 +1,16 @@
 using CanAoNative.Cards;
 using CanAoNative.Patches;
+using CanAoNative.Potions;
 using CanAoNative.Powers;
+using CanAoNative.Relics;
 using CanAoNative.Rules;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Logging;
 using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.CardPools;
+using MegaCrit.Sts2.Core.Models.PotionPools;
+using MegaCrit.Sts2.Core.Models.RelicPools;
 
 namespace CanAoNative;
 
@@ -15,7 +19,7 @@ public static class ModEntry
 {
     public const string ModId = "CanAoNative";
     public const string BuildMarker =
-        "CANAO_NATIVE_R8_EDICT_SYSTEM_20260717";
+        "CANAO_NATIVE_R9_RELICS_POTIONS_20260717";
 
     private static readonly Logger Log =
         new(ModId, LogType.Generic);
@@ -69,6 +73,12 @@ public static class ModEntry
         ModHelper.AddModelToPool<ColorlessCardPool, ChengTianShouMingCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, TianFengXingTaiCard>();
 
+        ModHelper.AddModelToPool<SharedRelicPool, NiePanHuoZhongRelic>();
+        ModHelper.AddModelToPool<SharedRelicPool, XingYueWangGuanRelic>();
+
+        ModHelper.AddModelToPool<SharedPotionPool, FengWeiJiuPotion>();
+        ModHelper.AddModelToPool<SharedPotionPool, YuLingPingPotion>();
+
         Harmony harmony =
             new($"{ModId}.RuntimePatches");
         harmony.PatchAll(typeof(YuHuoExhaustPatch).Assembly);
@@ -108,6 +118,10 @@ public static class ModEntry
             $"DiGuoYuWeiPower={ModelDb.GetId(typeof(DiGuoYuWeiPower))}, " +
             $"ChengTianShouMing={ModelDb.GetId(typeof(ChengTianShouMingCard))}, " +
             $"TianFengXingTai={ModelDb.GetId(typeof(TianFengXingTaiCard))}, " +
-            $"TianFengXingTaiPower={ModelDb.GetId(typeof(TianFengXingTaiPower))}");
+            $"TianFengXingTaiPower={ModelDb.GetId(typeof(TianFengXingTaiPower))}, " +
+            $"NiePanHuoZhong={ModelDb.GetId(typeof(NiePanHuoZhongRelic))}, " +
+            $"XingYueWangGuan={ModelDb.GetId(typeof(XingYueWangGuanRelic))}, " +
+            $"FengWeiJiu={ModelDb.GetId(typeof(FengWeiJiuPotion))}, " +
+            $"YuLingPing={ModelDb.GetId(typeof(YuLingPingPotion))}");
     }
 }

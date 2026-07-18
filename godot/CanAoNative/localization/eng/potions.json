@@ -1,0 +1,6 @@
+{
+  "FENG_WEI_JIU_POTION.title": "FengWei Wine",
+  "FENG_WEI_JIU_POTION.description": "Gain {FengWeiPower:diff()} [gold]FengWei[/gold]. Gain {Cards:diff()} [gold]FengWei[/gold] this turn.",
+  "YU_LING_PING_POTION.title": "Imperial Edict Vial",
+  "YU_LING_PING_POTION.description": "Add {Cards:diff()} [gold]Edict+[/gold] to your [gold]Hand[/gold]."
+}
