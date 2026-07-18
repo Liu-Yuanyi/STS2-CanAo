@@ -8,19 +8,15 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 星月王冠：每回合第一次获得凤威（永久或临时）时，获得 1 张星月合击。
-/// UpgradedGeneration is set by the source card when it was upgraded,
-/// producing 星月合击+ instead.
+/// 星月王冠：每回合前 Amount 次获得凤威（永久或临时）时，
+/// 各获得 1 张星月合击。
 /// </summary>
 public sealed class XingYueWangGuanPower : PowerModel
 {
-    private bool _gainedThisTurn;
+    private int _triggersThisTurn;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
-
-    /// <summary>Generate 星月合击+ instead of the base token.</summary>
-    public bool UpgradedGeneration { get; set; }
 
     public override async Task AfterPowerAmountChanged(
         PlayerChoiceContext choiceContext,
@@ -29,7 +25,7 @@ public sealed class XingYueWangGuanPower : PowerModel
         Creature? applier,
         CardModel? cardSource)
     {
-        if (_gainedThisTurn
+        if (_triggersThisTurn >= Amount
             || amount <= 0
             || power is not (FengWeiPower or TemporaryFengWeiPower)
             || !ReferenceEquals(power.Owner, Owner)
@@ -38,7 +34,7 @@ public sealed class XingYueWangGuanPower : PowerModel
             return;
         }
 
-        _gainedThisTurn = true;
+        _triggersThisTurn++;
         Flash();
 
         await StarMoonService.Generate(
@@ -46,8 +42,7 @@ public sealed class XingYueWangGuanPower : PowerModel
             player,
             1,
             applier,
-            cardSource,
-            UpgradedGeneration);
+            cardSource);
     }
 
     public override Task AfterPlayerTurnStart(
@@ -55,7 +50,7 @@ public sealed class XingYueWangGuanPower : PowerModel
         Player player)
     {
         if (ReferenceEquals(player.Creature, Owner))
-            _gainedThisTurn = false;
+            _triggersThisTurn = 0;
 
         return Task.CompletedTask;
     }

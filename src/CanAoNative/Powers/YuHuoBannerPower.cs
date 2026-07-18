@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 浴火军旗：每层在每次成功的浴火触发后，给予 2 点本回合力量。
+/// 浴火军旗：每次成功的浴火触发后，给予 Amount 点本回合力量。
 /// The temporary Strength lifecycle is delegated to the game's native
 /// TemporaryStrengthPower implementation.
 /// </summary>
@@ -25,15 +25,12 @@ public sealed class YuHuoBannerPower :
         if (!context.EffectExecuted || Amount <= 0)
             return;
 
-        decimal temporaryStrength =
-            2m * Amount;
-
         Flash();
 
         await PowerCmd.Apply<YuHuoBannerTemporaryStrengthPower>(
             choiceContext,
             Owner,
-            temporaryStrength,
+            Amount,
             Owner,
             context.Card);
     }

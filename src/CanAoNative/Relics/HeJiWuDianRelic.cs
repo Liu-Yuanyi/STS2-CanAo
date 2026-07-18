@@ -11,19 +11,21 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Relics;
 
 /// <summary>
-/// 合击武典：每打出 4 张星月合击，下一张星月合击的效果翻倍。
-/// Mirrors the native Pen Nib pattern: count plays, then double the next
-/// strike's damage and block through the modifier hooks at resolution time.
+/// 合击武典：你的每第 4 张星月合击效果翻倍。
+/// Mirrors the native Pen Nib pattern: the doubling condition is computed
+/// from the play counter, so both the card-face preview and the resolution
+/// see the same doubled values.
 /// </summary>
 public sealed class HeJiWuDianRelic : RelicModel
 {
     private int _strikesPlayed;
-    private bool _armed;
 
     public override RelicRarity Rarity => RelicRarity.Uncommon;
 
     public override bool ShowCounter => true;
-    public override int DisplayAmount => _strikesPlayed;
+
+    public override int DisplayAmount =>
+        _strikesPlayed % DynamicVars.Cards.IntValue;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -35,24 +37,26 @@ public sealed class HeJiWuDianRelic : RelicModel
         HoverTipFactory.FromCard<StarMoonStrike>()
     ];
 
-    public override Task BeforeCardPlayed(CardPlay cardPlay)
+    /// <summary>
+    /// True while the next Star-Moon Strike played will be the Nth one.
+    /// The counter advances in AfterCardPlayed, after the card's effects
+    /// have resolved, so the Nth strike itself resolves doubled.
+    /// </summary>
+    private bool IsNextStrikeDoubled =>
+        _strikesPlayed % DynamicVars.Cards.IntValue
+        == DynamicVars.Cards.IntValue - 1;
+
+    public override Task AfterCardPlayed(
+        PlayerChoiceContext choiceContext,
+        CardPlay cardPlay)
     {
-        if (cardPlay.Card is not StarMoonStrike
-            || cardPlay.Card.Owner != Owner
-            || _armed)
+        if (cardPlay.Card is StarMoonStrike
+            && cardPlay.Card.Owner == Owner)
         {
-            return Task.CompletedTask;
+            _strikesPlayed++;
+            InvokeDisplayAmountChanged();
         }
 
-        _strikesPlayed++;
-
-        if (_strikesPlayed >= DynamicVars.Cards.IntValue)
-        {
-            _strikesPlayed = 0;
-            _armed = true;
-        }
-
-        InvokeDisplayAmountChanged();
         return Task.CompletedTask;
     }
 
@@ -64,7 +68,7 @@ public sealed class HeJiWuDianRelic : RelicModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (!_armed
+        if (!IsNextStrikeDoubled
             || !props.IsPoweredAttack()
             || cardSource is not StarMoonStrike
             || dealer != Owner.Creature)
@@ -82,8 +86,12 @@ public sealed class HeJiWuDianRelic : RelicModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (!_armed
-            || cardSource is not StarMoonStrike
+        bool isStarMoonStrike =
+            cardSource is StarMoonStrike
+            || cardPlay?.Card is StarMoonStrike;
+
+        if (!IsNextStrikeDoubled
+            || !isStarMoonStrike
             || !ReferenceEquals(target, Owner.Creature))
         {
             return block;
@@ -92,25 +100,9 @@ public sealed class HeJiWuDianRelic : RelicModel
         return block * 2m;
     }
 
-    public override Task AfterCardPlayedLate(
-        PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
-    {
-        if (_armed
-            && cardPlay.Card is StarMoonStrike
-            && cardPlay.Card.Owner == Owner)
-        {
-            _armed = false;
-            InvokeDisplayAmountChanged();
-        }
-
-        return Task.CompletedTask;
-    }
-
     public override Task BeforeCombatStart()
     {
         _strikesPlayed = 0;
-        _armed = false;
         return Task.CompletedTask;
     }
 }

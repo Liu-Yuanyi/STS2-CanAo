@@ -22,7 +22,7 @@
   "FEATHER_RANKS_CARD.title": "羽列千军",
   "FEATHER_RANKS_CARD.description": "造成{Damage:diff()}点伤害。若本牌因[gold]浴火[/gold]触发，改为对所有敌人造成伤害。",
   "YU_HUO_BANNER_CARD.title": "浴火军旗",
-  "YU_HUO_BANNER_CARD.description": "每次因[gold]浴火[/gold]触发牌效果后，在本回合获得2点[gold]力量[/gold]。",
+  "YU_HUO_BANNER_CARD.description": "每次因[gold]浴火[/gold]触发牌效果后，在本回合获得{Cards:diff()}点[gold]力量[/gold]。",
   "SHI_WEI_CARD.title": "示威",
   "SHI_WEI_CARD.description": "造成{Damage:diff()}点伤害。在本回合获得{Cards:diff()}点[gold]凤威[/gold]。",
   "ZAN_BI_FENG_MANG_CARD.title": "暂避锋芒",
@@ -61,5 +61,5 @@
   "TIAN_FENG_XING_TAI_CARD.title": "天凤形态",
   "TIAN_FENG_XING_TAI_CARD.description": "获得{Cards:diff()}点[gold]凤威[/gold]。每回合开始时，将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
   "XING_YUE_WANG_GUAN_CARD.title": "星月王冠",
-  "XING_YUE_WANG_GUAN_CARD.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击{IfUpgraded:show:+|}[/gold]。"
+  "XING_YUE_WANG_GUAN_CARD.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击[/gold]。"
 }

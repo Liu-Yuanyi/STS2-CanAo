@@ -9,7 +9,7 @@
   "QING_LUAN_YU_YI_RELIC.description": "At the start of your turn, if you had at least {Block:diff()} [gold]Block[/gold] left over last turn, gain 1 [gold]Moon[/gold].",
   "QING_LUAN_YU_YI_RELIC.flavor": "The plumage still holds its warmth.",
   "HE_JI_WU_DIAN_RELIC.title": "Tome of Convergence",
-  "HE_JI_WU_DIAN_RELIC.description": "Every {Cards:diff()} [gold]Star-Moon Strikes[/gold] you play, the next [gold]Star-Moon Strike[/gold]'s effects are doubled.",
+  "HE_JI_WU_DIAN_RELIC.description": "Your every [blue]{Cards}[/blue]th [gold]Star-Moon Strike[/gold] has its effects doubled.",
   "HE_JI_WU_DIAN_RELIC.flavor": "All convergence is written here.",
   "ZHAN_BEI_RELIC.title": "War Stele",
   "ZHAN_BEI_RELIC.description": "At the start of each combat, gain {Cards:diff()} [gold]FengWei[/gold]. On your first turn, your [gold]Star-Moon Strikes[/gold] only deal damage.",

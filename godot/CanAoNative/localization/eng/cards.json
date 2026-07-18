@@ -22,7 +22,7 @@
   "FEATHER_RANKS_CARD.title": "Feathered Ranks",
   "FEATHER_RANKS_CARD.description": "Deal {Damage:diff()} damage. If this card is triggered by [gold]YuHuo[/gold], deal damage to ALL enemies instead.",
   "YU_HUO_BANNER_CARD.title": "YuHuo War Banner",
-  "YU_HUO_BANNER_CARD.description": "Whenever a card effect is triggered by [gold]YuHuo[/gold], gain 2 [gold]Strength[/gold] this turn.",
+  "YU_HUO_BANNER_CARD.description": "Whenever a card effect is triggered by [gold]YuHuo[/gold], gain {Cards:diff()} [gold]Strength[/gold] this turn.",
   "SHI_WEI_CARD.title": "Demonstration",
   "SHI_WEI_CARD.description": "Deal {Damage:diff()} damage. Gain {Cards:diff()} [gold]FengWei[/gold] this turn.",
   "ZAN_BI_FENG_MANG_CARD.title": "Avoid the Edge",
@@ -61,5 +61,5 @@
   "TIAN_FENG_XING_TAI_CARD.title": "Heavenly Phoenix Form",
   "TIAN_FENG_XING_TAI_CARD.description": "Gain {Cards:diff()} [gold]FengWei[/gold]. At the start of your turn, add 1 [gold]Edict[/gold] to your [gold]Hand[/gold].",
   "XING_YUE_WANG_GUAN_CARD.title": "Star-Moon Crown",
-  "XING_YUE_WANG_GUAN_CARD.description": "The first time you gain [gold]FengWei[/gold] each turn, gain 1 [gold]Star-Moon Strike{IfUpgraded:show:+|}[/gold]."
+  "XING_YUE_WANG_GUAN_CARD.description": "The first time you gain [gold]FengWei[/gold] each turn, gain 1 [gold]Star-Moon Strike[/gold]."
 }

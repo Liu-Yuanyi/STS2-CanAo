@@ -9,7 +9,7 @@
   "QING_LUAN_YU_YI_RELIC.description": "回合开始时，若上回合剩余至少{Block:diff()}点[gold]格挡[/gold]，获得1点[gold]月[/gold]。",
   "QING_LUAN_YU_YI_RELIC.flavor": "羽衣轻覆，残温犹在。",
   "HE_JI_WU_DIAN_RELIC.title": "合击武典",
-  "HE_JI_WU_DIAN_RELIC.description": "你每打出{Cards:diff()}张[gold]星月合击[/gold]，下一张[gold]星月合击[/gold]的效果翻倍。",
+  "HE_JI_WU_DIAN_RELIC.description": "你的每第[blue]{Cards}[/blue]张[gold]星月合击[/gold]，效果翻倍。",
   "HE_JI_WU_DIAN_RELIC.flavor": "合击之法，尽在其中。",
   "ZHAN_BEI_RELIC.title": "战碑",
   "ZHAN_BEI_RELIC.description": "每场战斗开始时，获得{Cards:diff()}点[gold]凤威[/gold]。第一回合，你的[gold]星月合击[/gold]只造成伤害。",

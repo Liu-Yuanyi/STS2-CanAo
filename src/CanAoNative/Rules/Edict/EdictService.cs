@@ -53,6 +53,7 @@ public static class EdictService
         }
 
         List<EdictCard> generated = [];
+        List<CardPileAddResult> addResults = [];
 
         for (int i = 0; i < count; i++)
         {
@@ -61,14 +62,19 @@ public static class EdictService
             if (upgraded)
                 CardCmd.Upgrade(edict);
 
-            await CardPileCmd.AddGeneratedCardToCombat(
-                edict,
-                pileType,
-                player);
+            addResults.Add(
+                await CardPileCmd.AddGeneratedCardToCombat(
+                    edict,
+                    pileType,
+                    player));
 
             RecordGenerated(combatState, player);
             generated.Add(edict);
         }
+
+        // Mirrors native generated-card previews (Overclock, Severance) so
+        // the addition is visible and the pile visuals complete in order.
+        CardCmd.PreviewCardPileAdd(addResults);
 
         return generated;
     }
