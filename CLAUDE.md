@@ -4,12 +4,12 @@
 
 为《杀戮尖塔 2》v0.108.0 开发“残傲”原生 Mod。
 
-当前版本：**R8，基线为用户实机验证通过的 R7 工作区**。
+当前版本：**R9，基线为用户实机验证通过的 R8 工作区**。
 
 构建标记：
 
 ```text
-CANAO_NATIVE_R8_EDICT_SYSTEM_20260717
+CANAO_NATIVE_R9_RELICS_POTIONS_20260717
 ```
 
 ## 已完成
@@ -27,7 +27,9 @@ CANAO_NATIVE_R8_EDICT_SYSTEM_20260717
 - 征召、浴火打击、焚膏继晷、清宫、凤骨再燃；
 - 卡牌文本与悬浮规范（浴火关键词行、星/月/凤威/星月合击悬浮）；
 - 诏令衍生牌与 `EdictService` 事件层；
-- 传令、密诏、王权、帝国余威、承天受命、天凤形态。
+- 传令、密诏（弃牌堆版）、王权、帝国余威、承天受命、天凤形态；
+- 涅槃火种、星月王冠；
+- 凤威酒、御令瓶。
 
 ## 诏令系统
 
@@ -121,9 +123,9 @@ CanAoCombatRules.AfterSideTurnEndLate
 `TemporaryFengWeiPower` 和 `PanXuanPower` 同样在
 `AfterSideTurnEndLate` 归零。
 
-## R5/R6/R7 基线保护
+## R5/R6/R7/R8 基线保护
 
-`scripts/Verify-R8.ps1` 会验证未被 R8 有意修改的 R5+R6+R7 核心文件 SHA-256，尤其包括：
+`scripts/Verify-R9.ps1` 会验证未被 R9 有意修改的 R5–R8 核心文件 SHA-256，尤其包括：
 
 - 浴火 Patch、Service、State、Resolver；
 - 羽列千军、牺牲准备、浴火军旗；
@@ -132,7 +134,8 @@ CanAoCombatRules.AfterSideTurnEndLate
 - 星月合击本体与星月事件层；
 - 盘旋、星月伐魔、天凤军阵；
 - 消耗事件层与 R7 五张卡；
-- 浴火展示补丁与悬浮提示。
+- 浴火展示补丁与悬浮提示；
+- 诏令事件层与 R8 六张卡。
 
 ## 不可违反的规则
 
@@ -154,13 +157,13 @@ CanAoCombatRules.AfterSideTurnEndLate
 
 ## 下一阶段建议
 
-R9 建立遗物、药水与存档兼容，优先支持：
+R10 正式角色与专属卡池（在 20–30 张卡稳定后）：
 
-- 涅槃火种；
-- 星月王冠；
-- 凤威酒；
-- 御令瓶；
-- 中途存档与读档兼容。
+- `CharacterModel` 与角色选择界面；
+- 专属 `CardPoolModel`/`RelicPoolModel`/`PotionPoolModel`；
+- 起始卡组与起始遗物（帝国年表）；
+- 专属图片与角色颜色；
+- 清理探针卡。
 
 ## 待办
 
