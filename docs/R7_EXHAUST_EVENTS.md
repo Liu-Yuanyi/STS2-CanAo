@@ -1,6 +1,6 @@
 # R7：统一消耗事件层
 
-> 构建标记：`CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX1`
+> 构建标记：`CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX2`
 > 游戏基线：STS2 v0.109.0（API 签名已对照 v0.109.0 反编译源码逐条核对）
 
 ## 目标

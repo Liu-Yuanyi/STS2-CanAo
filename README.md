@@ -28,7 +28,7 @@ Set-ExecutionPolicy -Scope Process Bypass -Force
 新日志必须包含：
 
 ```text
-CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX1
+CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX2
 ```
 
 ## R7 推荐测试
@@ -43,5 +43,6 @@ CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX1
 
 ## 文档
 
+- [卡牌描述与悬浮规范](docs/CARD_TEXT_CONVENTIONS.md)
 - [R7 消耗事件层设计](docs/R7_EXHAUST_EVENTS.md)
 - [R6 星月事件层设计](docs/R6_STARMOON_EVENTS.md)

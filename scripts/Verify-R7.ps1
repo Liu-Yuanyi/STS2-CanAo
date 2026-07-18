@@ -47,7 +47,10 @@ $RequiredFiles = @(
     "Rules\Exhaust\IExhaustEvents.cs",
     "Rules\Exhaust\ExhaustCombatState.cs",
     "Rules\Exhaust\ExhaustListenerRegistry.cs",
-    "Rules\Exhaust\ExhaustService.cs"
+    "Rules\Exhaust\ExhaustService.cs",
+    "Rules\CanAoHoverTips.cs",
+    "Rules\YuHuo\YuHuoDisplay.cs",
+    "Patches\YuHuoHoverTipPatch.cs"
 )
 
 foreach ($RelativePath in $RequiredFiles) {
@@ -59,14 +62,16 @@ foreach ($RelativePath in $RequiredFiles) {
 
 # Preserve the already user-validated R5/R6 gameplay core. R7 intentionally
 # changes CanAoCombatRules and ModEntry, so those files are validated
-# structurally below rather than frozen here.
+# structurally below rather than frozen here. The eight card files below were
+# intentionally re-touched in the FIX2 text-convention pass (ExtraHoverTips /
+# library visibility only); their hashes were refreshed at that point.
 $VerifiedHashes = [ordered]@{
     "Cards\FeatherRanksCard.cs" = "b85c4b790e6b4eb0dddb38a88e94b15c7bdb3568749cef003a65bbdd6d039141"
-    "Cards\SacrificialPreparationCard.cs" = "d4b3ed638d6e3bfc9248323cf3afcdf5501d7e40623ed5c700dba1e79473dfee"
-    "Cards\StarMoonStrike.cs" = "b38ef7bbc64acac8906377d59836c90acc0b3240d931f5725d0a3c4a19957dcd"
-    "Cards\YuHuoBannerCard.cs" = "9892d7f9bc9ca5791b8774715575325aaba35a0c1efe0b3b79b7df5d9682cd4a"
-    "Cards\ShiWeiCard.cs" = "143c3b2a1ac8470bedc0e6840ac93fc5985c39f96b5b48785d7640aa4b7fbe1c"
-    "Cards\ZanBiFengMangCard.cs" = "0a12a0e9dd909840efd46d1f1dc201d90d1a9b10ee9d3151e9abcfcf5732dd95"
+    "Cards\SacrificialPreparationCard.cs" = "c885a537e62f8f119fed33b32e8c383f2ea7ac31a8538d9991813152570336fb"
+    "Cards\StarMoonStrike.cs" = "b43d3e2ca0e7aa0eef27510e35c555ee664e23ecdedbf1cdaa45a9c3f33d489e"
+    "Cards\YuHuoBannerCard.cs" = "9e943bab9fd839962dcabb18b435ccee87c60271011daf185e19827c73bbb01e"
+    "Cards\ShiWeiCard.cs" = "d5a1d84e0388647bd2296d217c58f9f54fb18245ca6331307b0a14b88f100c99"
+    "Cards\ZanBiFengMangCard.cs" = "14031597d33e006003362f3b15692bfcfc922f42175e6d52fa9bb82fec30b238"
     "Powers\FengWeiPower.cs" = "1d3df1fdfd1a7f272ca3c9e7fe44a38c0b7b6ebde470fda8b07010c542eb716b"
     "Powers\YuHuoBannerPower.cs" = "2f33f4294354c90ae8941ec5208597d4d5f54562d76637ca04ff0226d99ad50a"
     "Powers\YuHuoBannerTemporaryStrengthPower.cs" = "66e32ad32cc12d7fc4bc415e2b19a2b6c65fe1e62809fd45f1538747d3054d27"
@@ -75,9 +80,9 @@ $VerifiedHashes = [ordered]@{
     "Rules\YuHuo\YuHuoResolver.cs" = "2e63f9cbb43fcd449d63d70d6f922c4fa91f951aa12c837cc69d436470c1468e"
     "Rules\YuHuo\YuHuoService.cs" = "bca86dcb0ed4a5caa7c0c9945eac654e90278da406ae4cb4c4c94be3f38edbe3"
     "Patches\YuHuoExhaustPatch.cs" = "82441b3866502fc8087dfeec059f15eb3ab36b112911a2240a2a457a648e292b"
-    "Cards\PanXuanCard.cs" = "a0f2d3928daf5a5b2a47271ee5f37fdc9644172aab050f8d7d30aa2707cc1db8"
-    "Cards\XingYueFaMoCard.cs" = "8722da5ebc3abe61688fe8925bf54423ff1ed688169352ad94592174abe2096f"
-    "Cards\TianFengJunZhenCard.cs" = "a5ab3e7c8d55ccb8ad97dc546026fb2674442022e7558d78830218019433e596"
+    "Cards\PanXuanCard.cs" = "16cba702ced3bc31b63bebbd8a632bbbd1b1832c7b15e79263272996db479d6f"
+    "Cards\XingYueFaMoCard.cs" = "1cdd5683ace925ad677c9a1e10ebabd09705f84f2e036ee9f9052c71355899b3"
+    "Cards\TianFengJunZhenCard.cs" = "5eea54215ad465e1a09a8f728ab4ad87530e5bc7926db0610a0e0f1b626640f6"
     "Powers\PanXuanPower.cs" = "1dcce5ef0c3b7704af54b7b85cf9a2457fd75233fabf1aeef4535d33abb8f5e8"
     "Powers\TianFengJunZhenPower.cs" = "2cc7e9d0ac165b7df7c82b7afd68764ba2ab5de316a6ec6a8b6a962129a93e58"
     "Powers\TemporaryFengWeiPower.cs" = "0b1a10135751d7e6e90d7277edbee14a23be420a05427f770916ba5881003a02"
@@ -124,6 +129,11 @@ $RequiredMarkers = @(
     "class FenGaoJiGuiCard",
     "class QingGongCard",
     "class FengGuZaiRanCard",
+    "class YuHuoHoverTipPatch",
+    "class YuHuoDisplay",
+    "class CanAoHoverTips",
+    "ExtraHoverTips",
+    "IsCanonical",
     "ref Task __result"
 )
 
@@ -188,6 +198,7 @@ foreach ($Marker in @(
 }
 
 $CardKeys = @(
+    "YU_HUO_KEYWORD",
     "ZHENG_ZHAO_CARD.title",
     "ZHENG_ZHAO_CARD.description",
     "YU_HUO_STRIKE_CARD.title",
@@ -208,6 +219,20 @@ foreach ($LocPath in @($CardsLocZh, $CardsLocEn)) {
     foreach ($Key in $CardKeys) {
         if ($null -eq $Loc.PSObject.Properties[$Key]) {
             throw ("Card localization key missing in {0}: {1}" -f
+                $LocPath, $Key)
+        }
+    }
+}
+
+$TipsLocZh = Join-Path $Root "godot\CanAoNative\localization\zhs\static_hover_tips.json"
+$TipsLocEn = Join-Path $Root "godot\CanAoNative\localization\eng\static_hover_tips.json"
+
+foreach ($LocPath in @($TipsLocZh, $TipsLocEn)) {
+    $Loc = (Read-Utf8Strict $LocPath) | ConvertFrom-Json
+
+    foreach ($Key in @("YU_HUO.title", "YU_HUO.description")) {
+        if ($null -eq $Loc.PSObject.Properties[$Key]) {
+            throw ("Static hover tip key missing in {0}: {1}" -f
                 $LocPath, $Key)
         }
     }
