@@ -30,12 +30,15 @@ public static class EdictService
 
     /// <summary>
     /// Creates and adds concrete Edict instances through the one
-    /// authoritative generation pipeline.
+    /// authoritative generation pipeline. Tokens may optionally be upgraded
+    /// (诏令+) and routed to a pile other than the hand.
     /// </summary>
     public static async Task<IReadOnlyList<EdictCard>> Generate(
         PlayerChoiceContext choiceContext,
         Player player,
-        int count)
+        int count,
+        PileType pileType = PileType.Hand,
+        bool upgraded = false)
     {
         ArgumentNullException.ThrowIfNull(player);
 
@@ -55,9 +58,12 @@ public static class EdictService
         {
             EdictCard edict = combatState.CreateCard<EdictCard>(player);
 
+            if (upgraded)
+                CardCmd.Upgrade(edict);
+
             await CardPileCmd.AddGeneratedCardToCombat(
                 edict,
-                PileType.Hand,
+                pileType,
                 player);
 
             RecordGenerated(combatState, player);
