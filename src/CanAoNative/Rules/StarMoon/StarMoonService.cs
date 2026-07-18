@@ -32,14 +32,15 @@ public static class StarMoonService
     /// Creates and adds concrete Star-Moon Strike instances through the one
     /// authoritative generation pipeline. Future cards, relics and powers
     /// that create Star-Moon Strikes must call this method rather than adding
-    /// the token directly.
+    /// the token directly. Tokens may optionally be upgraded (星月合击+).
     /// </summary>
     public static async Task<IReadOnlyList<StarMoonStrike>> Generate(
         PlayerChoiceContext choiceContext,
         Player player,
         int count,
         Creature? applier,
-        CardModel? cardSource)
+        CardModel? cardSource,
+        bool upgraded = false)
     {
         ArgumentNullException.ThrowIfNull(player);
 
@@ -59,6 +60,9 @@ public static class StarMoonService
         {
             StarMoonStrike strike =
                 combatState.CreateCard<StarMoonStrike>(player);
+
+            if (upgraded)
+                CardCmd.Upgrade(strike);
 
             StarMoonGenerationContext generationContext = new(
                 player,
