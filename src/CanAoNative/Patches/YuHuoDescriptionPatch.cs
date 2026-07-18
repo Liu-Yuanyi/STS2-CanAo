@@ -24,6 +24,11 @@ public static class YuHuoDescriptionPatch
         CardModel __instance,
         ref string __result)
     {
+        // Canonical (library template) models throw CanonicalModelException
+        // when Owner is accessed. They can never hold temporary 浴火 anyway.
+        if (__instance.IsCanonical)
+            return;
+
         if (__instance is IIntrinsicYuHuo
             {
                 HasIntrinsicYuHuo: true

@@ -28,7 +28,7 @@ Set-ExecutionPolicy -Scope Process Bypass -Force
 新日志必须包含：
 
 ```text
-CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717
+CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX1
 ```
 
 ## R7 推荐测试

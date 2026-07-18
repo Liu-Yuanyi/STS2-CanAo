@@ -15,7 +15,7 @@ public static class ModEntry
 {
     public const string ModId = "CanAoNative";
     public const string BuildMarker =
-        "CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717";
+        "CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX1";
 
     private static readonly Logger Log =
         new(ModId, LogType.Generic);

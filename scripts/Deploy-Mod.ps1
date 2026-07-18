@@ -122,7 +122,7 @@ if ($Unexpected) {
 Write-Host ""
 Write-Host "Deployment verified."
 Write-Host "Expected runtime log marker:"
-Write-Host "  CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717"
+Write-Host "  CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX1"
 Write-Host ""
 Get-ChildItem $InstallDir |
     Select-Object Name, Length, LastWriteTime
