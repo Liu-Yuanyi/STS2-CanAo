@@ -1,21 +1,26 @@
-using CanAoNative.Powers;
 using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 
-namespace CanAoNative.Relics;
+namespace CanAoNative.Powers;
 
 /// <summary>
 /// 星月王冠：每回合第一次获得凤威（永久或临时）时，获得 1 张星月合击。
+/// UpgradedGeneration is set by the source card when it was upgraded,
+/// producing 星月合击+ instead.
 /// </summary>
-public sealed class XingYueWangGuanRelic : RelicModel
+public sealed class XingYueWangGuanPower : PowerModel
 {
     private bool _gainedThisTurn;
 
-    public override RelicRarity Rarity => RelicRarity.Rare;
+    public override PowerType Type => PowerType.Buff;
+    public override PowerStackType StackType => PowerStackType.Counter;
+
+    /// <summary>Generate 星月合击+ instead of the base token.</summary>
+    public bool UpgradedGeneration { get; set; }
 
     public override async Task AfterPowerAmountChanged(
         PlayerChoiceContext choiceContext,
@@ -27,7 +32,8 @@ public sealed class XingYueWangGuanRelic : RelicModel
         if (_gainedThisTurn
             || amount <= 0
             || power is not (FengWeiPower or TemporaryFengWeiPower)
-            || !ReferenceEquals(power.Owner.Player, Owner))
+            || !ReferenceEquals(power.Owner, Owner)
+            || Owner.Player is not Player player)
         {
             return;
         }
@@ -37,25 +43,20 @@ public sealed class XingYueWangGuanRelic : RelicModel
 
         await StarMoonService.Generate(
             choiceContext,
-            Owner,
+            player,
             1,
             applier,
-            cardSource);
+            cardSource,
+            UpgradedGeneration);
     }
 
     public override Task AfterPlayerTurnStart(
         PlayerChoiceContext choiceContext,
         Player player)
     {
-        if (ReferenceEquals(player, Owner))
+        if (ReferenceEquals(player.Creature, Owner))
             _gainedThisTurn = false;
 
-        return Task.CompletedTask;
-    }
-
-    public override Task BeforeCombatStart()
-    {
-        _gainedThisTurn = false;
         return Task.CompletedTask;
     }
 }

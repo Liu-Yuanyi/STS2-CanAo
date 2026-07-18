@@ -59,5 +59,7 @@
   "CHENG_TIAN_SHOU_MING_CARD.title": "承天受命",
   "CHENG_TIAN_SHOU_MING_CARD.description": "获得3点[gold]凤威[/gold]。将2张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
   "TIAN_FENG_XING_TAI_CARD.title": "天凤形态",
-  "TIAN_FENG_XING_TAI_CARD.description": "获得{Cards:diff()}点[gold]凤威[/gold]。每回合开始时，将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。"
+  "TIAN_FENG_XING_TAI_CARD.description": "获得{Cards:diff()}点[gold]凤威[/gold]。每回合开始时，将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
+  "XING_YUE_WANG_GUAN_CARD.title": "星月王冠",
+  "XING_YUE_WANG_GUAN_CARD.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击{IfUpgraded:show:+|}[/gold]。"
 }

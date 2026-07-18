@@ -1,6 +1,9 @@
-using CanAoNative.Rules.StarMoon;
+using CanAoNative.Cards;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -9,65 +12,105 @@ namespace CanAoNative.Relics;
 
 /// <summary>
 /// 合击武典：每打出 4 张星月合击，下一张星月合击的效果翻倍。
-/// The armed strike's damage and block base values are doubled at
-/// generation time, before any FengWei or other modifiers apply.
+/// Mirrors the native Pen Nib pattern: count plays, then double the next
+/// strike's damage and block through the modifier hooks at resolution time.
 /// </summary>
-public sealed class HeJiWuDianRelic :
-    RelicModel,
-    IAfterStarMoonPlayed,
-    IAfterStarMoonGenerated
+public sealed class HeJiWuDianRelic : RelicModel
 {
-    private int _playedCount;
-    private bool _nextStrikeDoubled;
+    private int _strikesPlayed;
+    private bool _armed;
 
     public override RelicRarity Rarity => RelicRarity.Uncommon;
+
+    public override bool ShowCounter => true;
+    public override int DisplayAmount => _strikesPlayed;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CardsVar(4)
     ];
 
-    public Task AfterStarMoonPlayed(
-        PlayerChoiceContext choiceContext,
-        StarMoonPlayedContext context)
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromCard<StarMoonStrike>()
+    ];
+
+    public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
-        if (!ReferenceEquals(context.Player, Owner))
-            return Task.CompletedTask;
-
-        _playedCount++;
-
-        if (_playedCount >= DynamicVars.Cards.IntValue)
+        if (cardPlay.Card is not StarMoonStrike
+            || cardPlay.Card.Owner != Owner
+            || _armed)
         {
-            _playedCount = 0;
-            _nextStrikeDoubled = true;
+            return Task.CompletedTask;
         }
 
+        _strikesPlayed++;
+
+        if (_strikesPlayed >= DynamicVars.Cards.IntValue)
+        {
+            _strikesPlayed = 0;
+            _armed = true;
+        }
+
+        InvokeDisplayAmountChanged();
         return Task.CompletedTask;
     }
 
-    public Task AfterStarMoonGenerated(
-        PlayerChoiceContext choiceContext,
-        StarMoonGenerationContext context)
+    public override decimal ModifyDamageMultiplicative(
+        Creature? target,
+        decimal amount,
+        ValueProp props,
+        Creature? dealer,
+        CardModel? cardSource,
+        CardPlay? cardPlay)
     {
-        if (!_nextStrikeDoubled
-            || !ReferenceEquals(context.Player, Owner))
+        if (!_armed
+            || !props.IsPoweredAttack()
+            || cardSource is not StarMoonStrike
+            || dealer != Owner.Creature)
         {
-            return Task.CompletedTask;
+            return 1m;
         }
 
-        _nextStrikeDoubled = false;
-        Flash();
+        return 2m;
+    }
 
-        context.Card.DynamicVars.Damage.BaseValue *= 2m;
-        context.Card.DynamicVars.Block.BaseValue *= 2m;
+    public override decimal ModifyBlockAdditive(
+        Creature target,
+        decimal block,
+        ValueProp props,
+        CardModel? cardSource,
+        CardPlay? cardPlay)
+    {
+        if (!_armed
+            || cardSource is not StarMoonStrike
+            || !ReferenceEquals(target, Owner.Creature))
+        {
+            return block;
+        }
+
+        return block * 2m;
+    }
+
+    public override Task AfterCardPlayedLate(
+        PlayerChoiceContext choiceContext,
+        CardPlay cardPlay)
+    {
+        if (_armed
+            && cardPlay.Card is StarMoonStrike
+            && cardPlay.Card.Owner == Owner)
+        {
+            _armed = false;
+            InvokeDisplayAmountChanged();
+        }
 
         return Task.CompletedTask;
     }
 
     public override Task BeforeCombatStart()
     {
-        _playedCount = 0;
-        _nextStrikeDoubled = false;
+        _strikesPlayed = 0;
+        _armed = false;
         return Task.CompletedTask;
     }
 }

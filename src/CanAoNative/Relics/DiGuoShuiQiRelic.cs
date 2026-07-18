@@ -1,8 +1,11 @@
+using CanAoNative.Cards;
 using CanAoNative.Rules.Edict;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -12,9 +15,7 @@ namespace CanAoNative.Relics;
 /// 帝国税契：每场战斗开始时，将 1 张诏令加入手牌。
 /// 你每次打出诏令后，失去 1 金币。
 /// </summary>
-public sealed class DiGuoShuiQiRelic :
-    RelicModel,
-    IAfterEdictPlayed
+public sealed class DiGuoShuiQiRelic : RelicModel
 {
     private bool _combatStartPending;
 
@@ -23,6 +24,11 @@ public sealed class DiGuoShuiQiRelic :
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CardsVar(1)
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromCard<EdictCard>()
     ];
 
     public override Task BeforeCombatStart()
@@ -52,12 +58,15 @@ public sealed class DiGuoShuiQiRelic :
             1);
     }
 
-    public Task AfterEdictPlayed(
+    public override Task AfterCardPlayedLate(
         PlayerChoiceContext choiceContext,
-        EdictPlayedContext context)
+        CardPlay cardPlay)
     {
-        if (!ReferenceEquals(context.Player, Owner))
+        if (cardPlay.Card is not EdictCard
+            || cardPlay.Card.Owner != Owner)
+        {
             return Task.CompletedTask;
+        }
 
         Flash();
         Owner.Gold = Math.Max(

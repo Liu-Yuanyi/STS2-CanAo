@@ -1,5 +1,7 @@
+using CanAoNative.Rules;
 using CanAoNative.Rules.YuHuo;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 
@@ -17,6 +19,11 @@ public sealed class NiePanHuoZhongRelic :
     private bool _triggeredThisCombat;
 
     public override RelicRarity Rarity => RelicRarity.Rare;
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        CanAoHoverTips.YuHuo
+    ];
 
     public int ModifyYuHuoTriggerCount(
         CardModel card,

@@ -1,10 +1,12 @@
 using CanAoNative.Cards;
+using CanAoNative.Powers;
 using CanAoNative.Rules.FengWei;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -24,6 +26,12 @@ public sealed class ZhanBeiRelic : RelicModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CardsVar(2)
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<FengWeiPower>(),
+        HoverTipFactory.FromCard<StarMoonStrike>()
     ];
 
     public override Task BeforeCombatStart()
@@ -61,7 +69,11 @@ public sealed class ZhanBeiRelic : RelicModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (cardSource is StarMoonStrike
+        bool isStarMoonStrike =
+            cardSource is StarMoonStrike
+            || cardPlay?.Card is StarMoonStrike;
+
+        if (isStarMoonStrike
             && ReferenceEquals(target, Owner.Creature)
             && Owner.PlayerCombatState.TurnNumber <= 1)
         {

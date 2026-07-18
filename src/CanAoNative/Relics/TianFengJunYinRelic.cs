@@ -1,7 +1,9 @@
-using CanAoNative.Rules.Edict;
+using CanAoNative.Cards;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -10,10 +12,9 @@ namespace CanAoNative.Relics;
 
 /// <summary>
 /// 天凤军印：你每次打出诏令后，获得 4 点格挡。
+/// Uses the game's own card-play hook directly, mirroring native relics.
 /// </summary>
-public sealed class TianFengJunYinRelic :
-    RelicModel,
-    IAfterEdictPlayed
+public sealed class TianFengJunYinRelic : RelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Common;
 
@@ -22,12 +23,21 @@ public sealed class TianFengJunYinRelic :
         new BlockVar(4m, ValueProp.Unpowered)
     ];
 
-    public async Task AfterEdictPlayed(
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromCard<EdictCard>(),
+        HoverTipFactory.Static(StaticHoverTip.Block)
+    ];
+
+    public override async Task AfterCardPlayedLate(
         PlayerChoiceContext choiceContext,
-        EdictPlayedContext context)
+        CardPlay cardPlay)
     {
-        if (!ReferenceEquals(context.Player, Owner))
+        if (cardPlay.Card is not EdictCard
+            || cardPlay.Card.Owner != Owner)
+        {
             return;
+        }
 
         Flash();
 

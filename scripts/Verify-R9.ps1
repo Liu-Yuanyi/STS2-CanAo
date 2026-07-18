@@ -45,13 +45,14 @@ function Get-NormalizedTextSha256([string]$Path) {
 
 $RequiredFiles = @(
     "Relics\NiePanHuoZhongRelic.cs",
-    "Relics\XingYueWangGuanRelic.cs",
     "Relics\TianFengJunYinRelic.cs",
     "Relics\QingLuanYuYiRelic.cs",
     "Relics\HeJiWuDianRelic.cs",
     "Relics\ZhanBeiRelic.cs",
     "Relics\GuWangYuZuoRelic.cs",
     "Relics\DiGuoShuiQiRelic.cs",
+    "Cards\XingYueWangGuanCard.cs",
+    "Powers\XingYueWangGuanPower.cs",
     "Potions\FengWeiJiuPotion.cs",
     "Potions\YuLingPingPotion.cs",
     "Potions\QiongJiangPotion.cs"
@@ -147,7 +148,8 @@ $SourceText = ($SourceFiles | ForEach-Object {
 $RequiredMarkers = @(
     "CANAO_NATIVE_R9_RELICS_POTIONS_20260717",
     "class NiePanHuoZhongRelic",
-    "class XingYueWangGuanRelic",
+    "class XingYueWangGuanCard",
+    "class XingYueWangGuanPower",
     "class TianFengJunYinRelic",
     "class QingLuanYuYiRelic",
     "class HeJiWuDianRelic",
@@ -163,6 +165,7 @@ $RequiredMarkers = @(
     "PotionRarity.Uncommon",
     "PileType.Discard",
     "ModifyBlockAdditive",
+    "ModifyDamageMultiplicative",
     "CardCmd.Upgrade",
     "ref Task __result"
 )
@@ -222,7 +225,9 @@ $CardKeys = @(
     "MI_ZHAO_CARD.description",
     "EDICT_CARD.title",
     "EDICT_CARD.description",
-    "EDICT_CARD.selectionScreenPrompt"
+    "EDICT_CARD.selectionScreenPrompt",
+    "XING_YUE_WANG_GUAN_CARD.title",
+    "XING_YUE_WANG_GUAN_CARD.description"
 )
 
 foreach ($LocPath in @($CardsLocZh, $CardsLocEn)) {
@@ -240,9 +245,6 @@ $RelicKeys = @(
     "NIE_PAN_HUO_ZHONG_RELIC.title",
     "NIE_PAN_HUO_ZHONG_RELIC.description",
     "NIE_PAN_HUO_ZHONG_RELIC.flavor",
-    "XING_YUE_WANG_GUAN_RELIC.title",
-    "XING_YUE_WANG_GUAN_RELIC.description",
-    "XING_YUE_WANG_GUAN_RELIC.flavor",
     "TIAN_FENG_JUN_YIN_RELIC.title",
     "TIAN_FENG_JUN_YIN_RELIC.description",
     "QING_LUAN_YU_YI_RELIC.title",
@@ -283,6 +285,22 @@ foreach ($LocPath in @($PotionsLocZh, $PotionsLocEn)) {
     foreach ($Key in $PotionKeys) {
         if ($null -eq $Loc.PSObject.Properties[$Key]) {
             throw ("Potion localization key missing in {0}: {1}" -f
+                $LocPath, $Key)
+        }
+    }
+}
+
+$PowerKeys = @(
+    "XING_YUE_WANG_GUAN_POWER.title",
+    "XING_YUE_WANG_GUAN_POWER.description"
+)
+
+foreach ($LocPath in @($PowersLocZh, $PowersLocEn)) {
+    $Loc = (Read-Utf8Strict $LocPath) | ConvertFrom-Json
+
+    foreach ($Key in $PowerKeys) {
+        if ($null -eq $Loc.PSObject.Properties[$Key]) {
+            throw ("Power localization key missing in {0}: {1}" -f
                 $LocPath, $Key)
         }
     }

@@ -1,3 +1,4 @@
+using CanAoNative.Cards;
 using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
@@ -5,6 +6,8 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
 namespace CanAoNative.Relics;
@@ -18,6 +21,17 @@ public sealed class GuWangYuZuoRelic : RelicModel
     private bool _handWasEmptyAtTurnEnd;
 
     public override RelicRarity Rarity => RelicRarity.Rare;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new EnergyVar(1)
+    ];
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromCard<StarMoonStrike>(upgrade: true),
+        HoverTipFactory.Static(StaticHoverTip.Energy)
+    ];
 
     public override Task AfterSideTurnEndLate(
         PlayerChoiceContext choiceContext,
@@ -45,7 +59,9 @@ public sealed class GuWangYuZuoRelic : RelicModel
         _handWasEmptyAtTurnEnd = false;
         Flash();
 
-        await PlayerCmd.GainEnergy(1m, Owner);
+        await PlayerCmd.GainEnergy(
+            DynamicVars.Energy.IntValue,
+            Owner);
 
         await StarMoonService.Generate(
             choiceContext,

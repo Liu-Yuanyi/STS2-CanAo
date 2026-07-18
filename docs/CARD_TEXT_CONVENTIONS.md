@@ -39,22 +39,32 @@
   - 中文：`造成{Damage:diff()}点伤害。` / `获得{Block:diff()}点[gold]格挡[/gold]。` /
     `抽{Cards:diff()}张牌。`
   - 条件句：`若……，` 前缀（星月伐魔：`若本回合生成过[gold]星月合击[/gold]，`）
-- 能量图标：`{energyPrefix:energyIcons(1)}`；不要手写"1费"。
+- **获得能量**：用 `{Energy:energyIcons()}` 并配 `new EnergyVar(n)`
+  （原生：肾上腺素 `获得{Energy:energyIcons()}。`）；
+  **显示费用数字**：用 `{energyPrefix:energyIcons(1)}`。
+  禁止写"能量""1 费"汉字。
+- **升级差异文本**：`{IfUpgraded:show:升级后内容|未升级内容}`（冒号语法，
+  原生：坚毅 `{IfUpgraded:show:| 随机}`）。禁止写成 `show(...)` 括号形式。
 - 选择界面提示（`selectionScreenPrompt`）是操作指引，**不加黄**，
   用 `{Amount}` 表示数量。
 
 ## 4. 悬浮提示（HoverTips）
 
-悬浮提示是悬停整卡时右侧弹出的提示列表，**描述文本本身不可交互**。
-数据来自 `CardModel.HoverTips` = `ExtraHoverTips` + 关键词自动生成。
+悬浮提示是悬停整卡/遗物/药水时右侧弹出的提示列表，**描述文本本身不可交互**。
+数据来自 `HoverTips` = `ExtraHoverTips` + 关键词自动生成。
 
 - **提到 Power**（星/月/凤威/力量）→ override `ExtraHoverTips` 加
   `HoverTipFactory.FromPower<XxxPower>()`。文本与提示一一对应。
-- **提到另一张牌**（星月合击/小刀）→ 加 `HoverTipFactory.FromCard<XxxCard>()`，
-  悬浮显示该牌预览（原生：刀刃之舞 → 小刀）。
+- **提到另一张牌**（星月合击/小刀/诏令）→ 加 `HoverTipFactory.FromCard<XxxCard>()`，
+  悬浮显示该牌预览；升级版预览用 `FromCard<XxxCard>(upgrade: true)`；
+  源牌自身的升级版本预览用 `FromCard<XxxCard>(IsUpgraded)`。
+- **格挡/能量等通用概念** → `HoverTipFactory.Static(StaticHoverTip.Block/Energy)`
+  （原生：Anchor 的 Block 提示）。
 - **浴火**：不需要手写——`YuHuoHoverTipPatch` 会给所有当前拥有浴火的牌
   （固有 + 临时）自动追加浴火提示；只是在文本中**提到**浴火的牌
   （如清宫、凤骨再燃）加 `CanAoHoverTips.YuHuo`。
+- **遗物和药水同样必须配 `ExtraHoverTips`**（参照原生 Anchor/PenNib）：
+  凡是描述里加黄的词，都要有对应提示。
 - 自定义提示文本放 `localization/{lang}/static_hover_tips.json`
   （合并进原生同名表），key 形式 `XXX.title` / `XXX.description`。
 - Power 的悬浮文本来自 `powers.json` 的 `POWER.title/description`，

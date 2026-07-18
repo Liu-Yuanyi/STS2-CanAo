@@ -72,9 +72,9 @@ public static class ModEntry
         ModHelper.AddModelToPool<ColorlessCardPool, DiGuoYuWeiCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, ChengTianShouMingCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, TianFengXingTaiCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, XingYueWangGuanCard>();
 
         ModHelper.AddModelToPool<SharedRelicPool, NiePanHuoZhongRelic>();
-        ModHelper.AddModelToPool<SharedRelicPool, XingYueWangGuanRelic>();
         ModHelper.AddModelToPool<SharedRelicPool, TianFengJunYinRelic>();
         ModHelper.AddModelToPool<SharedRelicPool, QingLuanYuYiRelic>();
         ModHelper.AddModelToPool<SharedRelicPool, HeJiWuDianRelic>();
@@ -127,7 +127,8 @@ public static class ModEntry
             $"TianFengXingTai={ModelDb.GetId(typeof(TianFengXingTaiCard))}, " +
             $"TianFengXingTaiPower={ModelDb.GetId(typeof(TianFengXingTaiPower))}, " +
             $"NiePanHuoZhong={ModelDb.GetId(typeof(NiePanHuoZhongRelic))}, " +
-            $"XingYueWangGuan={ModelDb.GetId(typeof(XingYueWangGuanRelic))}, " +
+            $"XingYueWangGuan={ModelDb.GetId(typeof(XingYueWangGuanCard))}, " +
+            $"XingYueWangGuanPower={ModelDb.GetId(typeof(XingYueWangGuanPower))}, " +
             $"FengWeiJiu={ModelDb.GetId(typeof(FengWeiJiuPotion))}, " +
             $"YuLingPing={ModelDb.GetId(typeof(YuLingPingPotion))}, " +
             $"TianFengJunYin={ModelDb.GetId(typeof(TianFengJunYinRelic))}, " +
