@@ -1,5 +1,6 @@
 using CanAoNative.Cards;
 using CanAoNative.Powers;
+using CanAoNative.Rules.Edict;
 using CanAoNative.Rules.Exhaust;
 using CanAoNative.Rules.StarMoon;
 using CanAoNative.Rules.YuHuo;
@@ -44,23 +45,40 @@ public sealed class CanAoCombatRules : AbstractModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        if (cardPlay.Card is not StarMoonStrike strike
-            || strike.Owner is not Player player
-            || player.Creature.CombatState is not ICombatState combatState)
+        switch (cardPlay.Card)
         {
-            return;
+            case StarMoonStrike strike
+                when strike.Owner is Player starMoonPlayer
+                     && starMoonPlayer.Creature.CombatState
+                        is ICombatState starMoonCombat:
+                StarMoonService.RecordPlayed(
+                    starMoonCombat,
+                    starMoonPlayer);
+
+                await StarMoonService.NotifyAfterPlayed(
+                    choiceContext,
+                    new StarMoonPlayedContext(
+                        starMoonPlayer,
+                        strike,
+                        cardPlay));
+                break;
+
+            case EdictCard edict
+                when edict.Owner is Player edictPlayer
+                     && edictPlayer.Creature.CombatState
+                        is ICombatState edictCombat:
+                EdictService.RecordPlayed(
+                    edictCombat,
+                    edictPlayer);
+
+                await EdictService.NotifyAfterPlayed(
+                    choiceContext,
+                    new EdictPlayedContext(
+                        edictPlayer,
+                        edict,
+                        cardPlay));
+                break;
         }
-
-        StarMoonService.RecordPlayed(
-            combatState,
-            player);
-
-        await StarMoonService.NotifyAfterPlayed(
-            choiceContext,
-            new StarMoonPlayedContext(
-                player,
-                strike,
-                cardPlay));
     }
 
     /// <summary>
@@ -118,6 +136,10 @@ public sealed class CanAoCombatRules : AbstractModel
                 endingPlayers);
 
             ExhaustService.ClearForPlayers(
+                combatState,
+                endingPlayers);
+
+            EdictService.ClearForPlayers(
                 combatState,
                 endingPlayers);
         }
