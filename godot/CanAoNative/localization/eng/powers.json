@@ -16,5 +16,9 @@
   "PAN_XUAN_POWER.title": "Circling Guard",
   "PAN_XUAN_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold] this turn, gain {Amount} Block.",
   "TIAN_FENG_JUN_ZHEN_POWER.title": "Heavenly Phoenix Formation",
-  "TIAN_FENG_JUN_ZHEN_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold], deal {Amount} damage to ALL enemies."
+  "TIAN_FENG_JUN_ZHEN_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold], deal {Amount} damage to ALL enemies.",
+  "DI_GUO_YU_WEI_POWER.title": "Imperial Legacy",
+  "DI_GUO_YU_WEI_POWER.description": "The second time you play an [gold]Edict[/gold] each turn, gain {Amount} [gold]FengWei[/gold].",
+  "TIAN_FENG_XING_TAI_POWER.title": "Heavenly Phoenix Form",
+  "TIAN_FENG_XING_TAI_POWER.description": "At the start of your turn, add {Amount} [gold]Edict[/gold] to your [gold]Hand[/gold]."
 }

@@ -44,5 +44,20 @@
   "QING_GONG_CARD.description": "[gold]消耗[/gold][gold]手牌[/gold]中所有非[gold]浴火[/gold]技能牌。每[gold]消耗[/gold]1张，获得{Block:diff()}点[gold]格挡[/gold]。",
   "FENG_GU_ZAI_RAN_CARD.title": "凤骨再燃",
   "FENG_GU_ZAI_RAN_CARD.description": "从[gold]消耗牌堆[/gold]选择1张[gold]浴火[/gold]牌加入[gold]手牌[/gold]，它本回合费用-{Cards:diff()}。",
-  "FENG_GU_ZAI_RAN_CARD.selectionScreenPrompt": "选择1张浴火牌加入手牌。"
+  "FENG_GU_ZAI_RAN_CARD.selectionScreenPrompt": "选择1张浴火牌加入手牌。",
+  "EDICT_CARD.title": "诏令",
+  "EDICT_CARD.description": "[gold]消耗[/gold]1张[gold]手牌[/gold]。若为攻击牌，获得{Cards:diff()}点[gold]星[/gold]；若为技能牌，获得{Cards:diff()}点[gold]月[/gold]；若为能力牌，获得{Cards:diff()}点[gold]星[/gold]与{Cards:diff()}点[gold]月[/gold]。",
+  "EDICT_CARD.selectionScreenPrompt": "选择1张手牌消耗。",
+  "CHUAN_LING_CARD.title": "传令",
+  "CHUAN_LING_CARD.description": "将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
+  "MI_ZHAO_CARD.title": "密诏",
+  "MI_ZHAO_CARD.description": "将{Cards:diff()}张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
+  "WANG_QUAN_CARD.title": "王权",
+  "WANG_QUAN_CARD.description": "[gold]消耗[/gold][gold]手牌[/gold]中所有[gold]诏令[/gold]。每[gold]消耗[/gold]1张，获得1点[gold]凤威[/gold]并抽1张牌。",
+  "DI_GUO_YU_WEI_CARD.title": "帝国余威",
+  "DI_GUO_YU_WEI_CARD.description": "你每回合第二次打出[gold]诏令[/gold]时，获得1点[gold]凤威[/gold]。",
+  "CHENG_TIAN_SHOU_MING_CARD.title": "承天受命",
+  "CHENG_TIAN_SHOU_MING_CARD.description": "获得3点[gold]凤威[/gold]。将2张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
+  "TIAN_FENG_XING_TAI_CARD.title": "天凤形态",
+  "TIAN_FENG_XING_TAI_CARD.description": "获得{Cards:diff()}点[gold]凤威[/gold]。每回合开始时，将1张[gold]诏令[/gold]加入[gold]手牌[/gold]。"
 }

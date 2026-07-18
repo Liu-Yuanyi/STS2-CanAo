@@ -16,5 +16,9 @@
   "PAN_XUAN_POWER.title": "盘旋",
   "PAN_XUAN_POWER.description": "本回合每生成1张[gold]星月合击[/gold]，获得{Amount}点格挡。",
   "TIAN_FENG_JUN_ZHEN_POWER.title": "天凤军阵",
-  "TIAN_FENG_JUN_ZHEN_POWER.description": "每当你生成[gold]星月合击[/gold]时，对所有敌人造成{Amount}点伤害。"
+  "TIAN_FENG_JUN_ZHEN_POWER.description": "每当你生成[gold]星月合击[/gold]时，对所有敌人造成{Amount}点伤害。",
+  "DI_GUO_YU_WEI_POWER.title": "帝国余威",
+  "DI_GUO_YU_WEI_POWER.description": "每回合第二次打出[gold]诏令[/gold]时，获得{Amount}点[gold]凤威[/gold]。",
+  "TIAN_FENG_XING_TAI_POWER.title": "天凤形态",
+  "TIAN_FENG_XING_TAI_POWER.description": "每回合开始时，将{Amount}张[gold]诏令[/gold]加入[gold]手牌[/gold]。"
 }

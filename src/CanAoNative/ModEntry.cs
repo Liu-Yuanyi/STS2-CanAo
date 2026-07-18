@@ -15,7 +15,7 @@ public static class ModEntry
 {
     public const string ModId = "CanAoNative";
     public const string BuildMarker =
-        "CANAO_NATIVE_R7_EXHAUST_EVENTS_20260717_FIX2";
+        "CANAO_NATIVE_R8_EDICT_SYSTEM_20260717";
 
     private static readonly Logger Log =
         new(ModId, LogType.Generic);
@@ -62,6 +62,12 @@ public static class ModEntry
         ModHelper.AddModelToPool<ColorlessCardPool, FenGaoJiGuiCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, QingGongCard>();
         ModHelper.AddModelToPool<ColorlessCardPool, FengGuZaiRanCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, ChuanLingCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, MiZhaoCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, WangQuanCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, DiGuoYuWeiCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, ChengTianShouMingCard>();
+        ModHelper.AddModelToPool<ColorlessCardPool, TianFengXingTaiCard>();
 
         Harmony harmony =
             new($"{ModId}.RuntimePatches");
@@ -93,6 +99,15 @@ public static class ModEntry
             $"YuHuoStrike={ModelDb.GetId(typeof(YuHuoStrikeCard))}, " +
             $"FenGaoJiGui={ModelDb.GetId(typeof(FenGaoJiGuiCard))}, " +
             $"QingGong={ModelDb.GetId(typeof(QingGongCard))}, " +
-            $"FengGuZaiRan={ModelDb.GetId(typeof(FengGuZaiRanCard))}");
+            $"FengGuZaiRan={ModelDb.GetId(typeof(FengGuZaiRanCard))}, " +
+            $"Edict={ModelDb.GetId(typeof(EdictCard))}, " +
+            $"ChuanLing={ModelDb.GetId(typeof(ChuanLingCard))}, " +
+            $"MiZhao={ModelDb.GetId(typeof(MiZhaoCard))}, " +
+            $"WangQuan={ModelDb.GetId(typeof(WangQuanCard))}, " +
+            $"DiGuoYuWei={ModelDb.GetId(typeof(DiGuoYuWeiCard))}, " +
+            $"DiGuoYuWeiPower={ModelDb.GetId(typeof(DiGuoYuWeiPower))}, " +
+            $"ChengTianShouMing={ModelDb.GetId(typeof(ChengTianShouMingCard))}, " +
+            $"TianFengXingTai={ModelDb.GetId(typeof(TianFengXingTaiCard))}, " +
+            $"TianFengXingTaiPower={ModelDb.GetId(typeof(TianFengXingTaiPower))}");
     }
 }
