@@ -28,6 +28,9 @@ public static class FengWeiService
     {
         ArgumentNullException.ThrowIfNull(player);
 
+        if (player.Creature.GetPower<FuBiPower>() != null)
+            return 0m;
+
         TemporaryFengWeiPower? power =
             player.Creature.GetPower<TemporaryFengWeiPower>();
 

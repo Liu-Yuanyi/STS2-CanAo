@@ -1,20 +1,17 @@
 using CanAoNative.Pools;
 using CanAoNative.Powers;
-using CanAoNative.Rules.YuHuo;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 淬火：浴火。在本回合获得 2（3）点力量。将一张此牌的复制品加入手牌。
+/// 辉耀：失去所有格挡，每失去 2 格挡，获得 1 星。消耗。
 /// </summary>
-public sealed class CuiHuoCard : CardModel, IIntrinsicYuHuo
+public sealed class HuiYaoCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -22,18 +19,16 @@ public sealed class CuiHuoCard : CardModel, IIntrinsicYuHuo
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    public bool HasIntrinsicYuHuo => true;
-
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
-        new CardsVar(2)
+        CardKeyword.Exhaust
     ];
 
-    public CuiHuoCard()
+    public HuiYaoCard()
         : base(
             canonicalEnergyCost: 1,
             type: CardType.Skill,
-            rarity: CardRarity.Uncommon,
+            rarity: CardRarity.Rare,
             targetType: TargetType.Self)
     {
     }
@@ -44,31 +39,26 @@ public sealed class CuiHuoCard : CardModel, IIntrinsicYuHuo
     {
         Player owner = Owner
             ?? throw new InvalidOperationException(
-                "CuiHuo requires a card owner.");
+                "HuiYao requires a card owner.");
 
-        if (CombatState is not { } combatState)
+        int stars =
+            (int)(owner.Creature.Block / 2m);
+
+        if (stars <= 0)
             return;
 
-        await PowerCmd.Apply<CuiHuoTemporaryStrengthPower>(
+        owner.Creature.LoseBlockInternal(owner.Creature.Block);
+
+        await PowerCmd.Apply<StarPower>(
             choiceContext,
             owner.Creature,
-            DynamicVars.Cards.IntValue,
+            stars,
             owner.Creature,
             this);
-
-        CuiHuoCard copy = combatState.CreateCard<CuiHuoCard>(owner);
-
-        if (IsUpgraded)
-            CardCmd.Upgrade(copy);
-
-        await CardPileCmd.AddGeneratedCardToCombat(
-            copy,
-            PileType.Hand,
-            owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

@@ -24,5 +24,9 @@
   "XING_YUE_WANG_GUAN_POWER.title": "星月王冠",
   "XING_YUE_WANG_GUAN_POWER.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击[/gold]。",
   "ZUI_HOU_YI_WU_POWER.title": "最后一舞",
-  "ZUI_HOU_YI_WU_POWER.description": "回合结束时，每拥有一张[gold]手牌[/gold]，失去{Amount}点生命。"
+  "ZUI_HOU_YI_WU_POWER.description": "回合结束时，每拥有一张[gold]手牌[/gold]，失去{Amount}点生命。",
+  "BU_SI_FENG_QU_POWER.title": "不死凤躯",
+  "BU_SI_FENG_QU_POWER.description": "下一次你将受到致命伤害时，改为保留1点生命。",
+  "FU_BI_POWER.title": "复辟",
+  "FU_BI_POWER.description": "本回合临时[gold]凤威[/gold]不计入有效[gold]凤威[/gold]。"
 }

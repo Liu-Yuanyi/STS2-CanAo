@@ -24,5 +24,9 @@
   "XING_YUE_WANG_GUAN_POWER.title": "Star-Moon Crown",
   "XING_YUE_WANG_GUAN_POWER.description": "The first time you gain [gold]FengWei[/gold] each turn, gain 1 [gold]Star-Moon Strike[/gold].",
   "ZUI_HOU_YI_WU_POWER.title": "Final Dance",
-  "ZUI_HOU_YI_WU_POWER.description": "At the end of your turn, lose {Amount} HP for each card in your [gold]Hand[/gold]."
+  "ZUI_HOU_YI_WU_POWER.description": "At the end of your turn, lose {Amount} HP for each card in your [gold]Hand[/gold].",
+  "BU_SI_FENG_QU_POWER.title": "Undying Phoenix",
+  "BU_SI_FENG_QU_POWER.description": "The next time you would die, keep 1 HP instead.",
+  "FU_BI_POWER.title": "Restoration",
+  "FU_BI_POWER.description": "Temporary [gold]FengWei[/gold] does not count this turn."
 }
