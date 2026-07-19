@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 布诏：（多人游戏专属）所有其他玩家获得一张【诏令】。
+/// 布诏：所有其他玩家获得一张【诏令】。多人游戏专属。
 /// </summary>
 public sealed class BuZhaoCard : CardModel
 {
@@ -18,6 +18,9 @@ public sealed class BuZhaoCard : CardModel
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
+
+    public override CardMultiplayerConstraint MultiplayerConstraint =>
+        CardMultiplayerConstraint.MultiplayerOnly;
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

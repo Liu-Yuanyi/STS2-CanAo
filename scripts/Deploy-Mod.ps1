@@ -57,25 +57,16 @@ if (Test-Path $BuiltPdb) {
     Copy-Item $BuiltPdb (Join-Path $StageDir "CanAoNative.pdb") -Force
 }
 
-$PckTool = Join-Path $PSScriptRoot "godotpcktool.exe"
+$PckScript = Join-Path $PSScriptRoot "Pack-Pck.py"
 $BuiltPck = Join-Path $StageDir "CanAoNative.pck"
 
-if (-not (Test-Path $PckTool)) {
-    throw ("PCK tool not found: {0}" -f $PckTool)
+if (-not (Test-Path $PckScript)) {
+    throw ("PCK pack script not found: {0}" -f $PckScript)
 }
 
 Push-Location $Root
 try {
-    & $PckTool `
-        --pack $BuiltPck `
-        --action add `
-        --file "godot/CanAoNative" `
-        --file "godot/scenes" `
-        --file "godot/images" `
-        --file "godot/materials" `
-        --remove-prefix "godot/" `
-        --set-godot-version 4.5.0 `
-        --quieter
+    python $PckScript $BuiltPck
 }
 finally {
     Pop-Location

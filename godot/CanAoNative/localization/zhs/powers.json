@@ -22,5 +22,7 @@
   "TIAN_FENG_XING_TAI_POWER.title": "天凤形态",
   "TIAN_FENG_XING_TAI_POWER.description": "每回合开始时，将{Amount}张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
   "XING_YUE_WANG_GUAN_POWER.title": "星月王冠",
-  "XING_YUE_WANG_GUAN_POWER.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击[/gold]。"
+  "XING_YUE_WANG_GUAN_POWER.description": "每回合第一次获得[gold]凤威[/gold]时，获得1张[gold]星月合击[/gold]。",
+  "ZUI_HOU_YI_WU_POWER.title": "最后一舞",
+  "ZUI_HOU_YI_WU_POWER.description": "回合结束时，每拥有一张[gold]手牌[/gold]，失去{Amount}点生命。"
 }
