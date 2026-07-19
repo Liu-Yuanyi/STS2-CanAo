@@ -25,5 +25,6 @@
   "DI_GUO_NIAN_BIAO_RELIC.flavor": "编年自此始。",
   "DI_GUO_SHI_CE_RELIC.title": "帝国史册",
   "DI_GUO_SHI_CE_RELIC.description": "每回合第一次打出攻击牌时，获得1点[gold]星[/gold]；第一次打出技能牌时，获得1点[gold]月[/gold]。",
-  "DI_GUO_SHI_CE_RELIC.flavor": "每一页，都是一次重生。"
+  "DI_GUO_SHI_CE_RELIC.flavor": "每一页，都是一次重生。",
+  "SEA_GLASS.CAN_AO.title": "残烬之璃"
 }

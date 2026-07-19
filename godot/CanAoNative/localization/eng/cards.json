@@ -174,5 +174,10 @@
   "YAN_QING_BA_FANG_CARD.description": "All players heal HP equal to your [gold]FengWei[/gold].",
   "DI_GUO_DA_JI_CARD.title": "Grand Sacrifice",
   "DI_GUO_DA_JI_CARD.description": "[gold]Exhaust[/gold] up to X{IfUpgraded:show:+1|} cards from your [gold]Hand[/gold]. For each card [gold]Exhausted[/gold], lose 1 HP and gain 1 [gold]Star[/gold] and 1 [gold]Moon[/gold].",
-  "DI_GUO_DA_JI_CARD.selectionScreenPrompt": "Choose up to {Amount} cards to Exhaust."
+  "DI_GUO_DA_JI_CARD.selectionScreenPrompt": "Choose up to {Amount} cards to Exhaust.",
+  "FEN_JUE_CARD.title": "Incinerating Canon",
+  "FEN_JUE_CARD.description": "Draw {Cards:diff()} cards, then [gold]Exhaust[/gold] any number of cards from your [gold]Hand[/gold].",
+  "FEN_JUE_CARD.selectionScreenPrompt": "Choose any number of cards to Exhaust.",
+  "GUI_YIN_YUN_SHAN_CARD.title": "Retreat to the Fallen Mountain",
+  "GUI_YIN_YUN_SHAN_CARD.description": "Lose {Cards:diff()} [gold]FengWei[/gold] and {Cards:diff()} [gold]Strength[/gold]. Skills cost 1 less."
 }

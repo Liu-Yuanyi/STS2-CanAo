@@ -25,5 +25,6 @@
   "DI_GUO_NIAN_BIAO_RELIC.flavor": "Thus begins the chronicle.",
   "DI_GUO_SHI_CE_RELIC.title": "Imperial Annals",
   "DI_GUO_SHI_CE_RELIC.description": "The first time you play an Attack each turn, gain 1 [gold]Star[/gold]. The first time you play a Skill each turn, gain 1 [gold]Moon[/gold].",
-  "DI_GUO_SHI_CE_RELIC.flavor": "Every page is a rebirth."
+  "DI_GUO_SHI_CE_RELIC.flavor": "Every page is a rebirth.",
+  "SEA_GLASS.CAN_AO.title": "Ember Glass"
 }

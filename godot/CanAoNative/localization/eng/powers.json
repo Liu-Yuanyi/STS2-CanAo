@@ -28,5 +28,7 @@
   "BU_SI_FENG_QU_POWER.title": "Undying Phoenix",
   "BU_SI_FENG_QU_POWER.description": "The next time you would die, keep 1 HP instead.",
   "FU_BI_POWER.title": "Restoration",
-  "FU_BI_POWER.description": "Temporary [gold]FengWei[/gold] does not count this turn."
+  "FU_BI_POWER.description": "Temporary [gold]FengWei[/gold] does not count this turn.",
+  "GUI_YIN_YUN_SHAN_POWER.title": "Retreat to the Fallen Mountain",
+  "GUI_YIN_YUN_SHAN_POWER.description": "Skills cost 1 less."
 }

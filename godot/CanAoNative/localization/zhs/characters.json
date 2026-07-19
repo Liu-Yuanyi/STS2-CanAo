@@ -12,5 +12,6 @@
   "CAN_AO.bestiaryQuote": "灰烬之中，必有复燃。",
   "CAN_AO.bestiaryKillQuote": "帝国的债，用血来偿。",
   "CAN_AO.unlockText": "以{Prerequisite}完成一次游戏以解锁残傲。",
-  "CAN_AO.goldMonologue": "财富堆满了旧帝国的废墟……我收回了。"
+  "CAN_AO.goldMonologue": "[sine][orange]财富堆满了旧帝国的废墟……我收回了。[/orange][/sine]",
+  "CAN_AO.aromaPrinciple": "[sine][orange]灰烬尚不能令我低头，何况一缕香气。[/orange][/sine]"
 }

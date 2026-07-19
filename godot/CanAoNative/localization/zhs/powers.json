@@ -28,5 +28,7 @@
   "BU_SI_FENG_QU_POWER.title": "不死凤躯",
   "BU_SI_FENG_QU_POWER.description": "下一次你将受到致命伤害时，改为保留1点生命。",
   "FU_BI_POWER.title": "复辟",
-  "FU_BI_POWER.description": "本回合临时[gold]凤威[/gold]不计入有效[gold]凤威[/gold]。"
+  "FU_BI_POWER.description": "本回合临时[gold]凤威[/gold]不计入有效[gold]凤威[/gold]。",
+  "GUI_YIN_YUN_SHAN_POWER.title": "归隐陨山",
+  "GUI_YIN_YUN_SHAN_POWER.description": "技能牌的费用-1。"
 }

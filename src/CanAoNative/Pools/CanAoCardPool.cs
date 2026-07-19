@@ -86,6 +86,8 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<NiePanCard>(),
         ModelDb.Card<YanQingBaFangCard>(),
         ModelDb.Card<DiGuoDaJiCard>(),
+        ModelDb.Card<FenJueCard>(),
+        ModelDb.Card<GuiYinYunShanCard>(),
         ModelDb.Card<ChuanLingCard>(),
         ModelDb.Card<MiZhaoCard>(),
         ModelDb.Card<WangQuanCard>(),

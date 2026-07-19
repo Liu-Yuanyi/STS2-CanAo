@@ -12,5 +12,6 @@
   "CAN_AO.bestiaryQuote": "From ashes, rekindled.",
   "CAN_AO.bestiaryKillQuote": "The empire's debt is paid in blood.",
   "CAN_AO.unlockText": "Complete a run as {Prerequisite} to unlock Can Ao.",
-  "CAN_AO.goldMonologue": "Riches buried in the old empire's ruins... reclaimed at last."
+  "CAN_AO.goldMonologue": "[sine][orange]Riches buried in the old empire's ruins... reclaimed at last.[/orange][/sine]",
+  "CAN_AO.aromaPrinciple": "[sine][orange]Ashes could not bow me. A fragrance will not.[/orange][/sine]"
 }
