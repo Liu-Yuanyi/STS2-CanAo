@@ -53,13 +53,21 @@ public sealed class SacrificialPreparationCard : CardModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        bool IsEligible(CardModel candidate) =>
-            !ReferenceEquals(candidate, this)
-            && candidate.Type != CardType.Power;
-
         Player owner = Owner
             ?? throw new InvalidOperationException(
                 "Sacrificial Preparation requires a card owner.");
+
+        ICombatState? combatState =
+            CombatState ?? owner.Creature.CombatState;
+
+        if (combatState == null)
+            return;
+
+        // 已有浴火的牌不能再选（参考原生响指/雕琢打击的同类过滤）。
+        bool IsEligible(CardModel candidate) =>
+            !ReferenceEquals(candidate, this)
+            && candidate.Type != CardType.Power
+            && !YuHuoService.HasYuHuo(candidate, combatState);
 
         int eligibleCount =
             owner.PlayerCombatState.Hand.Cards.Count(IsEligible);
@@ -85,12 +93,6 @@ public sealed class SacrificialPreparationCard : CardModel
                 IsEligible,
                 this))
             .ToList();
-
-        ICombatState? combatState =
-            CombatState ?? owner.Creature.CombatState;
-
-        if (combatState == null)
-            return;
 
         foreach (CardModel card in selected)
         {

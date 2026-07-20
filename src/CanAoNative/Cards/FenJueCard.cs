@@ -1,5 +1,7 @@
 using CanAoNative.Pools;
+using CanAoNative.Rules.YuHuo;
 using MegaCrit.Sts2.Core.CardSelection;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -62,6 +64,14 @@ public sealed class FenJueCard : CardModel
             SelectionScreenPrompt,
             0,
             handCount);
+
+        // 选择消耗目标时，浴火牌金色高亮（同原生奇巧弃牌高亮）。
+        if ((CombatState ?? owner.Creature.CombatState)
+            is { } combatState)
+        {
+            prefs.ShouldGlowGold =
+                card => YuHuoService.HasYuHuo(card, combatState);
+        }
 
         List<CardModel> selected =
             (await CardSelectCmd.FromHand(
