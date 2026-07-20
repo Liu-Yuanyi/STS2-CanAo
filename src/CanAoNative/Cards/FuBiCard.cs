@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
@@ -22,6 +23,12 @@ public sealed class FuBiCard : CardModel
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<FengWeiPower>(),
+        HoverTipFactory.FromCard<StarMoonStrike>()
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -45,14 +52,19 @@ public sealed class FuBiCard : CardModel
             ?? throw new InvalidOperationException(
                 "FuBi requires a card owner.");
 
-        decimal current = FengWeiService.GetPermanentAmount(owner);
+        decimal currentPermanent = FengWeiService.GetPermanentAmount(owner);
+
+        // 调整量按有效凤威计算：（原永久 + 原临时）- 目标值。
+        // 必须在施加 FuBiPower 之前读取临时凤威，否则读数会被归零。
+        decimal oldEffective =
+            currentPermanent + FengWeiService.GetTemporaryAmount(owner);
+
         decimal target = DynamicVars.Cards.IntValue;
-        decimal diff = target - current;
 
         await FengWeiService.GainPermanent(
             choiceContext,
             owner,
-            diff,
+            target - currentPermanent,
             this);
 
         await PowerCmd.Apply<FuBiPower>(
@@ -62,7 +74,8 @@ public sealed class FuBiCard : CardModel
             owner.Creature,
             this);
 
-        int strikes = (int)Math.Abs(diff);
+        // 施加 FuBiPower 后有效凤威即目标值（临时凤威本回合不计）。
+        int strikes = (int)Math.Abs(oldEffective - target);
 
         if (strikes > 0)
         {

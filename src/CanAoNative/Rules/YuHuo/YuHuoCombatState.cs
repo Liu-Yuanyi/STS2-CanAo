@@ -12,6 +12,9 @@ public sealed class YuHuoCombatState
     private readonly Dictionary<CardModel, TemporaryYuHuoGrant> _temporaryGrants =
         new(ReferenceEqualityComparer.Instance);
 
+    private readonly Dictionary<CardModel, Player> _permanentGrants =
+        new(ReferenceEqualityComparer.Instance);
+
     private readonly HashSet<CardModel> _resolving =
         new(ReferenceEqualityComparer.Instance);
 
@@ -28,6 +31,24 @@ public sealed class YuHuoCombatState
                 owner,
                 GrantedTurn: currentTurn,
                 ExpiresAfterTurn: currentTurn);
+    }
+
+    /// <summary>
+    /// Grants 浴火 without a turn expiry. Combat-scoped like all YuHuo state:
+    /// the grant lives until the card leaves the combat or the combat ends.
+    /// </summary>
+    public void GrantPermanent(CardModel card, Player owner)
+    {
+        ArgumentNullException.ThrowIfNull(card);
+        ArgumentNullException.ThrowIfNull(owner);
+
+        _permanentGrants[card] = owner;
+    }
+
+    public bool HasPermanentYuHuo(CardModel card, Player owner)
+    {
+        return _permanentGrants.TryGetValue(card, out Player? grantOwner)
+               && ReferenceEquals(grantOwner, owner);
     }
 
     public bool HasTemporaryYuHuo(

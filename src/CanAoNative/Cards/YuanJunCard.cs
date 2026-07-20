@@ -69,7 +69,7 @@ public sealed class YuanJunCard : CardModel
                 PileType.Hand,
                 owner);
 
-            YuHuoService.GrantUntilTurnEnd(
+            YuHuoService.GrantPermanent(
                 strike,
                 owner,
                 combatState);

@@ -45,6 +45,29 @@ public static class YuHuoService
             owner.PlayerCombatState.TurnNumber);
     }
 
+    /// <summary>
+    /// Grants 浴火 for the rest of the combat (no turn expiry). The grant is
+    /// still scoped to the combat and the owning player like all YuHuo state.
+    /// </summary>
+    public static void GrantPermanent(
+        CardModel card,
+        Player owner,
+        ICombatState combatState)
+    {
+        ArgumentNullException.ThrowIfNull(card);
+        ArgumentNullException.ThrowIfNull(owner);
+        ArgumentNullException.ThrowIfNull(combatState);
+
+        Player? cardOwner = card.Owner;
+        if (cardOwner == null || !ReferenceEquals(cardOwner, owner))
+        {
+            throw new InvalidOperationException(
+                "Permanent YuHuo can only be granted by the card's owner.");
+        }
+
+        GetState(combatState).GrantPermanent(card, owner);
+    }
+
     public static bool HasYuHuo(
         CardModel card,
         ICombatState combatState)
@@ -55,6 +78,9 @@ public static class YuHuoService
         Player? owner = card.Owner;
         if (owner == null)
             return false;
+
+        if (GetState(combatState).HasPermanentYuHuo(card, owner))
+            return true;
 
         int currentTurn = owner.PlayerCombatState.TurnNumber;
 

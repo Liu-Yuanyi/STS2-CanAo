@@ -15,7 +15,7 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// 焚膏继晷：消耗不超过 1（2）张手牌。若至少消耗 1 张浴火牌，
-/// 获得 1 星与 1 月。消耗。
+/// 获得 1 星与 1 月。
 /// </summary>
 public sealed class FenGaoJiGuiCard : CardModel
 {
@@ -30,11 +30,6 @@ public sealed class FenGaoJiGuiCard : CardModel
         HoverTipFactory.FromPower<StarPower>(),
         HoverTipFactory.FromPower<MoonPower>(),
         CanAoHoverTips.YuHuo
-    ];
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
-    [
-        CardKeyword.Exhaust
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

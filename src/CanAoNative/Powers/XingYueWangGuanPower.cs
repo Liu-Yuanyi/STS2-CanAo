@@ -8,13 +8,12 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 星月王冠：每回合第一次获得凤威（永久或临时）时，
-/// 一次性获得 Amount 张星月合击。首个触发即锁存，
-/// 同回合后续获得（如凤威酒的第二段）自然被忽略。
+/// 星月王冠：每回合前 Amount 次获得凤威（永久或临时）时，
+/// 各获得 1 张星月合击。触发次数在拥有者回合开始时重置。
 /// </summary>
 public sealed class XingYueWangGuanPower : PowerModel
 {
-    private bool _triggeredThisTurn;
+    private int _triggersUsedThisTurn;
 
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
@@ -26,7 +25,7 @@ public sealed class XingYueWangGuanPower : PowerModel
         Creature? applier,
         CardModel? cardSource)
     {
-        if (_triggeredThisTurn
+        if (_triggersUsedThisTurn >= Amount
             || amount <= 0
             || power is not (FengWeiPower or TemporaryFengWeiPower)
             || !ReferenceEquals(power.Owner, Owner)
@@ -35,13 +34,13 @@ public sealed class XingYueWangGuanPower : PowerModel
             return;
         }
 
-        _triggeredThisTurn = true;
+        _triggersUsedThisTurn++;
         Flash();
 
         await StarMoonService.Generate(
             choiceContext,
             player,
-            (int)Amount,
+            1,
             applier,
             cardSource);
     }
@@ -51,7 +50,7 @@ public sealed class XingYueWangGuanPower : PowerModel
         Player player)
     {
         if (ReferenceEquals(player.Creature, Owner))
-            _triggeredThisTurn = false;
+            _triggersUsedThisTurn = 0;
 
         return Task.CompletedTask;
     }
