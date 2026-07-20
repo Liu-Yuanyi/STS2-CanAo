@@ -9,7 +9,8 @@ using CanAoNative.Pools;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤魂：每回合第一次消耗牌时，抽 2 张牌。升级后获得固有。
+/// 凤魂：每回合前1次消耗牌时，抽 2 张牌。可叠加（Counter），层数=触发次数。
+/// 升级后获得固有。
 /// </summary>
 public sealed class FengHunCard : CardModel
 {
