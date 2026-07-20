@@ -19,7 +19,7 @@ if (-not (Test-Path $GameDir)) {
 }
 
 & (Join-Path $PSScriptRoot "Verify-NoBaseLib.ps1")
-& (Join-Path $PSScriptRoot "Verify-R10.ps1")
+& (Join-Path $PSScriptRoot "Verify-R11.ps1")
 
 Get-Process SlayTheSpire2, Godot -ErrorAction SilentlyContinue |
     Stop-Process -Force
