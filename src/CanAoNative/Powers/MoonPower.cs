@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 月：在拥有者回合结束时清除。
+/// 月：在拥有者回合结束时清除。守缺存在时保留至多守缺层数点。
 /// </summary>
 public sealed class MoonPower : PowerModel
 {
@@ -23,12 +23,19 @@ public sealed class MoonPower : PowerModel
         if (participants.All(creature => creature != Owner))
             return;
 
-        if (Amount != 0)
+        // 守缺：回合末清除时保留至多 ShouQuePower.Amount 点月。
+        decimal removal = Amount;
+        ShouQuePower? shouQue = Owner.GetPower<ShouQuePower>();
+
+        if (shouQue != null)
+            removal = Math.Max(0m, Amount - shouQue.Amount);
+
+        if (removal != 0)
         {
             await PowerCmd.ModifyAmount(
                 choiceContext,
                 this,
-                -Amount,
+                -removal,
                 Owner,
                 cardSource: null,
                 silent: true);

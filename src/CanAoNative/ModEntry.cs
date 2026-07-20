@@ -18,7 +18,7 @@ public static class ModEntry
 {
     public const string ModId = "CanAoNative";
     public const string BuildMarker =
-        "CANAO_NATIVE_R10_CHARACTER_20260717";
+        "CANAO_NATIVE_R11_POWER_CARDS_20260719";
 
     private static readonly Logger Log =
         new(ModId, LogType.Generic);
