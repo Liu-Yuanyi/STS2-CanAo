@@ -116,7 +116,7 @@ if ($Unexpected) {
 Write-Host ""
 Write-Host "Deployment verified."
 Write-Host "Expected runtime log marker:"
-Write-Host "  CANAO_NATIVE_R10_CHARACTER_20260717"
+Write-Host "  CANAO_NATIVE_R11_POWER_CARDS_20260719"
 Write-Host ""
 Get-ChildItem $InstallDir |
     Select-Object Name, Length, LastWriteTime

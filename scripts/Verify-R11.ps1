@@ -11,6 +11,8 @@ $RelicsLocZh = Join-Path $Root "godot\CanAoNative\localization\zhs\relics.json"
 $RelicsLocEn = Join-Path $Root "godot\CanAoNative\localization\eng\relics.json"
 $CharsLocZh = Join-Path $Root "godot\CanAoNative\localization\zhs\characters.json"
 $CharsLocEn = Join-Path $Root "godot\CanAoNative\localization\eng\characters.json"
+$AncientsLocZh = Join-Path $Root "godot\CanAoNative\localization\zhs\ancients.json"
+$AncientsLocEn = Join-Path $Root "godot\CanAoNative\localization\eng\ancients.json"
 
 $StrictUtf8 = [System.Text.UTF8Encoding]::new($false, $true)
 $Utf8NoBom = [System.Text.UTF8Encoding]::new($false)
@@ -57,6 +59,10 @@ $RequiredFiles = @(
     "Relics\DiGuoNianBiaoRelic.cs",
     "Relics\DiGuoShiCeRelic.cs",
     "Cards\HuoRenCard.cs",
+    "Cards\YuanJunStrikeCard.cs",
+    "Patches\BossEpochCharacterPatch.cs",
+    "Patches\ArchitectWinRunPatch.cs",
+    "Patches\ArchitectCanAoDialoguePatch.cs",
     "Cards\BuDuoCard.cs",
     "Cards\FengHunCard.cs",
     "Cards\JiaoHuiCard.cs",
@@ -94,11 +100,11 @@ foreach ($RelativePath in $RequiredFiles) {
 # are validated structurally below rather than frozen here.
 $VerifiedHashes = [ordered]@{
     "Cards\FeatherRanksCard.cs" = "4273e2087c9faf972c906922bc8c6f058b87057d8affea32569000a1ab630e50"
-    "Cards\SacrificialPreparationCard.cs" = "8911402c0992f909095201b846d876e31a9baf3cd73676ecbcc180cc7fd8652b"
+    "Cards\SacrificialPreparationCard.cs" = "122edff060155850b0c64ad952ff847c0b503d448e603ddaf4a7b3768b892984"
     "Cards\StarMoonStrike.cs" = "f1bd692192eaef834d49b21801cc1e1f34c74b69f8aa2e6db3e16c675f3ec04a"
     "Cards\YuHuoBannerCard.cs" = "69e5e1d9a68a61a0326557afa8a4abda9014ce8f2f8e47a706aa42e273dfb58b"
     "Cards\ShiWeiCard.cs" = "99b020cadaa391f83ab781f175924c12dbbdd6de56afeb947960f39cbce67a96"
-    "Cards\ZanBiFengMangCard.cs" = "a20c565c4aaffba178f8e9c06f54c9fe05a918c93b34ed947b71055b74d03f36"
+    "Cards\ZanBiFengMangCard.cs" = "d3730579491594a67607aebeb3e6375b577b72cc94611bc595925aabdacd6042"
     "Powers\FengWeiPower.cs" = "1d3df1fdfd1a7f272ca3c9e7fe44a38c0b7b6ebde470fda8b07010c542eb716b"
     "Powers\YuHuoBannerPower.cs" = "3f497726be9b58122f2fd5495d6f6b435b8b371bdd3ae13379521f654e659de9"
     "Powers\YuHuoBannerTemporaryStrengthPower.cs" = "66e32ad32cc12d7fc4bc415e2b19a2b6c65fe1e62809fd45f1538747d3054d27"
@@ -127,7 +133,7 @@ $VerifiedHashes = [ordered]@{
     "Rules\Exhaust\ExhaustService.cs" = "360ed8f8e2e5601fb94ad575e7110e9eba0c3b35d3f07049977e73cb7ae000c1"
     "Cards\ZhengZhaoCard.cs" = "ed0aff57b9af3c21a11e3815f15553d5f42b78bbda56ca27b5f6b5b29ef4561a"
     "Cards\YuHuoStrikeCard.cs" = "c022fd5a4791b96f4b5c3e85149c1f8f918108cc1faac41c82bee1a16caf7689"
-    "Cards\FenGaoJiGuiCard.cs" = "f5ee7b5ca591a95d885763011e3e0075cdf7c74cdd52270639c262c43d7743d0"
+    "Cards\FenGaoJiGuiCard.cs" = "3dbc62dbb0dd3c111e6ea7946ff3a236c945018a69c0d57740b959903d56cce4"
     "Cards\QingGongCard.cs" = "124a7998412c67a9ef88a1c671c7b2796f294a5096ef64463bcc63a7f7430349"
     "Cards\FengGuZaiRanCard.cs" = "9e40ce13b87222b0835e6ff34a67f06ab4e9c4dd4b3ba0d75a1d7ff031d374a2"
     "Rules\YuHuo\YuHuoDisplay.cs" = "37ddcc6bcc69421de4c65cb2d9178b6ce4319f10740a488714c797d2e24da2d7"
@@ -139,7 +145,7 @@ $VerifiedHashes = [ordered]@{
     "Rules\Edict\IEdictEvents.cs" = "ffec96a14cbe24b529ca11b40ae00afb941ef631fbbce443a12b73f43ad2cca1"
     "Rules\Edict\EdictListenerRegistry.cs" = "b6635a61eb8f857cac9790b1c8522abb933f8a6636101df4761d3edb87d102f3"
     "Rules\Edict\EdictService.cs" = "95973b773ce77263faf995ac5f6909c590daf7733cf2836305080d408beabef6"
-    "Cards\EdictCard.cs" = "4112b5e68fd59ee3955276a0aceb9deee5dd4e9d281841b7111742d917473bc7"
+    "Cards\EdictCard.cs" = "0e0cf0d62b0da3df9ae3a21bc6d5b924737091e2e3054f3f4fb9d24b79b9ccec"
     "Cards\ChuanLingCard.cs" = "018e84c640d1911e48845eeade02cb2fd410c6009c7d334bbaeffee984934d71"
     "Cards\MiZhaoCard.cs" = "4d3f67641090d33a7aca6cb79be11fa055c2db94470d9ebf8c7d19b69374c3c5"
     "Cards\WangQuanCard.cs" = "57332bfc1bce211c6b7793148287efdadb1427fe960dc20ecba567e779682906"
@@ -201,6 +207,11 @@ $RequiredMarkers = @(
     "RelicRarity.Starter",
     "ref Task __result",
     "class HuoRenCard : CardModel, IIntrinsicYuHuo",
+    "class YuanJunStrikeCard : CardModel, IIntrinsicYuHuo",
+    "class ObtainCharUnlockEpochPatch",
+    "class BossEpochCharacterPatch",
+    "class ArchitectWinRunPatch",
+    "class ArchitectCanAoDialoguePatch",
     "class BuDuoCard",
     "class BuDuoPower",
     "class FengHunCard",
@@ -279,6 +290,8 @@ $CardKeys = @(
     "JI_HUO_CARD.selectionScreenPrompt",
     "HUO_REN_CARD.title",
     "HUO_REN_CARD.description",
+    "YUAN_JUN_STRIKE_CARD.title",
+    "YUAN_JUN_STRIKE_CARD.description",
     "BU_DUO_CARD.title",
     "BU_DUO_CARD.description",
     "FENG_HUN_CARD.title",
@@ -348,6 +361,31 @@ foreach ($LocPath in @($PowersLocZh, $PowersLocEn)) {
     foreach ($Key in $PowerKeys) {
         if ($null -eq $Loc.PSObject.Properties[$Key]) {
             throw ("Power localization key missing in {0}: {1}" -f
+                $LocPath, $Key)
+        }
+    }
+}
+
+$AncientKeys = @(
+    "THE_ARCHITECT.talk.CAN_AO.0-0.ancient",
+    "THE_ARCHITECT.talk.CAN_AO.0-0.next",
+    "THE_ARCHITECT.talk.CAN_AO.0-1.char",
+    "THE_ARCHITECT.talk.CAN_AO.0-1.next",
+    "THE_ARCHITECT.talk.CAN_AO.0-2.ancient",
+    "THE_ARCHITECT.talk.CAN_AO.1-0.ancient",
+    "THE_ARCHITECT.talk.CAN_AO.1-0.next",
+    "THE_ARCHITECT.talk.CAN_AO.1-1.char",
+    "THE_ARCHITECT.talk.CAN_AO.2-0.ancient",
+    "THE_ARCHITECT.talk.CAN_AO.2-0.next",
+    "THE_ARCHITECT.talk.CAN_AO.2-1.char"
+)
+
+foreach ($LocPath in @($AncientsLocZh, $AncientsLocEn)) {
+    $Loc = (Read-Utf8Strict $LocPath) | ConvertFrom-Json
+
+    foreach ($Key in $AncientKeys) {
+        if ($null -eq $Loc.PSObject.Properties[$Key]) {
+            throw ("Ancient localization key missing in {0}: {1}" -f
                 $LocPath, $Key)
         }
     }

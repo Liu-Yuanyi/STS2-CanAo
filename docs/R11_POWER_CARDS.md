@@ -137,3 +137,30 @@
      王座孤明/万邦来朝/凤焰不息/天凤形态：原实现已是层数相加，未改。
 8. `CanAoPowerIconPatch` 改为按 `CanAoNative.Powers` 命名空间匹配，
    新 Power 自动获得图标 fallback，不再维护手工清单。
+
+---
+
+# 附三：20260719 实机问题修复（R10 构建测试反馈）
+
+1. **Boss 通关卡死**：`ObtainCharUnlockEpoch` 按 "{CHAR}{act+2}_EPOCH"
+   查原版 epoch 注册表，残傲无注册 → ArgumentException；
+   `CheckFifteenBossesDefeatedEpoch` 硬编码角色链 →
+   ArgumentOutOfRangeException。新增 `Patches/BossEpochCharacterPatch.cs`
+   双 Prefix 跳过（残傲专属 epoch 时间线留待后续阶段）。
+2. **建筑师对话卡死**：`TheArchitect.DefineDialogues` 硬编码原版角色，
+   残傲 Dialogue 为 null，`WinRun` 解引用 NRE。两层修复：
+   `ArchitectWinRunPatch`（无对话时兜底完成通关流程，保护一切
+   Mod 角色）；`ArchitectCanAoDialoguePatch`（Postfix 注入残傲三段
+   对话）+ `ancients.json` 双语台词（验证 Mod loc 能否合并 ancients 表，
+   若失败台词显示为 key，但流程不再卡死）。
+3. 暂避锋芒格挡 13/19 → **11/15**（设计稿同步）。
+4. 援军改产 `YuanJunStrikeCard`（打击的固有浴火令牌版）：
+   牌面、悬浮预览、图鉴均显示"浴火。"行；不再需要逐张授予。
+5. 牺牲准备只能选择**没有浴火**的非能力牌（文本/提示同步）。
+6. 消耗选牌界面浴火牌金色高亮：`CardSelectorPrefs.ShouldGlowGold`，
+   覆盖祭火/焚诀/焚膏继晷/帝国大祭/诏令（登基为抽牌堆选择，
+   原生仅支持手牌选择高亮，未覆盖）。
+7. 文本规范审查：补 3 处加黄（凤威/临时凤威/盘旋 Power 的格挡与凤威），
+   统一星/月计数带"点"（裂空/坠星为月/照月成星/碎月一击/交辉/守缺），
+   统一"加入手牌"不带"你的"（万令齐发/淬火）。
+   探针/描述全文无【】、无手写关键词、无 show() 括号形式残留。

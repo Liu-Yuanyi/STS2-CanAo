@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 暂避锋芒：获得 13（19）点格挡。本回合失去 2 点凤威。
+/// 暂避锋芒：获得 11（15）点格挡。本回合失去 2 点凤威。
 /// </summary>
 public sealed class ZanBiFengMangCard : CardModel
 {
@@ -30,7 +30,7 @@ public sealed class ZanBiFengMangCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(13m, ValueProp.Move),
+        new BlockVar(11m, ValueProp.Move),
         new CardsVar(2)
     ];
 
@@ -61,6 +61,6 @@ public sealed class ZanBiFengMangCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(6m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 }
