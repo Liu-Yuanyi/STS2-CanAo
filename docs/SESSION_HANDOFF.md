@@ -33,6 +33,9 @@ STS2 大量代码用 if-else 链或字典硬编码五名原版角色，Mod 角�
 | `ArchaicTooth.TranscendenceUpgrades` | 古老牙齿无本角色替换映射 | Postfix 加映射（祭火→焚诀） |
 | `TouchOfOrobas.GetUpgradedStarterRelic` | 初始遗物升级回退 Circlet | Postfix 加映射（帝国年表→帝国史册） |
 | 图鉴过滤按钮（场景硬编码节点） | 无残傲分类 | Postfix 克隆按钮 + 注册谓词（`CanAoCardLibraryFilterPatch`） |
+| `ProgressSaveManager.ObtainCharUnlockEpoch` | **Boss 战后卡死**（Epoch 'CAN_AOx_EPOCH' 不存在 → ArgumentException） | Prefix 跳过（`ObtainCharUnlockEpochPatch`；残傲专属 epoch 时间线待做） |
+| `ProgressSaveManager.CheckFifteenBossesDefeatedEpoch` | 同类卡死风险（ArgumentOutOfRange） | Prefix 跳过（`BossEpochCharacterPatch`） |
+| `TheArchitect.DefineDialogues` / `WinRun` | **通关对话卡死**（Dialogue 为 null → WinRun NRE） | WinRun Prefix 兜底通关（`ArchitectWinRunPatch`）+ Postfix 注入残傲对话（`ArchitectCanAoDialoguePatch` + ancients.json） |
 
 **教训**：凡涉及角色的原版功能，先 grep `Id.Entry`、`Character.Id.Entry`、
 角色类名，找硬编码点，全部打补丁或补 key。
