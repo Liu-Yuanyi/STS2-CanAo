@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Relics;
@@ -69,5 +70,17 @@ public sealed class QingLuanYuYiRelic : RelicModel
             1m,
             Owner.Creature,
             null);
+    }
+
+    public override Task BeforeCombatStart()
+    {
+        _qualifiedAfterEnemyTurn = false;
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        _qualifiedAfterEnemyTurn = false;
+        return Task.CompletedTask;
     }
 }

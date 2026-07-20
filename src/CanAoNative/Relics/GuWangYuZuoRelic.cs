@@ -9,6 +9,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace CanAoNative.Relics;
 
@@ -78,5 +79,17 @@ public sealed class GuWangYuZuoRelic : RelicModel
             applier: null,
             cardSource: null,
             upgraded: true);
+    }
+
+    public override Task BeforeCombatStart()
+    {
+        _handWasEmptyAtTurnEnd = false;
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        _handWasEmptyAtTurnEnd = false;
+        return Task.CompletedTask;
     }
 }

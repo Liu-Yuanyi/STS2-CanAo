@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using CanAoNative.Pools;
 
 namespace CanAoNative.Cards;
@@ -25,7 +26,8 @@ public sealed class YuHuoBannerCard : CardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        CanAoHoverTips.YuHuo
+        CanAoHoverTips.YuHuo,
+        HoverTipFactory.FromPower<StrengthPower>()
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

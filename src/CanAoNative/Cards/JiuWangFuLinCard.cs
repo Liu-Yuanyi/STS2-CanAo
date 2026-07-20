@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -24,6 +25,11 @@ public sealed class JiuWangFuLinCard : CardModel
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<FengWeiPower>()
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -80,7 +86,15 @@ public sealed class JiuWangFuLinCard : CardModel
         CombatSide side,
         IEnumerable<Creature> participants)
     {
-        _gainedFengWeiThisTurn = false;
+        // 只在拥有者己方 side-turn 结束时清除；
+        // 敌方（或多人局其他玩家）回合结束不能清掉本回合快照。
+        if (Owner != null
+            && side == Owner.Creature.Side
+            && participants.Contains(Owner.Creature))
+        {
+            _gainedFengWeiThisTurn = false;
+        }
+
         return Task.CompletedTask;
     }
 

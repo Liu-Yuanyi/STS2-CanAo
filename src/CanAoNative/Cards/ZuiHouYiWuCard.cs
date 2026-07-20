@@ -64,7 +64,7 @@ public sealed class ZuiHouYiWuCard : CardModel
             owner);
 
         int toDraw =
-            10 - owner.PlayerCombatState.Hand.Cards.Count;
+            CardPile.MaxCardsInHand - owner.PlayerCombatState.Hand.Cards.Count;
 
         if (toDraw > 0)
             await CardPileCmd.Draw(choiceContext, (decimal)toDraw, owner);

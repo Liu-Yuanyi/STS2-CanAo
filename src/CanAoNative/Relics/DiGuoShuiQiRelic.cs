@@ -1,6 +1,7 @@
 using CanAoNative.Cards;
 using CanAoNative.Rules.Edict;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
@@ -58,21 +59,20 @@ public sealed class DiGuoShuiQiRelic : RelicModel
             1);
     }
 
-    public override Task AfterCardPlayedLate(
+    public override async Task AfterCardPlayedLate(
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
         if (cardPlay.Card is not EdictCard
             || cardPlay.Card.Owner != Owner)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         Flash();
-        Owner.Gold = Math.Max(
-            0,
-            Owner.Gold - DynamicVars.Cards.IntValue);
 
-        return Task.CompletedTask;
+        await PlayerCmd.LoseGold(
+            DynamicVars.Cards.IntValue,
+            Owner);
     }
 }

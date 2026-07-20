@@ -12,16 +12,16 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// YuHuo Slash (浴火斩): test card for the 浴火 (YuHuo) mechanism.
-/// 1-cost Attack, 6(9) damage. 浴火, Exhaust.
+/// 1-cost Attack, 6(8) damage. 浴火, Exhaust.
 ///
 /// When played normally by the player:
 ///   Play → 6 damage → Exhaust keyword triggers → 浴火 intercepts →
 ///   Auto-play → 6 damage → Exhaust keyword → recursion guard blocks → exhausted
-/// Result: 12(18) damage for 1 energy (2 plays)
+/// Result: 12(16) damage for 1 energy (2 plays)
 ///
 /// When force-exhausted without being played (e.g. by Ethereal or Havoc):
-///   浴火 intercepts → Auto-play → 6(9) damage → exhausted
-/// Result: 6(9) damage for 0 energy (1 play)
+///   浴火 intercepts → Auto-play → 6(8) damage → exhausted
+/// Result: 6(8) damage for 0 energy (1 play)
 /// </summary>
 public sealed class YuHuoSlashCard : CardModel, IIntrinsicYuHuo
 {

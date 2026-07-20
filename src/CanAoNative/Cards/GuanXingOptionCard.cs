@@ -1,6 +1,8 @@
 using CanAoNative.Pools;
+using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 
 namespace CanAoNative.Cards;
@@ -15,6 +17,11 @@ public sealed class GuanXingOptionCard : CardModel
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
+
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.FromPower<StarPower>()
+    ];
 
     public GuanXingOptionCard()
         : base(

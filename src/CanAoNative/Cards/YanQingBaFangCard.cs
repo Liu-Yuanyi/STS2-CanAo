@@ -27,7 +27,8 @@ public sealed class YanQingBaFangCard : CardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
-        CardKeyword.Ethereal
+        CardKeyword.Ethereal,
+        CardKeyword.Exhaust
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

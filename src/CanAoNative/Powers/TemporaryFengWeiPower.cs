@@ -32,7 +32,9 @@ public sealed class TemporaryFengWeiPower : PowerModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (cardSource is StarMoonStrike)
+        // 复辟生效期间，临时凤威不计入星月合击。
+        if (cardSource is StarMoonStrike
+            && Owner.GetPower<FuBiPower>() == null)
             return Amount;
 
         return 0m;
@@ -45,7 +47,9 @@ public sealed class TemporaryFengWeiPower : PowerModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (cardSource is StarMoonStrike)
+        // 复辟生效期间，临时凤威不计入星月合击。
+        if (cardSource is StarMoonStrike
+            && Owner.GetPower<FuBiPower>() == null)
             return Amount;
 
         return 0m;

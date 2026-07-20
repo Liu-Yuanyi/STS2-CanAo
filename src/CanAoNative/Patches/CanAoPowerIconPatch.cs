@@ -92,15 +92,10 @@ public static class CanAoPowerIconPatch
             __result = BigFallback;
     }
 
+    /// <summary>
+    /// All CanAo powers live in CanAoNative.Powers; matching by namespace
+    /// keeps the fallback working for future powers without a manual list.
+    /// </summary>
     private static bool IsCanAoPower(PowerModel power) =>
-        power is StarPower
-            or MoonPower
-            or FengWeiPower
-            or TemporaryFengWeiPower
-            or FengYanBuXiPower
-            or YuHuoBannerPower
-            or YuHuoBannerTemporaryStrengthPower
-            or PanXuanPower
-            or TianFengJunZhenPower
-            or CanAoProbePower;
+        power.GetType().Namespace == typeof(StarPower).Namespace;
 }
