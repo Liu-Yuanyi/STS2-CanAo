@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 桂轮：获得 2（3）月。
+/// 桂轮：获得 3（4）月。
 /// </summary>
 public sealed class GuiLunCard : CardModel
 {
@@ -28,7 +28,7 @@ public sealed class GuiLunCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(2)
+        new CardsVar(3)
     ];
 
     public GuiLunCard()

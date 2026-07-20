@@ -11,8 +11,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 最后一舞：虚无。造成 10（15）点伤害，获得 1 费，抽满手牌。
-/// 本回合结束时，每拥有一张手牌，失去 4（3）点生命。消耗。
+/// 最后一舞：虚无。造成 12（18）点伤害，获得 1 费，抽满手牌。
+/// 本回合结束时，每拥有一张手牌，失去 3（2）点生命。消耗。
 /// </summary>
 public sealed class ZuiHouYiWuCard : CardModel
 {
@@ -30,14 +30,14 @@ public sealed class ZuiHouYiWuCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(12m, ValueProp.Move),
         new EnergyVar(1),
-        new CardsVar(4)
+        new CardsVar(3)
     ];
 
     public ZuiHouYiWuCard()
         : base(
-            canonicalEnergyCost: 1,
+            canonicalEnergyCost: 0,
             type: CardType.Attack,
             rarity: CardRarity.Rare,
             targetType: TargetType.AnyEnemy)
@@ -79,7 +79,7 @@ public sealed class ZuiHouYiWuCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.Damage.UpgradeValueBy(6m);
         DynamicVars.Cards.UpgradeValueBy(-1m);
     }
 }

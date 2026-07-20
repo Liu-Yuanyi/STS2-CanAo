@@ -12,14 +12,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 照月成星：获得 9（14）点格挡，若你有月，失去 1 月，获得 2 星。
+/// 照月成星：失去 1 月，获得 2 星，下回合开始时获得 2 星。
 /// </summary>
 public sealed class ZhaoYueChengXingCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
-    public override bool GainsBlock => true;
-
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
@@ -27,11 +25,6 @@ public sealed class ZhaoYueChengXingCard : CardModel
     [
         HoverTipFactory.FromPower<StarPower>(),
         HoverTipFactory.FromPower<MoonPower>()
-    ];
-
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
-    [
-        new BlockVar(9m, ValueProp.Move)
     ];
 
     public ZhaoYueChengXingCard()
@@ -50,11 +43,6 @@ public sealed class ZhaoYueChengXingCard : CardModel
         Player owner = Owner
             ?? throw new InvalidOperationException(
                 "ZhaoYue ChengXing requires a card owner.");
-
-        await CreatureCmd.GainBlock(
-            owner.Creature,
-            DynamicVars.Block,
-            cardPlay);
 
         if (owner.Creature.GetPower<MoonPower>() is not
             { Amount: > 0 } moonPower)
@@ -75,10 +63,19 @@ public sealed class ZhaoYueChengXingCard : CardModel
             2m,
             owner.Creature,
             this);
+
+        // Deferred 2 stars at next turn start.
+        // A tiny power that auto-removes after granting the stars.
+        await PowerCmd.Apply<ZhaoYueChengXingPower>(
+            choiceContext,
+            owner.Creature,
+            1m,
+            owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(5m);
+        // No upgrade — card is already complete at base.
     }
 }

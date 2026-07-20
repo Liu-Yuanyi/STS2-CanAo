@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 破魔刃：浴火。对所有敌人造成 10（13）点伤害。施加 2（3）层易伤。
+/// 破魔刃：浴火。造成 7（10）点伤害。施加 2（3）层易伤。
 /// </summary>
 public sealed class PoMoRenCard : CardModel, IIntrinsicYuHuo
 {
@@ -28,16 +28,16 @@ public sealed class PoMoRenCard : CardModel, IIntrinsicYuHuo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(7m, ValueProp.Move),
         new CardsVar(2)
     ];
 
     public PoMoRenCard()
         : base(
-            canonicalEnergyCost: 2,
+            canonicalEnergyCost: 1,
             type: CardType.Attack,
             rarity: CardRarity.Uncommon,
-            targetType: TargetType.AllEnemies)
+            targetType: TargetType.AnyEnemy)
     {
     }
 
@@ -45,27 +45,23 @@ public sealed class PoMoRenCard : CardModel, IIntrinsicYuHuo
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
+        ArgumentNullException.ThrowIfNull(cardPlay.Target);
+
         Player owner = Owner
             ?? throw new InvalidOperationException(
                 "PoMoRen requires a card owner.");
 
-        if (CombatState is not { } combatState)
-            return;
-
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
-            .TargetingAllOpponents(combatState)
+            .Targeting(cardPlay.Target)
             .Execute(choiceContext);
 
-        foreach (Creature enemy in combatState.HittableEnemies)
-        {
-            await PowerCmd.Apply<VulnerablePower>(
-                choiceContext,
-                enemy,
-                DynamicVars.Cards.IntValue,
-                owner.Creature,
-                this);
-        }
+        await PowerCmd.Apply<VulnerablePower>(
+            choiceContext,
+            cardPlay.Target,
+            DynamicVars.Cards.IntValue,
+            owner.Creature,
+            this);
     }
 
     protected override void OnUpgrade()

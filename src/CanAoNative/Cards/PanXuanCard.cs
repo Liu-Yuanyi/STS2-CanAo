@@ -11,8 +11,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 盘旋：获得 5（7）格挡。此后本回合每生成一张星月合击，
-/// 获得 3（4）格挡。
+/// 盘旋：获得 6（9）格挡。此后本回合每生成一张星月合击，
+/// 获得 4（6）格挡。
 /// </summary>
 public sealed class PanXuanCard : CardModel
 {
@@ -30,8 +30,8 @@ public sealed class PanXuanCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Move),
-        new CardsVar(3)
+        new BlockVar(6m, ValueProp.Move),
+        new CardsVar(4)
     ];
 
     public PanXuanCard()

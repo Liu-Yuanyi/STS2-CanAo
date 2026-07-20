@@ -14,6 +14,7 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// 抱火：获得 4（7）点格挡。若你的凤威大于 0，额外获得等量格挡。
+/// "等量" = 等量于基础格挡值，即凤威>0时格挡翻倍，而非加上凤威数值。
 /// </summary>
 public sealed class BaoHuoCard : CardModel
 {
@@ -53,9 +54,12 @@ public sealed class BaoHuoCard : CardModel
 
         decimal block = DynamicVars.Block.BaseValue;
 
+        // "等量格挡" = same amount as the base block value.
+        // If FengWei > 0, double the block (base + base), not add FengWei amount.
+        // This matches 万向斩 (Omnislice) where "等量" copies the exact damage dealt.
         decimal fengWei = FengWeiService.GetEffectiveAmount(owner);
         if (fengWei > 0m)
-            block += fengWei;
+            block += DynamicVars.Block.BaseValue;
 
         await CreatureCmd.GainBlock(
             owner.Creature,

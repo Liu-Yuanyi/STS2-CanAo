@@ -10,7 +10,7 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// 星月王冠：每回合第一次获得凤威时，获得 1 张星月合击。
-/// 升级后获得固有。多层时每回合可触发对应次数。
+/// 多层时每回合可触发对应次数。
 /// </summary>
 public sealed class XingYueWangGuanCard : CardModel
 {
@@ -49,6 +49,6 @@ public sealed class XingYueWangGuanCard : CardModel
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        EnergyCost.UpgradeBy(-1);
     }
 }

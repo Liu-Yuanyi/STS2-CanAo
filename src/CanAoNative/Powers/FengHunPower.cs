@@ -7,19 +7,18 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 凤魂：每回合前 Amount 次有牌被消耗时，各抽 1 张牌。
-/// 消耗次序由 ExhaustService 的回合序号判定。
+/// 凤魂：每回合第一次消耗牌时，抽 2 张牌。不可叠加。
 /// </summary>
 public sealed class FengHunPower : PowerModel, IAfterCanAoCardExhausted
 {
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Counter;
+    public override PowerStackType StackType => PowerStackType.Single;
 
     public async Task AfterCanAoCardExhausted(
         PlayerChoiceContext choiceContext,
         ExhaustRecord record)
     {
-        if (record.SequenceNumberThisTurn > Amount
+        if (record.SequenceNumberThisTurn != 1
             || !ReferenceEquals(record.Owner.Creature, Owner)
             || Amount <= 0)
         {
@@ -30,7 +29,7 @@ public sealed class FengHunPower : PowerModel, IAfterCanAoCardExhausted
 
         await CardPileCmd.Draw(
             choiceContext,
-            1m,
+            2m,
             record.Owner);
     }
 }

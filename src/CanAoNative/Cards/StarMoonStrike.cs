@@ -11,7 +11,7 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// Star-Moon Strike (星月合击): 0-cost derived attack.
-/// Deals 4(6) damage and gains 3(5) block. Ethereal. Exhaust.
+/// Deals 5(7) damage and gains 4(6) block. Ethereal. Exhaust.
 /// Each point of FengWei adds +1 damage and +1 block (min 0).
 /// Not in the loot pool, but uses CanAoCardPool for visuals.
 /// </summary>
@@ -32,8 +32,8 @@ public sealed class StarMoonStrike : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(4m, ValueProp.Move),
-        new BlockVar(3m, ValueProp.Move)
+        new DamageVar(5m, ValueProp.Move),
+        new BlockVar(4m, ValueProp.Move)
     ];
 
     public StarMoonStrike()

@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 孤剑打击：对所有敌人造成 11（14）点伤害，每拥有一张其他手牌，伤害 -3。
+/// 孤剑打击：对所有敌人造成 12（15）点伤害，每拥有一张其他手牌，伤害 -3。
 /// </summary>
 public sealed class GuJianDaJiCard : CardModel
 {
@@ -22,7 +22,7 @@ public sealed class GuJianDaJiCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(11m, ValueProp.Move)
+        new DamageVar(12m, ValueProp.Move)
     ];
 
     public GuJianDaJiCard()

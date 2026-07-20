@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 示威：造成 7（9）点伤害。本回合获得 2（3）点凤威。
+/// 示威：造成 8（10）点伤害。本回合获得 2（3）点凤威。
 /// </summary>
 public sealed class ShiWeiCard : CardModel
 {
@@ -29,7 +29,7 @@ public sealed class ShiWeiCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(7m, ValueProp.Move),
+        new DamageVar(8m, ValueProp.Move),
         new CardsVar(2)
     ];
 

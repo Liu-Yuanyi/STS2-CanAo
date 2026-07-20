@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 燃羽突袭：造成 5（6）点伤害。本回合每消耗过一张牌，伤害便增加 2（3）。
+/// 燃羽突袭：造成 5（6）点伤害。本回合每消耗过一张牌，伤害便增加 3（4）。
 /// </summary>
 public sealed class RanYuTuXiCard : CardModel
 {
@@ -24,7 +24,7 @@ public sealed class RanYuTuXiCard : CardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(5m, ValueProp.Move),
-        new CardsVar(2)
+        new CardsVar(3)
     ];
 
     public RanYuTuXiCard()

@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 月华屏障：获得 6（8）点格挡。若你有月，额外获得 4（6）点格挡。
+/// 月华屏障：获得 6（8）点格挡。若你有月，额外获得 5（7）点格挡。
 /// </summary>
 public sealed class YueHuaPingZhangCard : CardModel
 {
@@ -31,7 +31,7 @@ public sealed class YueHuaPingZhangCard : CardModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(6m, ValueProp.Move),
-        new CardsVar(4)
+        new CardsVar(5)
     ];
 
     public YueHuaPingZhangCard()

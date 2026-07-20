@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 清宫：消耗手牌中所有非浴火技能牌。每消耗 1 张，获得 5（8）点格挡。消耗。
+/// 清宫：消耗手牌中所有非浴火技能牌。每消耗 1 张，获得 6（9）点格挡。消耗。
 /// </summary>
 public sealed class QingGongCard : CardModel
 {
@@ -38,7 +38,7 @@ public sealed class QingGongCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Move)
+        new BlockVar(6m, ValueProp.Move)
     ];
 
     public QingGongCard()

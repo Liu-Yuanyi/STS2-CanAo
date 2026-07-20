@@ -12,7 +12,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 星月终式：造成 9（12）点伤害。本回合每打出过 1 张【星月合击】，重复一次。
+/// 星月终式：造成 8（11）点伤害。本局游戏每打出过 1 张【星月合击】，重复一次。
+/// Uses GetPlayedThisCombat (per-combat counter, analogous to PullFromBelow).
 /// </summary>
 public sealed class XingYueZhongShiCard : CardModel
 {
@@ -29,12 +30,12 @@ public sealed class XingYueZhongShiCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(9m, ValueProp.Move)
+        new DamageVar(8m, ValueProp.Move)
     ];
 
     public XingYueZhongShiCard()
         : base(
-            canonicalEnergyCost: 1,
+            canonicalEnergyCost: 2,
             type: CardType.Attack,
             rarity: CardRarity.Rare,
             targetType: TargetType.AnyEnemy)
@@ -51,8 +52,12 @@ public sealed class XingYueZhongShiCard : CardModel
             ?? throw new InvalidOperationException(
                 "XingYue ZhongShi requires a card owner.");
 
+        // Per-combat counter: each Star-Moon Strike played this combat
+        // adds one extra hit. The first hit is always free.
+        // Modeled after PullFromBelow (亡魂牵引) which counts Ethereal
+        // plays via CombatManager.History.
         int hitCount =
-            1 + StarMoonService.GetPlayedThisTurn(owner);
+            1 + StarMoonService.GetPlayedThisCombat(owner);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(hitCount)

@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 出鞘：造成 9（12）点伤害，然后若你的凤威大于 0，
+/// 出鞘：造成 10（13）点伤害，然后若你的凤威大于 0，
 /// 对所有敌人造成凤威层数 2（3）倍的伤害。
 /// </summary>
 public sealed class ChuQiaoCard : CardModel
@@ -32,7 +32,7 @@ public sealed class ChuQiaoCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(9m, ValueProp.Move),
+        new DamageVar(10m, ValueProp.Move),
         new CardsVar(2)
     ];
 

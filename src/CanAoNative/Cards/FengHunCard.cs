@@ -9,7 +9,7 @@ using CanAoNative.Pools;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 凤魂：每回合前 1 次有牌被消耗时，各抽 1 张牌。升级后费用降为 0。
+/// 凤魂：每回合第一次消耗牌时，抽 2 张牌。升级后获得固有。
 /// </summary>
 public sealed class FengHunCard : CardModel
 {
@@ -21,7 +21,7 @@ public sealed class FengHunCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(1)
+        new CardsVar(2)
     ];
 
     public FengHunCard()
@@ -40,13 +40,13 @@ public sealed class FengHunCard : CardModel
         await PowerCmd.Apply<FengHunPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars.Cards.BaseValue,
+            1m,
             Owner.Creature,
             this);
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(CardKeyword.Innate);
     }
 }

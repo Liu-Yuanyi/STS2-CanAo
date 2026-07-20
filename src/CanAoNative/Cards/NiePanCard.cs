@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 涅槃：消耗手牌中的所有浴火牌。每消耗 1 张，获得 4（6）格挡并抽 1 张牌。消耗。
+/// 涅槃：消耗手牌中的所有浴火牌。每消耗 1 张，获得 7 格挡。消耗。
 /// Only the cards in hand at play time are consumed; anything the 浴火
 /// triggers draw or generate afterwards is left alone.
 /// </summary>
@@ -39,7 +39,7 @@ public sealed class NiePanCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(4m, ValueProp.Move)
+        new BlockVar(7m, ValueProp.Move)
     ];
 
     public NiePanCard()
@@ -75,13 +75,11 @@ public sealed class NiePanCard : CardModel
                 owner.Creature,
                 DynamicVars.Block,
                 cardPlay);
-
-            await CardPileCmd.Draw(choiceContext, 1m, owner);
         }
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

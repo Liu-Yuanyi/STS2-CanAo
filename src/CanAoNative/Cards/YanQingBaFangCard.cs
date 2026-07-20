@@ -11,8 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 宴请八方：（多人游戏专属）虚无。所有玩家恢复等同于你的凤威点数的血量。
-/// 消耗。升级后不虚无。
+/// 宴请八方：（多人游戏专属）所有玩家恢复等同于你的凤威点数的血量。消耗。
 /// </summary>
 public sealed class YanQingBaFangCard : CardModel
 {
@@ -27,7 +26,6 @@ public sealed class YanQingBaFangCard : CardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
-        CardKeyword.Ethereal,
         CardKeyword.Exhaust
     ];
 
@@ -73,6 +71,6 @@ public sealed class YanQingBaFangCard : CardModel
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Ethereal);
+        EnergyCost.UpgradeBy(-1);
     }
 }

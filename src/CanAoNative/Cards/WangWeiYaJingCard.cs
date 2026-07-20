@@ -16,8 +16,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 王威压境：对所有敌人造成 13（17）点伤害。
-/// 若你有至少 3（2）点凤威，施加 2 层虚弱和 2 层易伤。
+/// 王威压境：获得 1 点凤威。对所有敌人造成 11（14）点伤害，
+/// 施加 1 层虚弱和 2 层易伤。
 /// </summary>
 public sealed class WangWeiYaJingCard : CardModel
 {
@@ -34,8 +34,7 @@ public sealed class WangWeiYaJingCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(13m, ValueProp.Move),
-        new CardsVar(3)
+        new DamageVar(11m, ValueProp.Move)
     ];
 
     public WangWeiYaJingCard()
@@ -58,23 +57,23 @@ public sealed class WangWeiYaJingCard : CardModel
         if (CombatState is not { } combatState)
             return;
 
+        await FengWeiService.GainPermanent(
+            choiceContext,
+            owner,
+            1m,
+            this);
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
-
-        if (FengWeiService.GetEffectiveAmount(owner)
-            < DynamicVars.Cards.IntValue)
-        {
-            return;
-        }
 
         foreach (Creature enemy in combatState.HittableEnemies)
         {
             await PowerCmd.Apply<WeakPower>(
                 choiceContext,
                 enemy,
-                2m,
+                1m,
                 owner.Creature,
                 this);
 
@@ -89,7 +88,6 @@ public sealed class WangWeiYaJingCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
-        DynamicVars.Cards.UpgradeValueBy(-1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

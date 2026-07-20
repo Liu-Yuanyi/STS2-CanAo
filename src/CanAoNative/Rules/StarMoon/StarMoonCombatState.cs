@@ -3,8 +3,9 @@ using MegaCrit.Sts2.Core.Entities.Players;
 namespace CanAoNative.Rules.StarMoon;
 
 /// <summary>
-/// Combat-scoped, per-player Star-Moon turn history. It is deliberately kept
-/// outside cards and powers so all future effects read one authoritative state.
+/// Combat-scoped, per-player Star-Moon turn and combat history.
+/// It is deliberately kept outside cards and powers so all future effects
+/// read one authoritative state.
 /// </summary>
 public sealed class StarMoonCombatState
 {
@@ -20,7 +21,9 @@ public sealed class StarMoonCombatState
     public void RecordPlayed(Player player)
     {
         ArgumentNullException.ThrowIfNull(player);
-        GetOrCreate(player).PlayedThisTurn++;
+        PlayerTurnState state = GetOrCreate(player);
+        state.PlayedThisTurn++;
+        state.PlayedThisCombat++;
     }
 
     public int GetGeneratedThisTurn(Player player)
@@ -36,6 +39,18 @@ public sealed class StarMoonCombatState
         ArgumentNullException.ThrowIfNull(player);
         return _players.TryGetValue(player, out PlayerTurnState? state)
             ? state.PlayedThisTurn
+            : 0;
+    }
+
+    /// <summary>
+    /// Returns the total number of Star-Moon Strikes played this combat,
+    /// across all turns. Used by 星月终式 for per-combat hit count scaling.
+    /// </summary>
+    public int GetPlayedThisCombat(Player player)
+    {
+        ArgumentNullException.ThrowIfNull(player);
+        return _players.TryGetValue(player, out PlayerTurnState? state)
+            ? state.PlayedThisCombat
             : 0;
     }
 
@@ -59,5 +74,10 @@ public sealed class StarMoonCombatState
     {
         public int GeneratedThisTurn { get; set; }
         public int PlayedThisTurn { get; set; }
+        /// <summary>
+        /// Running total of Star-Moon Strikes played this combat.
+        /// Never reset within a combat — only cleared when the combat ends.
+        /// </summary>
+        public int PlayedThisCombat { get; set; }
     }
 }

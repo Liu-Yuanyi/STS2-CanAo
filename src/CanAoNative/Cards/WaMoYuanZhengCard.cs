@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 瓦魔远征：每当你消耗攻击牌时，对随机敌人造成 11（15）点伤害。
+/// 远征：每当你消耗攻击牌时，获得 8（12）点格挡。
 /// </summary>
 public sealed class WaMoYuanZhengCard : CardModel
 {
@@ -22,7 +22,7 @@ public sealed class WaMoYuanZhengCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(11m, ValueProp.Unpowered)
+        new BlockVar(8m, ValueProp.Move)
     ];
 
     public WaMoYuanZhengCard()
@@ -41,13 +41,13 @@ public sealed class WaMoYuanZhengCard : CardModel
         await PowerCmd.Apply<WaMoYuanZhengPower>(
             choiceContext,
             Owner.Creature,
-            DynamicVars.Damage.BaseValue,
+            DynamicVars.Block.BaseValue,
             Owner.Creature,
             this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Block.UpgradeValueBy(4m);
     }
 }

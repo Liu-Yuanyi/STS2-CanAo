@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 裂空：造成 6（9）点伤害。若你有星，失去 1 星并重复 2 次伤害。
+/// 裂空：造成 7（10）点伤害。若你有星，失去 1 星并重复 2 次伤害。
 /// </summary>
 public sealed class LieKongCard : CardModel
 {
@@ -29,7 +29,7 @@ public sealed class LieKongCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move)
+        new DamageVar(7m, ValueProp.Move)
     ];
 
     public LieKongCard()

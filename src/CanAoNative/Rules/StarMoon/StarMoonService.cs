@@ -114,6 +114,20 @@ public static class StarMoonService
     public static bool HasPlayedThisTurn(Player player) =>
         GetPlayedThisTurn(player) > 0;
 
+    /// <summary>
+    /// Returns the total number of Star-Moon Strikes played this combat
+    /// across all turns. Used by 星月终式 (XingYueZhongShi) for per-combat
+    /// hit count scaling, analogous to PullFromBelow (亡魂牵引) which counts
+    /// Ethereal plays via CombatHistory.
+    /// </summary>
+    public static int GetPlayedThisCombat(Player player)
+    {
+        ICombatState? combatState = player.Creature.CombatState;
+        return combatState == null
+            ? 0
+            : GetState(combatState).GetPlayedThisCombat(player);
+    }
+
     public static void RecordGenerated(
         ICombatState combatState,
         Player player)

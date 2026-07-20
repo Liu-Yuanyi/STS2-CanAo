@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 天凤军阵：每当你生成星月合击时，对所有敌人造成 6（9）点伤害。
+/// 天凤军阵：每当你生成星月合击时，对所有敌人造成 7（10）点伤害。
 /// </summary>
 public sealed class TianFengJunZhenCard : CardModel
 {
@@ -28,7 +28,7 @@ public sealed class TianFengJunZhenCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Unpowered)
+        new DamageVar(7m, ValueProp.Unpowered)
     ];
 
     public TianFengJunZhenCard()

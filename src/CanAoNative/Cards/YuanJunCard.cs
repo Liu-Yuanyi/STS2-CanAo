@@ -64,6 +64,8 @@ public sealed class YuanJunCard : CardModel
             YuanJunStrikeCard strike =
                 combatState.CreateCard<YuanJunStrikeCard>(owner);
 
+            CardCmd.Upgrade(strike);
+
             await CardPileCmd.AddGeneratedCardToCombat(
                 strike,
                 PileType.Hand,

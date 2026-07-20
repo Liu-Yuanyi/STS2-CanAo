@@ -11,7 +11,7 @@ using CanAoNative.Pools;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 承天受命：获得 3 点凤威。将 2 张诏令加入手牌。消耗。
+/// 承天受命：将 4 张诏令加入手牌。消耗。
 /// </summary>
 public sealed class ChengTianShouMingCard : CardModel
 {
@@ -28,8 +28,7 @@ public sealed class ChengTianShouMingCard : CardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard<EdictCard>(),
-        HoverTipFactory.FromPower<FengWeiPower>()
+        HoverTipFactory.FromCard<EdictCard>()
     ];
 
     public ChengTianShouMingCard()
@@ -49,16 +48,10 @@ public sealed class ChengTianShouMingCard : CardModel
             ?? throw new InvalidOperationException(
                 "ChengTian ShouMing requires a card owner.");
 
-        await FengWeiService.GainPermanent(
-            choiceContext,
-            owner,
-            3m,
-            this);
-
         await EdictService.Generate(
             choiceContext,
             owner,
-            2);
+            4);
     }
 
     protected override void OnUpgrade()

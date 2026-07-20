@@ -11,7 +11,7 @@ using CanAoNative.Pools;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 王权：消耗手牌中所有诏令。每消耗 1 张，获得 1 点凤威并抽 1 张牌。
+/// 王权：消耗手牌中所有诏令。每消耗 1 张，获得 1 费并抽 2 张牌。
 /// </summary>
 public sealed class WangQuanCard : CardModel
 {
@@ -23,8 +23,7 @@ public sealed class WangQuanCard : CardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard<EdictCard>(),
-        HoverTipFactory.FromPower<FengWeiPower>()
+        HoverTipFactory.FromCard<EdictCard>()
     ];
 
     public WangQuanCard()
@@ -52,13 +51,8 @@ public sealed class WangQuanCard : CardModel
         {
             await CardCmd.Exhaust(choiceContext, edict);
 
-            await FengWeiService.GainPermanent(
-                choiceContext,
-                owner,
-                1m,
-                this);
-
-            await CardPileCmd.Draw(choiceContext, 1m, owner);
+            await PlayerCmd.GainEnergy(1, owner);
+            await CardPileCmd.Draw(choiceContext, 2m, owner);
         }
     }
 
