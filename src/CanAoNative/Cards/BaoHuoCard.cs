@@ -1,6 +1,6 @@
 using CanAoNative.Pools;
-using CanAoNative.Powers;
-using CanAoNative.Rules.FengWei;
+using CanAoNative.Rules;
+using CanAoNative.Rules.YuHuo;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -13,10 +13,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 抱火：获得 4（7）点格挡。若你的凤威大于 0，额外获得等量格挡。
-/// "等量" = 等量于基础格挡值，即凤威>0时格挡翻倍，而非加上凤威数值。
+/// 抱火：浴火。获得 4（6）点格挡。若本牌因浴火而触发，额外获得 3（4）点格挡。
 /// </summary>
-public sealed class BaoHuoCard : CardModel
+public sealed class BaoHuoCard : CardModel, IIntrinsicYuHuo
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -27,12 +26,15 @@ public sealed class BaoHuoCard : CardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<FengWeiPower>()
+        CanAoHoverTips.YuHuo
     ];
+
+    public bool HasIntrinsicYuHuo => true;
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(4m, ValueProp.Move)
+        new BlockVar(4m, ValueProp.Move),
+        new CardsVar(3)
     ];
 
     public BaoHuoCard()
@@ -54,12 +56,8 @@ public sealed class BaoHuoCard : CardModel
 
         decimal block = DynamicVars.Block.BaseValue;
 
-        // "等量格挡" = same amount as the base block value.
-        // If FengWei > 0, double the block (base + base), not add FengWei amount.
-        // This matches 万向斩 (Omnislice) where "等量" copies the exact damage dealt.
-        decimal fengWei = FengWeiService.GetEffectiveAmount(owner);
-        if (fengWei > 0m)
-            block += DynamicVars.Block.BaseValue;
+        if (YuHuoService.IsTriggeredByYuHuo(this))
+            block += DynamicVars.Cards.BaseValue;
 
         await CreatureCmd.GainBlock(
             owner.Creature,
@@ -70,6 +68,7 @@ public sealed class BaoHuoCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(3m);
+        DynamicVars.Block.UpgradeValueBy(2m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

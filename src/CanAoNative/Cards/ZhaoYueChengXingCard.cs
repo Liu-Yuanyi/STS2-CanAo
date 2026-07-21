@@ -11,7 +11,8 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 照月成星：失去 1 月，获得 2 星，下回合开始时获得 2 星。
+/// 照月成星：失去 1 月（如有），获得 2 星，下回合开始时获得 2 星。
+/// 升级后获得保留。
 /// </summary>
 public sealed class ZhaoYueChengXingCard : CardModel
 {
@@ -58,8 +59,8 @@ public sealed class ZhaoYueChengXingCard : CardModel
             owner.Creature,
             this);
 
-        // 3. Deferred 2 stars at next turn start.
-        await PowerCmd.Apply<ZhaoYueChengXingPower>(
+        // 3. Deferred 2 stars at next turn start (reusable NextTurnStarPower).
+        await PowerCmd.Apply<NextTurnStarPower>(
             choiceContext,
             owner.Creature,
             1m,
@@ -69,6 +70,6 @@ public sealed class ZhaoYueChengXingCard : CardModel
 
     protected override void OnUpgrade()
     {
-        // No upgrade — card is already complete at base.
+        AddKeyword(CardKeyword.Retain);
     }
 }

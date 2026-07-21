@@ -1,18 +1,16 @@
-using CanAoNative.Powers;
+using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using CanAoNative.Pools;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 远征：每当你消耗攻击牌时，获得 6（8）点格挡。
+/// 聚精会神：虚无。获得 3 费。消耗。升级后移除虚无。
 /// </summary>
-public sealed class WaMoYuanZhengCard : CardModel
+public sealed class JuJingHuiShenCard : CardModel
 {
     public override string PortraitPath => CardModel.MissingPortraitPath;
     protected override string PortraitPngPath => CardModel.MissingPortraitPath;
@@ -20,16 +18,17 @@ public sealed class WaMoYuanZhengCard : CardModel
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
-    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
-        new BlockVar(6m, ValueProp.Move)
+        CardKeyword.Ethereal,
+        CardKeyword.Exhaust
     ];
 
-    public WaMoYuanZhengCard()
+    public JuJingHuiShenCard()
         : base(
             canonicalEnergyCost: 1,
-            type: CardType.Power,
-            rarity: CardRarity.Rare,
+            type: CardType.Skill,
+            rarity: CardRarity.Uncommon,
             targetType: TargetType.Self)
     {
     }
@@ -38,16 +37,15 @@ public sealed class WaMoYuanZhengCard : CardModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        await PowerCmd.Apply<WaMoYuanZhengPower>(
-            choiceContext,
-            Owner.Creature,
-            DynamicVars.Block.BaseValue,
-            Owner.Creature,
-            this);
+        Player owner = Owner
+            ?? throw new InvalidOperationException(
+                "JuJing HuiShen requires a card owner.");
+
+        await PlayerCmd.GainEnergy(3, owner);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Block.UpgradeValueBy(2m);
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 }

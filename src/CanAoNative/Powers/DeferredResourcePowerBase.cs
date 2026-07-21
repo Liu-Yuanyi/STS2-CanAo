@@ -7,13 +7,24 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 照月成星（延迟）：下回合开始时获得 2 星。
-/// 触发后静默归零（不播放移除动画以免UI卡死），由回合清理自然回收。
+/// Abstract base for powers that grant a resource at the start of the next turn.
+/// Each resource type must have its own derived class (separate Power ID),
+/// so PowerCmd.Apply stacking works correctly per resource type.
+///
+/// Derived classes override <see cref="ApplyResource"/> to grant the specific
+/// resource (Star, Moon, FengWei, etc.).
 /// </summary>
-public sealed class ZhaoYueChengXingPower : PowerModel
+public abstract class DeferredResourcePowerBase : PowerModel
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    /// <summary>
+    /// Grant the specific resource. Called once at the start of the owner's
+    /// next turn, before the power silently zeros itself out.
+    /// </summary>
+    protected abstract Task ApplyResource(
+        PlayerChoiceContext choiceContext);
 
     public override async Task AfterPlayerTurnStart(
         PlayerChoiceContext choiceContext,
@@ -22,16 +33,13 @@ public sealed class ZhaoYueChengXingPower : PowerModel
         if (!ReferenceEquals(player.Creature, Owner) || Amount <= 0)
             return;
 
-        // Grant the stars first.
-        await PowerCmd.Apply<StarPower>(
-            choiceContext,
-            Owner,
-            2m,
-            Owner,
-            cardSource: null);
+        // Grant the resource once per stack.
+        for (int i = 0; i < (int)Amount; i++)
+        {
+            await ApplyResource(choiceContext);
+        }
 
         // Silently zero out so the UI doesn't play a stuck removal animation.
-        // The zero-amount power is harmless and will be cleaned up naturally.
         await PowerCmd.ModifyAmount(
             choiceContext,
             this,

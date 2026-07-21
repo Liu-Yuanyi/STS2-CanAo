@@ -12,8 +12,8 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 援军：将 3（4）张带有浴火的打击加入手牌。消耗。
-/// 打击为 YuanJunStrikeCard，固有浴火，无需逐张授予。
+/// 援军：将 3 张带有浴火的打击+加入手牌。消耗。
+/// 升级后费用降为 0。
 /// </summary>
 public sealed class YuanJunCard : CardModel
 {
@@ -31,7 +31,7 @@ public sealed class YuanJunCard : CardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         CanAoHoverTips.YuHuo,
-        HoverTipFactory.FromCard<YuanJunStrikeCard>()
+        HoverTipFactory.FromCard<YuanJunStrikeCard>(true)
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -64,6 +64,8 @@ public sealed class YuanJunCard : CardModel
             YuanJunStrikeCard strike =
                 combatState.CreateCard<YuanJunStrikeCard>(owner);
 
+            CardCmd.Upgrade(strike);
+
             await CardPileCmd.AddGeneratedCardToCombat(
                 strike,
                 PileType.Hand,
@@ -73,6 +75,6 @@ public sealed class YuanJunCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        EnergyCost.UpgradeBy(-1);
     }
 }

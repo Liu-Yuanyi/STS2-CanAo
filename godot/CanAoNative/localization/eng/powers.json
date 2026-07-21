@@ -56,6 +56,6 @@
   "BU_MIE_WANG_CHAO_POWER.description": "At the start of your turn, add a random Attack or Skill from your [gold]Discard Pile[/gold] to your [gold]Hand[/gold].",
   "WAN_BANG_LAI_CHAO_POWER.title": "Tribute of Nations",
   "WAN_BANG_LAI_CHAO_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold], apply {Amount} [gold]Weak[/gold] to ALL enemies.",
-  "ZHAO_YUE_CHENG_XING_POWER.title": "Moonlit Starforge",
-  "ZHAO_YUE_CHENG_XING_POWER.description": "At the start of your next turn, gain 2 [gold]Star[/gold]."
+  "NEXT_TURN_STAR_POWER.title": "Moonlit Starforge",
+  "NEXT_TURN_STAR_POWER.description": "At the start of your next turn, gain 2 [gold]Star[/gold]."
 }

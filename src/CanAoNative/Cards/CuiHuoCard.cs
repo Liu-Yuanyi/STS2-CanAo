@@ -13,7 +13,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 淬火：浴火。在本回合获得 2（3）点力量。将一张此牌的复制品加入手牌。
+/// 淬火：浴火。在本回合获得 3（4）点力量。
+/// 若本牌因浴火而触发，将一张此牌的复制品加入手牌。
 /// </summary>
 public sealed class CuiHuoCard : CardModel, IIntrinsicYuHuo
 {
@@ -32,7 +33,7 @@ public sealed class CuiHuoCard : CardModel, IIntrinsicYuHuo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(2)
+        new CardsVar(3)
     ];
 
     public CuiHuoCard()
@@ -61,6 +62,9 @@ public sealed class CuiHuoCard : CardModel, IIntrinsicYuHuo
             DynamicVars.Cards.IntValue,
             owner.Creature,
             this);
+
+        if (!YuHuoService.IsTriggeredByYuHuo(this))
+            return;
 
         CuiHuoCard copy = combatState.CreateCard<CuiHuoCard>(owner);
 

@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 御前裁决：造成 8 点伤害。若本回合打出过【诏令】，重复 1（2）次。
+/// 决断：造成 8 点伤害。若本回合打出过【诏令】，重复 1（2）次。
 /// </summary>
 public sealed class YuQianCaiJueCard : CardModel
 {

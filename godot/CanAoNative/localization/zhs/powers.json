@@ -56,6 +56,6 @@
   "BU_MIE_WANG_CHAO_POWER.description": "你的回合开始时，将[gold]弃牌堆[/gold]中1张随机攻击牌或技能牌加入[gold]手牌[/gold]。",
   "WAN_BANG_LAI_CHAO_POWER.title": "万邦来朝",
   "WAN_BANG_LAI_CHAO_POWER.description": "每当你生成[gold]星月合击[/gold]时，对所有敌人施加{Amount}层[gold]虚弱[/gold]。",
-  "ZHAO_YUE_CHENG_XING_POWER.title": "照月成星",
-  "ZHAO_YUE_CHENG_XING_POWER.description": "下回合开始时获得2点[gold]星[/gold]。"
+  "NEXT_TURN_STAR_POWER.title": "照月成星",
+  "NEXT_TURN_STAR_POWER.description": "下回合开始时获得2点[gold]星[/gold]。"
 }

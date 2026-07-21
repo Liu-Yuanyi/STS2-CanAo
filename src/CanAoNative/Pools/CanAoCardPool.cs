@@ -51,7 +51,7 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<ZhengZhaoCard>(),
         ModelDb.Card<YuHuoStrikeCard>(),
         ModelDb.Card<FenGaoJiGuiCard>(),
-        ModelDb.Card<QingGongCard>(),
+        // QingGongCard removed — moved to 弃稿.
         ModelDb.Card<FengGuZaiRanCard>(),
         ModelDb.Card<LieKongCard>(),
         ModelDb.Card<FengYanLianZhanCard>(),
@@ -65,6 +65,7 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<ZhuiXingWeiYueCard>(),
         ModelDb.Card<ZhaoYueChengXingCard>(),
         ModelDb.Card<YuanJunCard>(),
+        ModelDb.Card<JuJingHuiShenCard>(),
         ModelDb.Card<CuiHuoCard>(),
         ModelDb.Card<ChangMingCard>(),
         ModelDb.Card<BuZhaoCard>(),

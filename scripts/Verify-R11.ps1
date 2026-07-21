@@ -86,7 +86,8 @@ $RequiredFiles = @(
     "Powers\WangZuoGuMingPower.cs",
     "Powers\BuMieWangChaoPower.cs",
     "Powers\WanBangLaiChaoPower.cs",
-    "Powers\ZhaoYueChengXingPower.cs"
+    "Powers\DeferredResourcePowerBase.cs",
+    "Powers\NextTurnStarPower.cs"
 )
 
 foreach ($RelativePath in $RequiredFiles) {
@@ -101,7 +102,7 @@ foreach ($RelativePath in $RequiredFiles) {
 # are validated structurally below rather than frozen here.
 $VerifiedHashes = [ordered]@{
     "Cards\FeatherRanksCard.cs" = "4273e2087c9faf972c906922bc8c6f058b87057d8affea32569000a1ab630e50"
-    "Cards\SacrificialPreparationCard.cs" = "122edff060155850b0c64ad952ff847c0b503d448e603ddaf4a7b3768b892984"
+    "Cards\SacrificialPreparationCard.cs" = "4cfb0aaea1f4157bcf5ca599a046b4e0925d786b702580810d37614190545797"
     "Cards\StarMoonStrike.cs" = "3b4e429cbee75f2d84517547fe762f3bc3332563072236e591744460bac2220a"
     "Cards\YuHuoBannerCard.cs" = "69e5e1d9a68a61a0326557afa8a4abda9014ce8f2f8e47a706aa42e273dfb58b"
     "Cards\ShiWeiCard.cs" = "677e708596f2a28f6039b60855916b810cd88dadc2920fc80eff836a84dc445e"
@@ -135,7 +136,7 @@ $VerifiedHashes = [ordered]@{
     "Cards\ZhengZhaoCard.cs" = "ed0aff57b9af3c21a11e3815f15553d5f42b78bbda56ca27b5f6b5b29ef4561a"
     "Cards\YuHuoStrikeCard.cs" = "c022fd5a4791b96f4b5c3e85149c1f8f918108cc1faac41c82bee1a16caf7689"
     "Cards\FenGaoJiGuiCard.cs" = "3dbc62dbb0dd3c111e6ea7946ff3a236c945018a69c0d57740b959903d56cce4"
-    "Cards\QingGongCard.cs" = "ff1b6dfed5e33f2e03f24a9003c0ef58779acf0e57f6cff26709cf71f63a4d41"
+    # QingGongCard removed — moved to 弃稿
     "Cards\FengGuZaiRanCard.cs" = "9e40ce13b87222b0835e6ff34a67f06ab4e9c4dd4b3ba0d75a1d7ff031d374a2"
     "Rules\YuHuo\YuHuoDisplay.cs" = "37ddcc6bcc69421de4c65cb2d9178b6ce4319f10740a488714c797d2e24da2d7"
     "Rules\CanAoHoverTips.cs" = "e4dcbef7fb3f0dc77aae53f9b532771014ed99d91714b00dd2c009dc5e260c44"
@@ -236,7 +237,8 @@ $RequiredMarkers = @(
     "class BuMieWangChaoPower",
     "class WanBangLaiChaoCard",
     "class WanBangLaiChaoPower",
-    "class ZhaoYueChengXingPower"
+    "class DeferredResourcePowerBase",
+    "class NextTurnStarPower"
 )
 
 foreach ($Marker in $RequiredMarkers) {
@@ -315,7 +317,9 @@ $CardKeys = @(
     "BU_MIE_WANG_CHAO_CARD.title",
     "BU_MIE_WANG_CHAO_CARD.description",
     "WAN_BANG_LAI_CHAO_CARD.title",
-    "WAN_BANG_LAI_CHAO_CARD.description"
+    "WAN_BANG_LAI_CHAO_CARD.description",
+    "JU_JING_HUI_SHEN_CARD.title",
+    "JU_JING_HUI_SHEN_CARD.description"
 )
 
 foreach ($LocPath in @($CardsLocZh, $CardsLocEn)) {
@@ -355,8 +359,8 @@ $PowerKeys = @(
     "BU_MIE_WANG_CHAO_POWER.description",
     "WAN_BANG_LAI_CHAO_POWER.title",
     "WAN_BANG_LAI_CHAO_POWER.description",
-    "ZHAO_YUE_CHENG_XING_POWER.title",
-    "ZHAO_YUE_CHENG_XING_POWER.description"
+    "NEXT_TURN_STAR_POWER.title",
+    "NEXT_TURN_STAR_POWER.description"
 )
 
 foreach ($LocPath in @($PowersLocZh, $PowersLocEn)) {

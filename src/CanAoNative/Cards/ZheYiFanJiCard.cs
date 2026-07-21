@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 折翼反击：造成 11（16）点伤害。若你的凤威小于 0，重复一次。
+/// 折翼反击：造成 10（15）点伤害。若你的凤威小于 0，重复一次。
 /// </summary>
 public sealed class ZheYiFanJiCard : CardModel
 {
@@ -30,7 +30,7 @@ public sealed class ZheYiFanJiCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(11m, ValueProp.Move)
+        new DamageVar(10m, ValueProp.Move)
     ];
 
     public ZheYiFanJiCard()
