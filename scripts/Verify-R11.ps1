@@ -85,7 +85,8 @@ $RequiredFiles = @(
     "Powers\WaMoYuanZhengPower.cs",
     "Powers\WangZuoGuMingPower.cs",
     "Powers\BuMieWangChaoPower.cs",
-    "Powers\WanBangLaiChaoPower.cs"
+    "Powers\WanBangLaiChaoPower.cs",
+    "Powers\ZhaoYueChengXingPower.cs"
 )
 
 foreach ($RelativePath in $RequiredFiles) {
@@ -120,11 +121,11 @@ $VerifiedHashes = [ordered]@{
     "Powers\TianFengJunZhenPower.cs" = "2cc7e9d0ac165b7df7c82b7afd68764ba2ab5de316a6ec6a8b6a962129a93e58"
     "Powers\TemporaryFengWeiPower.cs" = "137185acb2e72e12da4528750bcb70376524b0707cc13e05981edf19b1e48135"
     "Rules\StarMoon\IStarMoonEvents.cs" = "b227296dfc8799a702b0a6eadf050e8a31d75c77bbe99bbaae0cb6c0b462aa93"
-    "Rules\StarMoon\StarMoonCombatState.cs" = "843e44301a7fd185dc9410051cece9346855daae420d39c7eda99b7c045c87c4"
+    "Rules\StarMoon\StarMoonCombatState.cs" = "1b6c5cfca7f3cc9d4a8a96f326b3a84ebcf41b6013322adb803bf4168e16c292"
     "Rules\StarMoon\StarMoonGenerationContext.cs" = "9a4becae516e5b031d97971908c2a16b3ce7c76105818f5946a7db44f472856a"
     "Rules\StarMoon\StarMoonPlayedContext.cs" = "2a54e2c28b363e4dda18b8667c2dd323cd60eb3b98daf25367d543a9ca852497"
     "Rules\StarMoon\StarMoonListenerRegistry.cs" = "d739a1117a12fa959479450d56880f5ef11bb99e3273a0e85944b25a40d6ebcb"
-    "Rules\StarMoon\StarMoonService.cs" = "158187bb559ecad8804cfa29622e804721172719b0f9006bb2fd481fab567ede"
+    "Rules\StarMoon\StarMoonService.cs" = "dc0aa0812b2a6d75815ca19b12abc8c4ff2fb4438259e6611123c59371a45d11"
     "Rules\StarMoonHelper.cs" = "9f94f956a9b856117ec01dadf94156d11d6286c27ba9903882ddfba059c76424"
     "Rules\Exhaust\ExhaustRecord.cs" = "d7559b5bee7b41b58e0b4c98454a886fd21ef6cec8c28b80559b92f3b7562f97"
     "Rules\Exhaust\IExhaustEvents.cs" = "da4c1234f28df6f831724cd78ad67505110e3a02f709be44a94ed6690582db58"
@@ -234,7 +235,8 @@ $RequiredMarkers = @(
     "class BuMieWangChaoCard",
     "class BuMieWangChaoPower",
     "class WanBangLaiChaoCard",
-    "class WanBangLaiChaoPower"
+    "class WanBangLaiChaoPower",
+    "class ZhaoYueChengXingPower"
 )
 
 foreach ($Marker in $RequiredMarkers) {
