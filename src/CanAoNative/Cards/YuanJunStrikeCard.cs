@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 援军打击：打击的浴火版本（6（9）伤害），由援军加入手牌。
+/// 援军打击+：打击的浴火版本（9伤害），由援军加入手牌。始终以升级版生成。
 /// 固有浴火保证牌面、悬浮预览与图鉴都显示"浴火。"行。
 /// Token 稀有度，不入战利品池，使用残傲卡池渲染。
 /// </summary>
@@ -33,7 +33,7 @@ public sealed class YuanJunStrikeCard : CardModel, IIntrinsicYuHuo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move)
+        new DamageVar(9m, ValueProp.Move)
     ];
 
     public YuanJunStrikeCard()

@@ -131,7 +131,7 @@
   "ZHAO_YUE_CHENG_XING_CARD.description": "Lose 1 [gold]Moon[/gold], gain 2 [gold]Star[/gold], and gain 2 [gold]Star[/gold] at the start of your next turn.",
   "YUAN_JUN_CARD.title": "Reinforcements",
   "YUAN_JUN_CARD.description": "Add {Cards:diff()} Strikes+ with [gold]YuHuo[/gold] to your [gold]Hand[/gold].",
-  "YUAN_JUN_STRIKE_CARD.title": "Strike",
+  "YUAN_JUN_STRIKE_CARD.title": "Strike+",
   "YUAN_JUN_STRIKE_CARD.description": "Deal {Damage:diff()} damage.",
   "CUI_HUO_CARD.title": "Quench",
   "CUI_HUO_CARD.description": "Gain {Cards:diff()} [gold]Strength[/gold] this turn. Add a copy of this card to your [gold]Hand[/gold].",

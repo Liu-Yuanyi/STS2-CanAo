@@ -44,6 +44,16 @@ public sealed class ZhaoYueChengXingCard : CardModel
             ?? throw new InvalidOperationException(
                 "ZhaoYue ChengXing requires a card owner.");
 
+        // Deferred 2 stars at next turn start — always applied regardless
+        // of whether the player currently has Moon.
+        await PowerCmd.Apply<ZhaoYueChengXingPower>(
+            choiceContext,
+            owner.Creature,
+            1m,
+            owner.Creature,
+            this);
+
+        // Conditionally convert 1 Moon → 2 Stars immediately.
         if (owner.Creature.GetPower<MoonPower>() is not
             { Amount: > 0 } moonPower)
         {
@@ -61,15 +71,6 @@ public sealed class ZhaoYueChengXingCard : CardModel
             choiceContext,
             owner.Creature,
             2m,
-            owner.Creature,
-            this);
-
-        // Deferred 2 stars at next turn start.
-        // A tiny power that auto-removes after granting the stars.
-        await PowerCmd.Apply<ZhaoYueChengXingPower>(
-            choiceContext,
-            owner.Creature,
-            1m,
             owner.Creature,
             this);
     }

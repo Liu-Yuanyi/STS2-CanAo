@@ -94,6 +94,17 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<DiGuoYuWeiCard>(),
         ModelDb.Card<ChengTianShouMingCard>(),
         ModelDb.Card<TianFengXingTaiCard>(),
-        ModelDb.Card<XingYueWangGuanCard>()
+        ModelDb.Card<XingYueWangGuanCard>(),
+        ModelDb.Card<BuDuoCard>(),
+        ModelDb.Card<FengHunCard>(),
+        ModelDb.Card<JiaoHuiCard>(),
+        ModelDb.Card<ShouQueCard>(),
+        ModelDb.Card<DengJiCard>(),
+        ModelDb.Card<FengHuoJunXieCard>(),
+        ModelDb.Card<ZhongZhangCard>(),
+        ModelDb.Card<WaMoYuanZhengCard>(),
+        ModelDb.Card<WangZuoGuMingCard>(),
+        ModelDb.Card<BuMieWangChaoCard>(),
+        ModelDb.Card<WanBangLaiChaoCard>()
     ];
 }
