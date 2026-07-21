@@ -125,7 +125,7 @@ $VerifiedHashes = [ordered]@{
     "Rules\StarMoon\StarMoonGenerationContext.cs" = "9a4becae516e5b031d97971908c2a16b3ce7c76105818f5946a7db44f472856a"
     "Rules\StarMoon\StarMoonPlayedContext.cs" = "2a54e2c28b363e4dda18b8667c2dd323cd60eb3b98daf25367d543a9ca852497"
     "Rules\StarMoon\StarMoonListenerRegistry.cs" = "d739a1117a12fa959479450d56880f5ef11bb99e3273a0e85944b25a40d6ebcb"
-    "Rules\StarMoon\StarMoonService.cs" = "dc0aa0812b2a6d75815ca19b12abc8c4ff2fb4438259e6611123c59371a45d11"
+    "Rules\StarMoon\StarMoonService.cs" = "a45e8f190567cc5b06ba26549b09e3e27da563bc25bd964cd2301793ecfe4023"
     "Rules\StarMoonHelper.cs" = "9f94f956a9b856117ec01dadf94156d11d6286c27ba9903882ddfba059c76424"
     "Rules\Exhaust\ExhaustRecord.cs" = "d7559b5bee7b41b58e0b4c98454a886fd21ef6cec8c28b80559b92f3b7562f97"
     "Rules\Exhaust\IExhaustEvents.cs" = "da4c1234f28df6f831724cd78ad67505110e3a02f709be44a94ed6690582db58"
@@ -354,7 +354,9 @@ $PowerKeys = @(
     "BU_MIE_WANG_CHAO_POWER.title",
     "BU_MIE_WANG_CHAO_POWER.description",
     "WAN_BANG_LAI_CHAO_POWER.title",
-    "WAN_BANG_LAI_CHAO_POWER.description"
+    "WAN_BANG_LAI_CHAO_POWER.description",
+    "ZHAO_YUE_CHENG_XING_POWER.title",
+    "ZHAO_YUE_CHENG_XING_POWER.description"
 )
 
 foreach ($LocPath in @($PowersLocZh, $PowersLocEn)) {

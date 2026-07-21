@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using CanAoNative.Cards;
+using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -147,6 +148,70 @@ public static class StarMoonService
         IEnumerable<Player> players)
     {
         GetState(combatState).ClearForPlayers(players);
+    }
+
+    /// <summary>
+    /// Removes up to <paramref name="amount"/> Star from <paramref name="player"/>,
+    /// clamped to the current Star amount. Returns the actual amount lost.
+    /// Uses PowerCmd.ModifyAmount so the change goes through the proper
+    /// pipeline (hooks, network sync, Star-Moon generation check).
+    /// </summary>
+    public static async Task<decimal> LoseStar(
+        PlayerChoiceContext choiceContext,
+        Player player,
+        decimal amount,
+        CardModel? cardSource)
+    {
+        ArgumentNullException.ThrowIfNull(player);
+
+        PowerModel? starPower =
+            player.Creature.GetPower<StarPower>();
+
+        if (starPower is not { Amount: > 0 })
+            return 0m;
+
+        decimal actual = Math.Min(amount, starPower.Amount);
+
+        await PowerCmd.ModifyAmount(
+            choiceContext,
+            starPower,
+            -actual,
+            player.Creature,
+            cardSource);
+
+        return actual;
+    }
+
+    /// <summary>
+    /// Removes up to <paramref name="amount"/> Moon from <paramref name="player"/>,
+    /// clamped to the current Moon amount. Returns the actual amount lost.
+    /// Uses PowerCmd.ModifyAmount so the change goes through the proper
+    /// pipeline (hooks, network sync, Star-Moon generation check).
+    /// </summary>
+    public static async Task<decimal> LoseMoon(
+        PlayerChoiceContext choiceContext,
+        Player player,
+        decimal amount,
+        CardModel? cardSource)
+    {
+        ArgumentNullException.ThrowIfNull(player);
+
+        PowerModel? moonPower =
+            player.Creature.GetPower<MoonPower>();
+
+        if (moonPower is not { Amount: > 0 })
+            return 0m;
+
+        decimal actual = Math.Min(amount, moonPower.Amount);
+
+        await PowerCmd.ModifyAmount(
+            choiceContext,
+            moonPower,
+            -actual,
+            player.Creature,
+            cardSource);
+
+        return actual;
     }
 
     public static async Task NotifyBeforeGenerated(

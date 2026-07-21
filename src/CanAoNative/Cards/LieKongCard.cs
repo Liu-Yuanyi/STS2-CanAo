@@ -1,5 +1,6 @@
 using CanAoNative.Pools;
 using CanAoNative.Powers;
+using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -53,16 +54,9 @@ public sealed class LieKongCard : CardModel
 
         int hitCount = 1;
 
-        if (owner.Creature.GetPower<StarPower>() is
-            { Amount: > 0 } starPower)
+        if (await StarMoonService.LoseStar(
+                choiceContext, owner, 1m, this) > 0m)
         {
-            await PowerCmd.ModifyAmount(
-                choiceContext,
-                starPower,
-                -1m,
-                owner.Creature,
-                this);
-
             hitCount = 3;
         }
 

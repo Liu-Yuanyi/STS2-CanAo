@@ -1,5 +1,6 @@
 using CanAoNative.Pools;
 using CanAoNative.Powers;
+using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -56,34 +57,10 @@ public sealed class ChenTuZhiZhanCard : CardModel
         if (CombatState is not { } combatState)
             return;
 
-        decimal stars = 0m;
-        decimal moons = 0m;
-
-        if (owner.Creature.GetPower<StarPower>() is
-            { Amount: > 0 } starPower)
-        {
-            stars = starPower.Amount;
-
-            await PowerCmd.ModifyAmount(
-                choiceContext,
-                starPower,
-                -stars,
-                owner.Creature,
-                this);
-        }
-
-        if (owner.Creature.GetPower<MoonPower>() is
-            { Amount: > 0 } moonPower)
-        {
-            moons = moonPower.Amount;
-
-            await PowerCmd.ModifyAmount(
-                choiceContext,
-                moonPower,
-                -moons,
-                owner.Creature,
-                this);
-        }
+        decimal stars = await StarMoonService.LoseStar(
+            choiceContext, owner, decimal.MaxValue, this);
+        decimal moons = await StarMoonService.LoseMoon(
+            choiceContext, owner, decimal.MaxValue, this);
 
         decimal damage =
             DynamicVars.Damage.BaseValue

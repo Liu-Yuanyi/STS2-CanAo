@@ -1,5 +1,6 @@
 using CanAoNative.Pools;
 using CanAoNative.Powers;
+using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -51,23 +52,17 @@ public sealed class SuiYueYiJiCard : CardModel
             ?? throw new InvalidOperationException(
                 "SuiYue YiJi requires a card owner.");
 
-        if (owner.Creature.GetPower<MoonPower>() is not
-            { Amount: > 0 } moonPower)
-        {
-            return;
-        }
-
-        int moonLost = (int)moonPower.Amount;
-
-        await PowerCmd.ModifyAmount(
+        decimal moonLost = await StarMoonService.LoseMoon(
             choiceContext,
-            moonPower,
-            -moonPower.Amount,
-            owner.Creature,
+            owner,
+            decimal.MaxValue,
             this);
 
+        if (moonLost <= 0m)
+            return;
+
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(moonLost)
+            .WithHitCount((int)moonLost)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);

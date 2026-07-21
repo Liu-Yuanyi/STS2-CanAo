@@ -51,21 +51,14 @@ public sealed class ZhuiXingWeiYueCard : CardModel
             ?? throw new InvalidOperationException(
                 "ZhuiXing WeiYue requires a card owner.");
 
-        if (owner.Creature.GetPower<StarPower>() is not
-            { Amount: > 0 } starPower)
-        {
-            return;
-        }
-
         int generatedBefore =
             StarMoonService.GetGeneratedThisTurn(owner);
 
-        await PowerCmd.ModifyAmount(
-            choiceContext,
-            starPower,
-            -1m,
-            owner.Creature,
-            this);
+        if (await StarMoonService.LoseStar(
+                choiceContext, owner, 1m, this) <= 0m)
+        {
+            return;
+        }
 
         await PowerCmd.Apply<MoonPower>(
             choiceContext,

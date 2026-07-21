@@ -1,13 +1,12 @@
 using CanAoNative.Pools;
 using CanAoNative.Powers;
+using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
 
@@ -44,33 +43,26 @@ public sealed class ZhaoYueChengXingCard : CardModel
             ?? throw new InvalidOperationException(
                 "ZhaoYue ChengXing requires a card owner.");
 
-        // Deferred 2 stars at next turn start — always applied regardless
-        // of whether the player currently has Moon.
-        await PowerCmd.Apply<ZhaoYueChengXingPower>(
+        // 1. If you have Moon, lose 1 Moon (best-effort).
+        await StarMoonService.LoseMoon(
             choiceContext,
-            owner.Creature,
+            owner,
             1m,
-            owner.Creature,
             this);
 
-        // Conditionally convert 1 Moon → 2 Stars immediately.
-        if (owner.Creature.GetPower<MoonPower>() is not
-            { Amount: > 0 } moonPower)
-        {
-            return;
-        }
-
-        await PowerCmd.ModifyAmount(
-            choiceContext,
-            moonPower,
-            -1m,
-            owner.Creature,
-            this);
-
+        // 2. Regardless of step 1, gain 2 Stars immediately.
         await PowerCmd.Apply<StarPower>(
             choiceContext,
             owner.Creature,
             2m,
+            owner.Creature,
+            this);
+
+        // 3. Deferred 2 stars at next turn start.
+        await PowerCmd.Apply<ZhaoYueChengXingPower>(
+            choiceContext,
+            owner.Creature,
+            1m,
             owner.Creature,
             this);
     }
