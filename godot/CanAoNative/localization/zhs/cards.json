@@ -126,7 +126,7 @@
   "ZHUI_XING_WEI_YUE_CARD.title": "坠星为月",
   "ZHUI_XING_WEI_YUE_CARD.description": "若你有[gold]星[/gold]，失去1点[gold]星[/gold]，获得2点[gold]月[/gold]。若因此生成[gold]星月合击[/gold]，抽1张牌。",
   "ZHAO_YUE_CHENG_XING_CARD.title": "照月成星",
-  "ZHAO_YUE_CHENG_XING_CARD.description": "若有[gold]月[/gold]，失去1点[gold]月[/gold]。获得2点[gold]星[/gold]。下回合开始时获得2点[gold]星[/gold]。",
+  "ZHAO_YUE_CHENG_XING_CARD.description": "失去1点[gold]月[/gold]，获得2点[gold]星[/gold]，下回合开始时获得2点[gold]星[/gold]。",
   "YUAN_JUN_CARD.title": "援军",
   "YUAN_JUN_CARD.description": "将3张带有[gold]浴火[/gold]的[gold]打击+[/gold]加入[gold]手牌[/gold]。",
   "YUAN_JUN_STRIKE_CARD.title": "打击",
