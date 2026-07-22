@@ -126,7 +126,7 @@
   "ZHUI_XING_WEI_YUE_CARD.title": "Starfall to Moon",
   "ZHUI_XING_WEI_YUE_CARD.description": "If you have [gold]Star[/gold], lose 1 [gold]Star[/gold] and gain 2 [gold]Moon[/gold]. If this generated a [gold]Star-Moon Strike[/gold], draw 1 card.",
   "ZHAO_YUE_CHENG_XING_CARD.title": "Moonlit Starforge",
-  "ZHAO_YUE_CHENG_XING_CARD.description": "Lose 1 [gold]Moon[/gold], gain 2 [gold]Star[/gold], and gain 2 [gold]Star[/gold] at the start of your next turn.",
+  "ZHAO_YUE_CHENG_XING_CARD.description": "If you have [gold]Moon[/gold], lose 1 [gold]Moon[/gold]. Gain 2 [gold]Star[/gold]. At the start of your next turn, gain 2 [gold]Star[/gold].",
   "YUAN_JUN_CARD.title": "Reinforcements",
   "YUAN_JUN_CARD.description": "Add 3 Strikes+ with [gold]YuHuo[/gold] to your [gold]Hand[/gold].",
   "YUAN_JUN_STRIKE_CARD.title": "Strike",
