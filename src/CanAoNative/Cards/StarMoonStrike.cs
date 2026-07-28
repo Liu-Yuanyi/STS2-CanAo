@@ -17,8 +17,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class StarMoonStrike : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/star_moon_strike.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/star_moon_strike.png";
     public override bool GainsBlock => true;
 
     /// <summary>Use CanAoCardPool for visual rendering.</summary>

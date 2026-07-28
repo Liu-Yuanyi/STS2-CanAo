@@ -15,8 +15,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class ChengTianShouMingCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/cheng_tian_shou_ming.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/cheng_tian_shou_ming.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();

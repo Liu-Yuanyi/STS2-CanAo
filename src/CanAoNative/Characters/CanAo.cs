@@ -12,7 +12,7 @@ namespace CanAoNative.Characters;
 /// </summary>
 public sealed class CanAo : CharacterModel
 {
-    public override CharacterGender Gender => CharacterGender.Feminine;
+    public override CharacterGender Gender => CharacterGender.Masculine;
     protected override CharacterModel? UnlocksAfterRunAs => null;
     public override Color NameColor => new("E8A33D");
     public override int StartingHp => 72;

@@ -16,8 +16,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class QingLuanGouFaCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/qing_luan_gou_fa.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/qing_luan_gou_fa.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();

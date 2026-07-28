@@ -13,8 +13,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class CanAoDefendCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/can_ao_defend.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/can_ao_defend.png";
     public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>

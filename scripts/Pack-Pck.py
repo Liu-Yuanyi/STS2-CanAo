@@ -22,7 +22,7 @@ import struct
 import sys
 
 MAGIC = 0x43504447
-ROOTS = ("godot/CanAoNative", "godot/scenes", "godot/images", "godot/materials")
+ROOTS = ("godot/CanAoNative", "godot/scenes", "godot/images", "godot/materials", "godot/.godot/imported")
 REMOVE_PREFIX = "godot/"
 
 
