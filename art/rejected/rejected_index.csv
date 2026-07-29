@@ -25,3 +25,8 @@ portrait_v02_009_rightstyle_wrongratio.png,卡图,FENG_YAN_BU_XI_CARD,批次6,�
 portrait_v02_010_rightstyle_wrongratio.png,卡图,CHENG_TIAN_SHOU_MING_CARD,批次6,画风正确但竖幅,prompts/archived_prompts.md#批次6,2026-07-28,否
 card_can_ao_strike_v02_complex.png,卡图,CAN_AO_STRIKE_CARD,批次7,画面太复杂（应只有武器）,prompts/archived_prompts.md#批次7,2026-07-28,否
 card_can_ao_defend_v02_complex.png,卡图,CAN_AO_DEFEND_CARD,批次7,画面太复杂（应为盾/格挡动作）,prompts/archived_prompts.md#批次7,2026-07-28,否
+card_qing_luan_gou_fa_v02_prayerlike.png,卡图,QING_LUAN_GOU_FA_CARD,批次7,像许愿祈祷（应为回勾斩怪）,prompts/archived_prompts.md#批次7追加,2026-07-29,否
+card_feng_yan_bu_xi_v02_tooweak.png,卡图,FENG_YAN_BU_XI_CARD,批次7,太弱无史诗感,prompts/archived_prompts.md#批次7追加,2026-07-29,否
+card_yue_zhan_v01_unclear.png,卡图,YUE_ZHAN_CARD,批次9,交叉物读不出是什么,prompts/archived_prompts.md#批次9,2026-07-29,否
+card_nie_pan_v01_noluan.png,卡图,NIE_PAN_CARD,批次9,缺少虚弱无焰青鸾,prompts/archived_prompts.md#批次9,2026-07-29,否
+card_yue_zhan_v02_redslashes.png,卡图,YUE_ZHAN_CARD,批次10,剑气变红（应为银白月色）,prompts/archived_prompts.md#批次10,2026-07-29,否
