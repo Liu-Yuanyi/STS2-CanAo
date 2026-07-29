@@ -20,8 +20,8 @@ public sealed class JiuWangFuLinCard : CardModel
 {
     private bool _gainedFengWeiThisTurn;
 
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/jiu_wang_fu_lin.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/jiu_wang_fu_lin.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();

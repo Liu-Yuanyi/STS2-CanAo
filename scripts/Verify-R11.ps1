@@ -103,11 +103,13 @@ foreach ($RelativePath in $RequiredFiles) {
 # 2026-07-28 intentional change: StarMoonStrike / EdictCard / ChengTianShouMingCard
 # PortraitPath+PortraitPngPath now point at real card art (mechanics untouched);
 # their frozen hashes above were updated accordingly.
+# 2026-07-29 intentional change: YuHuoBannerCard / ChuanLingCard / TianFengXingTaiCard
+# same portrait integration; hashes updated accordingly.
 $VerifiedHashes = [ordered]@{
     "Cards\FeatherRanksCard.cs" = "4273e2087c9faf972c906922bc8c6f058b87057d8affea32569000a1ab630e50"
     "Cards\SacrificialPreparationCard.cs" = "4cfb0aaea1f4157bcf5ca599a046b4e0925d786b702580810d37614190545797"
     "Cards\StarMoonStrike.cs" = "d8b5b998d53c0e13adb2af5dafb5910d27c42eb553a3816cf755828c9bddaa9d"
-    "Cards\YuHuoBannerCard.cs" = "69e5e1d9a68a61a0326557afa8a4abda9014ce8f2f8e47a706aa42e273dfb58b"
+    "Cards\YuHuoBannerCard.cs" = "57001c76c7ba23c9f684db1f3e24e713f38bebf0e02ee8034eb304d011497a01"
     "Cards\ShiWeiCard.cs" = "677e708596f2a28f6039b60855916b810cd88dadc2920fc80eff836a84dc445e"
     "Cards\ZanBiFengMangCard.cs" = "d3730579491594a67607aebeb3e6375b577b72cc94611bc595925aabdacd6042"
     "Powers\FengWeiPower.cs" = "1d3df1fdfd1a7f272ca3c9e7fe44a38c0b7b6ebde470fda8b07010c542eb716b"
@@ -151,13 +153,13 @@ $VerifiedHashes = [ordered]@{
     "Rules\Edict\EdictListenerRegistry.cs" = "b6635a61eb8f857cac9790b1c8522abb933f8a6636101df4761d3edb87d102f3"
     "Rules\Edict\EdictService.cs" = "95973b773ce77263faf995ac5f6909c590daf7733cf2836305080d408beabef6"
     "Cards\EdictCard.cs" = "0f3c79490c04173d322cf2c9572703d1e2490f4dc666a6db76d0db80db8c82ea"
-    "Cards\ChuanLingCard.cs" = "018e84c640d1911e48845eeade02cb2fd410c6009c7d334bbaeffee984934d71"
+    "Cards\ChuanLingCard.cs" = "e25ab8ff1dc4ab6f649f564d11124bf8c2801ea076cb1835945dc35d941e9f3c"
     "Cards\MiZhaoCard.cs" = "4d3f67641090d33a7aca6cb79be11fa055c2db94470d9ebf8c7d19b69374c3c5"
     "Cards\WangQuanCard.cs" = "57e451902800af5a8636998880e369d47110281c8713c2bf0aea74f1e27f695e"
     "Cards\DiGuoYuWeiCard.cs" = "acdae500b79fe6a7c7ed76d01621025dc0e66e772d674e846e67b08cdd8bc846"
     "Powers\DiGuoYuWeiPower.cs" = "8ce5226b0b95ca5b22aab54f88f2ca22ec988f237aee0c084ca7d38afdd6709b"
     "Cards\ChengTianShouMingCard.cs" = "63a146194a299b154842935065ccefb6becf9c764e2a7719dca8e61e78bf78e3"
-    "Cards\TianFengXingTaiCard.cs" = "ed57eb9666fbbc1b06a99868efcf9a2f7986827a39aec563974d98f5d185189b"
+    "Cards\TianFengXingTaiCard.cs" = "cf32f7cbe02b628ec6af1cedc7fe09f0343c41703ba102082ba4706614cec3a0"
     "Powers\TianFengXingTaiPower.cs" = "69d3fbda5dbeaa05cdb42d67a6061379c26d2054d0a3473c0747ee4db17fc7ad"
     "Relics\NiePanHuoZhongRelic.cs" = "10252fa3aa167c2abb239e9312a3cec9b942e24c20064532e0955c2191afbeac"
     "Relics\TianFengJunYinRelic.cs" = "7285187fb95144e7ff8140f780c54c868dc125f2edcc4ffb92752f5346303d08"
