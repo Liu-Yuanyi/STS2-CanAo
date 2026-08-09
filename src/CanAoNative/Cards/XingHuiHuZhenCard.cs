@@ -16,8 +16,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class XingHuiHuZhenCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/xing_hui_hu_zhen.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/xing_hui_hu_zhen.png";
     public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>

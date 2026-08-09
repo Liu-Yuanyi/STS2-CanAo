@@ -16,8 +16,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class YueHuaPingZhangCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/yue_hua_ping_zhang.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/yue_hua_ping_zhang.png";
     public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>

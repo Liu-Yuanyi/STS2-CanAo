@@ -14,8 +14,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class WaMoYuanZhengCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/wa_mo_yuan_zheng.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/wa_mo_yuan_zheng.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();

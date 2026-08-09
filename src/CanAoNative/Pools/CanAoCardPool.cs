@@ -106,6 +106,12 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<WaMoYuanZhengCard>(),
         ModelDb.Card<WangZuoGuMingCard>(),
         ModelDb.Card<BuMieWangChaoCard>(),
-        ModelDb.Card<WanBangLaiChaoCard>()
+        ModelDb.Card<WanBangLaiChaoCard>(),
+
+        // Derivative cards (CardRarity.Token) — registered here for
+        // compendium visibility. Visuals use CanAoTokenPool (colorless frame).
+        ModelDb.Card<StarMoonStrike>(),
+        ModelDb.Card<EdictCard>(),
+        ModelDb.Card<HuoRenCard>()
     ];
 }

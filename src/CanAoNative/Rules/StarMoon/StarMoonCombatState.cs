@@ -56,8 +56,16 @@ public sealed class StarMoonCombatState
 
     public void ClearForPlayers(IEnumerable<Player> players)
     {
+        // 只清回合计数；PlayedThisCombat 是整场战斗的累计
+        // （星月终式的段数依据），不得随回合结束移除条目重置。
         foreach (Player player in players)
-            _players.Remove(player);
+        {
+            if (_players.TryGetValue(player, out PlayerTurnState? state))
+            {
+                state.GeneratedThisTurn = 0;
+                state.PlayedThisTurn = 0;
+            }
+        }
     }
 
     private PlayerTurnState GetOrCreate(Player player)

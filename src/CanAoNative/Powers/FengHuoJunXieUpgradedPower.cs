@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 凤火军械+：每回合开始时，将 Amount 张火刃+加入手牌。
+/// 凤火军械+：每回合抽牌前，将 Amount 张火刃+加入手牌（与无尽刀刃的 BeforeHandDraw 统一）。
 /// 与 FengHuoJunXiePower 是两个独立 Power，
 /// 未升级与升级版凤火军械分别叠层、分别产牌。
 /// </summary>
@@ -19,20 +19,16 @@ public sealed class FengHuoJunXieUpgradedPower : PowerModel
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override async Task AfterPlayerTurnStart(
+    public override async Task BeforeHandDraw(
+        Player player,
         PlayerChoiceContext choiceContext,
-        Player player)
+        ICombatState combatState)
     {
-        if (!ReferenceEquals(player.Creature, Owner)
+        if (player != Owner.Player
             || Amount <= 0)
         {
             return;
         }
-
-        ICombatState? combatState = Owner.CombatState;
-
-        if (combatState == null)
-            return;
 
         Flash();
 

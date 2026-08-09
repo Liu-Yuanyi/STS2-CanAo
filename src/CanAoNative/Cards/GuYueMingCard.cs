@@ -2,6 +2,7 @@ using CanAoNative.Pools;
 using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -12,11 +13,12 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// 孤月明：获得 7（11）月，每拥有一张其他手牌，数值 -2。
+/// Uses CalculatedVar to show live moon count on the card, mirroring PreciseCut.
 /// </summary>
 public sealed class GuYueMingCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/gu_yue_ming.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/gu_yue_ming.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
@@ -28,7 +30,15 @@ public sealed class GuYueMingCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(7)
+        new CalculationBaseVar(7m),
+        new CalculationExtraVar(2m),
+        new CalculatedVar("Moon").WithMultiplier((CardModel card, Creature? _) =>
+        {
+            int handCount = PileType.Hand.GetPile(card.Owner).Cards.Count;
+            if (card.Pile is { } pile && pile.Type == PileType.Hand)
+                handCount--;
+            return -handCount;
+        })
     ];
 
     public GuYueMingCard()
@@ -48,10 +58,8 @@ public sealed class GuYueMingCard : CardModel
             ?? throw new InvalidOperationException(
                 "GuYueMing requires a card owner.");
 
-        int moon = Math.Max(
-            0,
-            DynamicVars.Cards.IntValue
-            - 2 * owner.PlayerCombatState.Hand.Cards.Count);
+        int moon = (int)((CalculatedVar)DynamicVars["Moon"])
+            .Calculate(null);
 
         if (moon <= 0)
             return;
@@ -66,6 +74,6 @@ public sealed class GuYueMingCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(4m);
+        DynamicVars.CalculationBase.UpgradeValueBy(4m);
     }
 }

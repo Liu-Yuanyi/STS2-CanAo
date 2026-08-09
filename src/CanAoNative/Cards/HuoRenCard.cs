@@ -17,11 +17,11 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class HuoRenCard : CardModel, IIntrinsicYuHuo
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/huo_ren.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/huo_ren.png";
 
     /// <summary>Use CanAoCardPool for visual rendering.</summary>
-    public override CardPoolModel Pool => ModelDb.CardPool<CanAoCardPool>();
+    public override CardPoolModel Pool => ModelDb.CardPool<CanAoTokenPool>();
 
     public bool HasIntrinsicYuHuo => true;
 

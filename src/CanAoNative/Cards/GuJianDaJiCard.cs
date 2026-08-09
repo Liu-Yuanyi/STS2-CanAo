@@ -2,6 +2,7 @@ using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -11,18 +12,27 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// 孤剑打击：对所有敌人造成 12（15）点伤害，每拥有一张其他手牌，伤害 -3。
+/// Uses CalculatedDamageVar to show live damage on the card, mirroring PreciseCut.
 /// </summary>
 public sealed class GuJianDaJiCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/gu_jian_da_ji.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/gu_jian_da_ji.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(12m, ValueProp.Move)
+        new CalculationBaseVar(12m),
+        new ExtraDamageVar(3m),
+        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) =>
+        {
+            int handCount = PileType.Hand.GetPile(card.Owner).Cards.Count;
+            if (card.Pile is { } pile && pile.Type == PileType.Hand)
+                handCount--;
+            return -handCount;
+        })
     ];
 
     public GuJianDaJiCard()
@@ -40,20 +50,15 @@ public sealed class GuJianDaJiCard : CardModel
     {
         ICombatState? combatState = CombatState;
 
-        decimal damage = Math.Max(
-            0m,
-            DynamicVars.Damage.BaseValue
-            - 3m * (Owner?.PlayerCombatState.Hand.Cards.Count ?? 0));
-
         if (combatState == null)
         {
-            await DamageCmd.Attack(damage)
+            await DamageCmd.Attack(DynamicVars.CalculatedDamage)
                 .FromCard(this, cardPlay)
                 .Execute(choiceContext);
             return;
         }
 
-        await DamageCmd.Attack(damage)
+        await DamageCmd.Attack(DynamicVars.CalculatedDamage)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(combatState)
             .Execute(choiceContext);
@@ -61,6 +66,6 @@ public sealed class GuJianDaJiCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.CalculationBase.UpgradeValueBy(3m);
     }
 }

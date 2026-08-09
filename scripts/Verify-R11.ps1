@@ -59,7 +59,6 @@ $RequiredFiles = @(
     "Relics\DiGuoNianBiaoRelic.cs",
     "Relics\DiGuoShiCeRelic.cs",
     "Cards\HuoRenCard.cs",
-    "Cards\YuanJunStrikeCard.cs",
     "Patches\BossEpochCharacterPatch.cs",
     "Patches\ArchitectWinRunPatch.cs",
     "Patches\ArchitectCanAoDialoguePatch.cs",
@@ -105,13 +104,33 @@ foreach ($RelativePath in $RequiredFiles) {
 # their frozen hashes above were updated accordingly.
 # 2026-07-29 intentional change: YuHuoBannerCard / ChuanLingCard / TianFengXingTaiCard
 # same portrait integration; hashes updated accordingly.
+# 2026-07-30 intentional change: StarMoonCombatState.ClearForPlayers no longer
+# removes the per-player entry — turn cleanup now only resets GeneratedThisTurn /
+# PlayedThisTurn and preserves PlayedThisCombat (星月终式 hit-count bug fix).
+# 2026-07-30 intentional change: ZanBiFengMangCard / WangQuanCard
+# PortraitPath+PortraitPngPath now point at real card art (mechanics untouched);
+# frozen hashes updated accordingly (batch-13 art integration).
+# 2026-07-30 intentional change: FeatherRanksCard / ShiWeiCard / XingYueFaMoCard /
+# MiZhaoCard / FenGaoJiGuiCard same portrait integration (batch-15/16 art integration).
+# 2026-07-30 intentional change: YuHuoStrikeCard same portrait integration
+# (batch-17~22 art integration).
+# 2026-07-31 intentional change: PanXuanCard / TianFengJunZhenCard /
+# XingYueWangGuanCard same portrait integration (batch-26~28 art integration).
+# 2026-07-31 intentional change: SacrificialPreparationCard / ZhengZhaoCard
+# same portrait integration (batch-30~33 art integration).
+# 2026-07-31 intentional change: FengGuZaiRanCard / DiGuoYuWeiCard
+# same portrait integration (batch-39~41 art integration).
+# 2026-08-01 intentional change (user testing): StarMoonStrike / EdictCard /
+# HuoRenCard Pool switched from CanAoCardPool to new CanAoTokenPool
+# (colorless token frame, compendium-visibility fix per CLAUDE.md 待办);
+# frozen hashes updated accordingly.
 $VerifiedHashes = [ordered]@{
-    "Cards\FeatherRanksCard.cs" = "4273e2087c9faf972c906922bc8c6f058b87057d8affea32569000a1ab630e50"
-    "Cards\SacrificialPreparationCard.cs" = "4cfb0aaea1f4157bcf5ca599a046b4e0925d786b702580810d37614190545797"
-    "Cards\StarMoonStrike.cs" = "d8b5b998d53c0e13adb2af5dafb5910d27c42eb553a3816cf755828c9bddaa9d"
+    "Cards\FeatherRanksCard.cs" = "cf2ba587e953b6796c23d51bc3d1f5e8dddec01028b0eecde6e42e8ba33aa5d0"
+    "Cards\SacrificialPreparationCard.cs" = "df03aa8ad465f7a4a9d26acacfcc4e644e220fd2b49ba5215b1bb53f530897e5"
+    "Cards\StarMoonStrike.cs" = "a4690194c08aa250cb1134b3a691359d756242ed34f2fe4ef4a4076b874720ac"
     "Cards\YuHuoBannerCard.cs" = "57001c76c7ba23c9f684db1f3e24e713f38bebf0e02ee8034eb304d011497a01"
-    "Cards\ShiWeiCard.cs" = "677e708596f2a28f6039b60855916b810cd88dadc2920fc80eff836a84dc445e"
-    "Cards\ZanBiFengMangCard.cs" = "d3730579491594a67607aebeb3e6375b577b72cc94611bc595925aabdacd6042"
+    "Cards\ShiWeiCard.cs" = "0756fdca2db52d7739320913742258cf1cdf7d32ea2d43d03a7126b0452e4ef9"
+    "Cards\ZanBiFengMangCard.cs" = "9902a026d62972ddccc06e6eccaaa70743b2afad20427334c7c8d4478f0bce92"
     "Powers\FengWeiPower.cs" = "1d3df1fdfd1a7f272ca3c9e7fe44a38c0b7b6ebde470fda8b07010c542eb716b"
     "Powers\YuHuoBannerPower.cs" = "3f497726be9b58122f2fd5495d6f6b435b8b371bdd3ae13379521f654e659de9"
     "Powers\YuHuoBannerTemporaryStrengthPower.cs" = "66e32ad32cc12d7fc4bc415e2b19a2b6c65fe1e62809fd45f1538747d3054d27"
@@ -120,14 +139,14 @@ $VerifiedHashes = [ordered]@{
     "Rules\YuHuo\YuHuoResolver.cs" = "2e63f9cbb43fcd449d63d70d6f922c4fa91f951aa12c837cc69d436470c1468e"
     "Rules\YuHuo\YuHuoService.cs" = "0c5fbffa9f7f88734c160a404f2b98c88921ff8ebe3b0e68b4ef9c13d64a8376"
     "Patches\YuHuoExhaustPatch.cs" = "82441b3866502fc8087dfeec059f15eb3ab36b112911a2240a2a457a648e292b"
-    "Cards\PanXuanCard.cs" = "fcc790581ca550cd522150139340a3e2308ed4d3b83ade410cf2afc2ffcf47f3"
-    "Cards\XingYueFaMoCard.cs" = "ebe2eb674d8c5bc659d13ded41ef069e3a566270be8aefb8c5f2499a1a763d1b"
-    "Cards\TianFengJunZhenCard.cs" = "875f16bdf428a9b4410888ef685ed522cfdaa49b9335caa52212d8c222e59285"
+    "Cards\PanXuanCard.cs" = "de9d6b7a088d10c2e5ddbcc9e36855f323e978b0873fbb6a4e19b8774c699035"
+    "Cards\XingYueFaMoCard.cs" = "dd8cb57fe280323da7de741a8d7292bee3c658284dccbcec1e0d9e7afdc46510"
+    "Cards\TianFengJunZhenCard.cs" = "068757456e0f220b5dcccedbd4badf6e1507806ea8ca9b3d5f4566589986c609"
     "Powers\PanXuanPower.cs" = "1dcce5ef0c3b7704af54b7b85cf9a2457fd75233fabf1aeef4535d33abb8f5e8"
     "Powers\TianFengJunZhenPower.cs" = "2cc7e9d0ac165b7df7c82b7afd68764ba2ab5de316a6ec6a8b6a962129a93e58"
     "Powers\TemporaryFengWeiPower.cs" = "137185acb2e72e12da4528750bcb70376524b0707cc13e05981edf19b1e48135"
     "Rules\StarMoon\IStarMoonEvents.cs" = "b227296dfc8799a702b0a6eadf050e8a31d75c77bbe99bbaae0cb6c0b462aa93"
-    "Rules\StarMoon\StarMoonCombatState.cs" = "1b6c5cfca7f3cc9d4a8a96f326b3a84ebcf41b6013322adb803bf4168e16c292"
+    "Rules\StarMoon\StarMoonCombatState.cs" = "846d0823bb7f50e5f01f663911066594c0644d127d5a7c0bcc3394d68b4134ae"
     "Rules\StarMoon\StarMoonGenerationContext.cs" = "9a4becae516e5b031d97971908c2a16b3ce7c76105818f5946a7db44f472856a"
     "Rules\StarMoon\StarMoonPlayedContext.cs" = "2a54e2c28b363e4dda18b8667c2dd323cd60eb3b98daf25367d543a9ca852497"
     "Rules\StarMoon\StarMoonListenerRegistry.cs" = "d739a1117a12fa959479450d56880f5ef11bb99e3273a0e85944b25a40d6ebcb"
@@ -138,11 +157,11 @@ $VerifiedHashes = [ordered]@{
     "Rules\Exhaust\ExhaustCombatState.cs" = "66fb6f4e1a20f3a11cef951cbf54084a810acb057dcc67d9a0739f23c941f750"
     "Rules\Exhaust\ExhaustListenerRegistry.cs" = "4fabba3a2c2043a82a8c58e990dc2b963c421d9266d9e5f555bd71fdf4df7ab3"
     "Rules\Exhaust\ExhaustService.cs" = "360ed8f8e2e5601fb94ad575e7110e9eba0c3b35d3f07049977e73cb7ae000c1"
-    "Cards\ZhengZhaoCard.cs" = "ed0aff57b9af3c21a11e3815f15553d5f42b78bbda56ca27b5f6b5b29ef4561a"
-    "Cards\YuHuoStrikeCard.cs" = "c022fd5a4791b96f4b5c3e85149c1f8f918108cc1faac41c82bee1a16caf7689"
-    "Cards\FenGaoJiGuiCard.cs" = "3dbc62dbb0dd3c111e6ea7946ff3a236c945018a69c0d57740b959903d56cce4"
+    "Cards\ZhengZhaoCard.cs" = "cea5c4af2d6a5905815497680ef8e2a9ffdaf0cd709ad8e8ad17f5ebc94c9114"
+    "Cards\YuHuoStrikeCard.cs" = "7aee5e99b999001955dd9a04a2bde60bb535b8ccc003115fa94983b34859f5e2"
+    "Cards\FenGaoJiGuiCard.cs" = "224777870625e84b93212bcaedbae5cd8c364eddf0d6838c0ad381ed0dec7882"
     # QingGongCard removed — moved to 弃稿
-    "Cards\FengGuZaiRanCard.cs" = "9e40ce13b87222b0835e6ff34a67f06ab4e9c4dd4b3ba0d75a1d7ff031d374a2"
+    "Cards\FengGuZaiRanCard.cs" = "cfd7d7c60d5b40a3f5859cf97284506d33562c5cdeab88de158af3f588393616"
     "Rules\YuHuo\YuHuoDisplay.cs" = "37ddcc6bcc69421de4c65cb2d9178b6ce4319f10740a488714c797d2e24da2d7"
     "Rules\CanAoHoverTips.cs" = "e4dcbef7fb3f0dc77aae53f9b532771014ed99d91714b00dd2c009dc5e260c44"
     "Patches\YuHuoHoverTipPatch.cs" = "c71e120e2183868a91d7d0982ef259632d8b059baf7bc0e8e9e9b2e0a7a501d3"
@@ -152,11 +171,11 @@ $VerifiedHashes = [ordered]@{
     "Rules\Edict\IEdictEvents.cs" = "ffec96a14cbe24b529ca11b40ae00afb941ef631fbbce443a12b73f43ad2cca1"
     "Rules\Edict\EdictListenerRegistry.cs" = "b6635a61eb8f857cac9790b1c8522abb933f8a6636101df4761d3edb87d102f3"
     "Rules\Edict\EdictService.cs" = "95973b773ce77263faf995ac5f6909c590daf7733cf2836305080d408beabef6"
-    "Cards\EdictCard.cs" = "0f3c79490c04173d322cf2c9572703d1e2490f4dc666a6db76d0db80db8c82ea"
+    "Cards\EdictCard.cs" = "644dc7fed645bfc3165826496ad4859a41bc5782b828c92b42a5cd1aa9aac9ac"
     "Cards\ChuanLingCard.cs" = "e25ab8ff1dc4ab6f649f564d11124bf8c2801ea076cb1835945dc35d941e9f3c"
-    "Cards\MiZhaoCard.cs" = "4d3f67641090d33a7aca6cb79be11fa055c2db94470d9ebf8c7d19b69374c3c5"
-    "Cards\WangQuanCard.cs" = "57e451902800af5a8636998880e369d47110281c8713c2bf0aea74f1e27f695e"
-    "Cards\DiGuoYuWeiCard.cs" = "acdae500b79fe6a7c7ed76d01621025dc0e66e772d674e846e67b08cdd8bc846"
+    "Cards\MiZhaoCard.cs" = "92548a54705d5300de40ab819d8d4c6a39bd4299a234e9bbb35158ec65a66694"
+    "Cards\WangQuanCard.cs" = "3deb6a555ac2df6e4dd2c14642b323eb294b38b20833aaa30afb478614a278df"
+    "Cards\DiGuoYuWeiCard.cs" = "774c56a402f0e0739ce7130c37f32874c6e1ad3f70fd4ce7eeb66298d4bf621b"
     "Powers\DiGuoYuWeiPower.cs" = "8ce5226b0b95ca5b22aab54f88f2ca22ec988f237aee0c084ca7d38afdd6709b"
     "Cards\ChengTianShouMingCard.cs" = "63a146194a299b154842935065ccefb6becf9c764e2a7719dca8e61e78bf78e3"
     "Cards\TianFengXingTaiCard.cs" = "cf32f7cbe02b628ec6af1cedc7fe09f0343c41703ba102082ba4706614cec3a0"
@@ -168,7 +187,7 @@ $VerifiedHashes = [ordered]@{
     "Relics\ZhanBeiRelic.cs" = "4a36cc39bea3ba30ab49f8a591c51e51ff8f36aeec31b1dd5bbe33354aead037"
     "Relics\GuWangYuZuoRelic.cs" = "6819be49a5f8f41edd714411f84e7e99d07498d5af6ddf98c3e68528e3b43d29"
     "Relics\DiGuoShuiQiRelic.cs" = "ee3b02b2be5c2ed6bf243ce31234124ad9dbdd3dba372032398712c703736a31"
-    "Cards\XingYueWangGuanCard.cs" = "3b91a7dfdc4193ddba02a1a1e71dd6b6428f17e0b944125606f39ebeb663e2e4"
+    "Cards\XingYueWangGuanCard.cs" = "b61e844ab80edb04eb0af09902ae81b9501a3d24de2d7edee37308bd56c880bd"
     "Powers\XingYueWangGuanPower.cs" = "a6fd4ee53433cecb5b17f603a27d5ccfed24fadd300410d36b433664bcbfe8d8"
     "Potions\FengWeiJiuPotion.cs" = "36347c09f467016b19e4320d4a3fe05fcb265d9e4764c84d59770352340ca933"
     "Potions\YuLingPingPotion.cs" = "332e628a13f8f2858972360f9b11d0de8b7673f60d55de3963a63ffd87ef0ec1"
@@ -214,7 +233,6 @@ $RequiredMarkers = @(
     "RelicRarity.Starter",
     "ref Task __result",
     "class HuoRenCard : CardModel, IIntrinsicYuHuo",
-    "class YuanJunStrikeCard : CardModel, IIntrinsicYuHuo",
     "class ObtainCharUnlockEpochPatch",
     "class BossEpochCharacterPatch",
     "class ArchitectWinRunPatch",
@@ -299,8 +317,6 @@ $CardKeys = @(
     "JI_HUO_CARD.selectionScreenPrompt",
     "HUO_REN_CARD.title",
     "HUO_REN_CARD.description",
-    "YUAN_JUN_STRIKE_CARD.title",
-    "YUAN_JUN_STRIKE_CARD.description",
     "BU_DUO_CARD.title",
     "BU_DUO_CARD.description",
     "FENG_HUN_CARD.title",

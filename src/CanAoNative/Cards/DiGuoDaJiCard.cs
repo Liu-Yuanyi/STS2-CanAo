@@ -19,8 +19,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class DiGuoDaJiCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/di_guo_da_ji.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/di_guo_da_ji.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();

@@ -16,8 +16,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class ZanBiFengMangCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/zan_bi_feng_mang.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/zan_bi_feng_mang.png";
     public override bool GainsBlock => true;
 
     public override CardPoolModel Pool =>

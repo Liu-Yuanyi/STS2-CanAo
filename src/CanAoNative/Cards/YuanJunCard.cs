@@ -12,13 +12,13 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 援军：将 3 张带有浴火的打击+加入手牌。消耗。
-/// 升级后费用降为 0。
+/// 援军：将 3 张带有浴火的火刃+加入手牌。消耗。
+/// 升级后费用降为 0。（2026-08-01 起由打击令牌改为火刃，打击（援军版）卡牌已删除）
 /// </summary>
 public sealed class YuanJunCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/yuan_jun.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/yuan_jun.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
@@ -31,7 +31,7 @@ public sealed class YuanJunCard : CardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         CanAoHoverTips.YuHuo,
-        HoverTipFactory.FromCard<YuanJunStrikeCard>(true)
+        HoverTipFactory.FromCard<HuoRenCard>(true)
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -61,13 +61,11 @@ public sealed class YuanJunCard : CardModel
 
         for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
         {
-            YuanJunStrikeCard strike =
-                combatState.CreateCard<YuanJunStrikeCard>(owner);
-
-            CardCmd.Upgrade(strike);
+            HuoRenCard fireBlade =
+                combatState.CreateCard<HuoRenCard>(owner);
 
             await CardPileCmd.AddGeneratedCardToCombat(
-                strike,
+                fireBlade,
                 PileType.Hand,
                 owner);
         }

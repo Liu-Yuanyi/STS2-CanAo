@@ -25,7 +25,7 @@ public sealed class EdictCard : CardModel
     protected override string PortraitPngPath => "res://images/card_portraits/canao/edict.png";
 
     public override CardPoolModel Pool =>
-        ModelDb.CardPool<CanAoCardPool>();
+        ModelDb.CardPool<CanAoTokenPool>();
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

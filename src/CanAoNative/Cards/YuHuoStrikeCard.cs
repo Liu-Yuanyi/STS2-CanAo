@@ -18,8 +18,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class YuHuoStrikeCard : CardModel, IIntrinsicYuHuo
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/yu_huo_strike.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/yu_huo_strike.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();

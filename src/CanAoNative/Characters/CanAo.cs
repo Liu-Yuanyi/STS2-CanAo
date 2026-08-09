@@ -45,16 +45,15 @@ public sealed class CanAo : CharacterModel
     public override float AttackAnimDelay => 0.15f;
     public override float CastAnimDelay => 0.25f;
 
-    // Placeholder visuals borrowed from the Ironclad until dedicated
-    // assets exist.
+    // AI-generated placeholder visuals — to be iterated on.
     protected override string IconPath =>
-        "res://scenes/ui/character_icons/ironclad_icon.tscn";
+        "res://scenes/ui/character_icons/can_ao_icon.tscn";
     protected override string CharacterSelectIconPath =>
-        "res://images/packed/character_select/char_select_ironclad.png";
+        "res://images/characters/char_select_can_ao.png";
     protected override string CharacterSelectLockedIconPath =>
-        "res://images/packed/character_select/char_select_ironclad_locked.png";
+        "res://images/characters/char_select_locked_can_ao.png";
     protected override string MapMarkerPath =>
-        "res://images/packed/map/icons/map_marker_ironclad.png";
+        "res://images/ui/top_panel/character_icon_can_ao.png";
     public override string CharacterSelectSfx =>
         "event:/sfx/characters/ironclad/ironclad_select";
     public override string CharacterTransitionSfx =>

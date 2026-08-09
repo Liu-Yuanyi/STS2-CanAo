@@ -1,79 +1,61 @@
-# 美术阶段 Session 交接（2026-07-29，git HEAD 91565c4）
+# 美术阶段 Session 交接（2026-08-01，git HEAD 0f7612a + 大量未提交改动）
 
-> 给下一个 session 的开工简报。先读：`CanAoNative/CLAUDE.md`（工程规则）、本文。
+> 给下一个 session 的开工简报。先读：`CanAoNative/CLAUDE.md`（工程规则）、本文、
+> `docs/card_art_pipeline.md` §5.6（评审铁律）、`docs/canao_visual_bible.md`（视觉最高依据）。
 
-## 一、项目与角色一句话
+## 一、当前完成状态
 
-StS2 原生 Mod「残傲」：男性东方凤凰帝王，天凤帝国十二族青鸾七天凤。
-叙事以 `docs/canao_character_bible.md`（心理结构/对白规范）与
-`docs/canao_timeline.md`（对齐根目录 `新大事年表.txt`，止于 569 年）为最高依据；
-视觉以 `docs/canao_visual_bible.md` 为最高依据。
+- **叙事/本地化**：已定稿（同前）。
+- **卡图全部完成**：92 张需制卡图全部定稿并实装（34 张早期 + 本轮 58 张新定稿/替换），
+  `docs/card_art_index.csv` 为唯一追踪源；复核记录 `card_art_round1~5.md`。
+- **角色三图**：海报 v03、写实概念图 v03、局内静态图 v04（透明，已实装进 creature_visuals）。
+- **打击（援军版）整卡已删**：援军改产 3 张火刃+（浴火）；代码/本地化/Verify-R11 已同步。
+- **回收站**：`art/rejected/` 共 170 张否决/未选/取代图 + 索引 + 提示词档案，只进不出。
+- **git**：HEAD `0f7612a`；本轮全部改动未提交（代码 40+ 文件、卡图 100+、文档若干，
+  等用户实机验收后提交）。
+- **pck 待重新部署**：本交接编写时大量新图已裁入 godot 但未 import/部署（见下"立即待办"）。
 
-## 二、当前完成状态
+## 二、生图通道与铁律（管线 §5.6 为准）
 
-- **叙事**：双文档已定稿（经用户 12 条指示修订：九兄妹含尘星、寒羽为八妹、无"望舒"、
-  湮门内无时间流逝、世昌之死为辉雪下令残傲默许、依絮长居并无涯、删泪痣/烧崖/年级第一）。
-- **本地化**：zhs/eng `characters.json` 性别与简介已修正；`Characters/CanAo.cs` 性别=Masculine；
-  报告 `docs/localization_changes.md`。
-- **角色三图**（最终版，用户已认可）：
-  - 海报 `art/concepts/canao_poster_v03_1672x941.png`
-  - 写实概念图 `art/concepts/canao_concept_v03_1086x1448.png`
-  - 局内静态图 `art/source/canao_ingame_static_v04_1024.png`（透明）
-- **卡图 16 张已通过并实装进游戏**（pck 92 文件已部署到游戏目录，16 PNG+16 import+16 ctex 核验齐全）：
-  打击v03、防御v03、凤羽残火v02、祭火v02、星月合击v02、诏令v02、尘土之战v02、青鸾勾法v03、
-  凤焰不息v03、承天受命v02、浴火军旗v01、月斩v03、传令v01、天凤形态v01、涅槃v02、旧王复临v02。
-  逐卡状态见 `docs/card_art_index.csv`；复核记录 `docs/card_art_round1.md`、`card_art_round2.md`。
-- **回收站**：`art/rejected/`（32 张否决/取代图 + `prompts/archived_prompts.md` 全部原始提示词 +
-  `rejected_index.csv` + README 恢复流程）。**只进不出，否决必登记**。
-- **git**：工作区干净，HEAD `91565c4`。
+1. aizex generate.js（批量文生图）与 **aizex 图像编辑 MCP**（img2img，喂参考图）；
+   Kimi 侧经 `aizex-image-bot/mcp_batch.js` 驱动（`node mcp_batch.js jobs.json [120 240]`，
+   结果在 `batchNN_jobs_results.jsonl`）。防封铁律：单实例、120~360s 拟人间隔、勿动浏览器。
+2. **双方案铁律**：每卡 ≥2 正交方案，拼版呈交用户二选一；难卡 4 方案。
+3. **修改稿必审**：img2img 修改完成立即出审查图呈用户，批准后方可实装。
+4. **信任通道**：MCP 出图即为成品，**Kimi 禁止逐张 ReadMediaFile 审查**（省 token）；
+   只核文件/尺寸/任务对应，内容评审归用户（拼版路径呈报）。
+5. img2img 参考图库：`../sts2_enemy_collection/images/`（81 张怪物官方立绘+manifest.csv）、
+   `../sts2_character_collection/images/`（五原生角色，PNG 已转）。
+   联动提示词结构：比例 + 参考图特征锁定句 + §4.1 锚点 + 内容 + §5.1 骨架 + §5.4 负面词。
 
-## 三、可用的两条生图通道
+## 三、卡图规则速查（视觉圣经 §五 + §6.4）
 
-1. **aizex-image-bot**（本地 Playwright 批量文生图）：`aizex-image-bot/`，
-  用法与铁律见根目录 `mcp.md`（单实例、120~360s 拟人间隔、勿动浏览器窗口）。
-  提示词写 `prompts.txt` 一行一条，`node generate.js prompts.txt` 后台跑，收 `output/NNN.png`。
-2. **新增：图像编辑 MCP（img2img）**（用户 2026-07-29 配置）——可喂参考图做编辑，
-  适合：以概念图 v03 为基准保持角色一致、按参考图精确画怪物、局部修改。
-  文生图仍走 aizex-image-bot；需要参考图时用该 MCP。
+- 特写纪律：人物默认只出局部；全身须叙事理由；人怪同框两者都被镜头裁切；禁全身挥砍。
+- 配色/构图去重：禁"剑左劈右怪/一剑斜贯"连发；禁一批内黑+蓝扎堆（色域锚点见 round5）。
+- 锚点原样引用（残傲出镜时）；面部禁痣/额饰/面纹；月必须残；火焰以青蓝为主（凤火军械红刃、
+  火刃红羽、浴火打击红底战场为用户特批先例）。
+- 先古牌（焚诀/归隐陨山）走 3:4 竖版全画幅，实装按 250:351 裁切（1031×1448）。
 
-## 四、卡图工作规则速查（都已固化在视觉圣经 §五）
+## 四、实装管线（照做即可）
 
-- 残傲出镜：提示词必须**原样**包含 §4.1 中文锚点（现行版：无泪痣！青鸾蓝衣+冷银白甲）。
-  **面部禁止任何痣/额饰/面纹**（泪痣已被用户枪毙）。
-- 每条卡图提示词结构：**"画面比例4:3横图（宽大于高）"写最前** + 内容 + §5.1 风格骨架 +
-  §5.4 负面词。竖幅是最大历史坑（批次 6 全军覆没过一次）。
-- 画风 = StS2 原生赛璐璐硬边风（依据 `../sts2_card_portraits_collection/`，22+23 张样本）。
-- 家族 A~F 只是松散题材指引（§5.3）；**每张卡独立选色与创新**，禁默认纯黑背景。
-- 原生联动：雾菇、电球头（Globe Head，参考图 `../sts2_enemy_collection/`）已用两例。
-- 已知构图坑：背视角度下冠易读成双角（拉开两叉角度）；剑气必须写明颜色（月斩曾变红）。
+1. 定稿 PNG → `art/cards/raw/card_<id>_vNN.png`（CSV 同步）；
+2. `python scripts/crop_card_art.py <raw.png> <id> [...]`（25:19 居中裁，写 godot+processed）；
+3. 卡牌类覆写 `PortraitPath`/`PortraitPngPath`（冻结类改后重算 Verify-R11 哈希并注释）；
+4. `Godot ..._console.exe --headless --path godot --import`；
+5. `scripts/Deploy-Mod.ps1` → pck 二进制抽查新 PNG/import/ctex 齐全。
 
-## 五、实装管线（已验证，照做即可）
+## 五、立即待办与下一步
 
-1. 定稿 PNG 放 `art/cards/raw/card_<id>_vNN.png`（CSV 同步）；
-2. 裁 25:19（高×25/19 居中裁）存 `godot/images/card_portraits/canao/<id>.png`；
-3. 卡牌类覆写 `PortraitPath`/`PortraitPngPath` 指向该 res:// 路径
-   （**注意 Verify-R11 冻结哈希**：改动冻结类后须用
-   `Get-NormalizedTextSha256` 重算哈希更新 `scripts/Verify-R11.ps1` 并注释"有意修改"）；
-4. 跑 Godot 导入：`E:\Godot_v4.5.1-stable_mono_win64\..._console.exe --headless --path godot --import`
-   （占位 .import 已有 git 保护，删了可 `git checkout` 恢复）；
-5. `scripts/Deploy-Mod.ps1`（自动 build+Verify+Pack-Pck+部署到游戏目录）；
-   Pack-Pck ROOTS 已含 `godot/.godot/imported`（ctex 不入 git，重建随时可再导）。
+1. **立即**：`Godot --import` → `Deploy-Mod.ps1` → pck 核验（本轮约 60 张新/换图未部署）；
+2. 实机验收：全部卡图图鉴/战斗渲染、局内静态图、星月终式段数修复（ClearForPlayers 已改）、
+   援军火刃产出；
+3. 提交 git（用户验收后）；
+4. 下一步候选：角色选择图（解锁/锁定 44:65）、选择背景 16:9、营火图、商店图；
+   遗物 9 件三件套（85/85轮廓/256）、Power 31 个两件套（64/256）、能量球五层；
+   工程待办：星月合击图鉴不可见排查（CLAUDE.md）。
 
-## 六、下一步候选（按 asset_inventory.md 优先级）
+## 六、不要重做 / 红线
 
-1. 实机验收 16 张卡图（用户开一局看图鉴/战斗渲染）；
-2. 第三批卡图（≤6 张/批，走 §5.6 节奏；候选：观星问月、暂避锋芒、燃羽突袭、桂轮、
-   碎月一击、星月终式、布诏、王权等；先填 §5.3 模板再生成）；
-3. 局内图实装：把 `can_ao` creature_visuals 场景从铁甲占位换成
-   `art/source/canao_ingame_static_v04_1024.png`（静态 PNG 方案，注意 Bounds/定位节点）；
-4. 角色选择图（解锁/锁定 44:65）、选择背景 16:9、营火图、商店图（可由海报/概念图衍生）；
-5. 遗物 9 件三件套（85/85轮廓/256）、Power 31 个两件套（64/256）、能量球五层；
-6. 工程待办（CLAUDE.md）：星月合击图鉴不可见的排查。
-
-## 七、不要重做 / 用户偏好红线
-
-- 不要新增人物（"望舒"事件）；新增设定必须显式标注并经用户确认。
-- 不要泪痣/面纹/额饰；不要默认纯黑背景；不要竖幅卡图；不要"六大家族锁色"式死板；
-  不要普通站立肖像当格挡/能力牌卡图。
-- 打击=只有武器，防御=盾或格挡动作（原生极简哲学）。
-- 机制数值一律以代码为准，不从本地化反推。
+- 不新增人物（家属面部规则未确立；灵魂云霜模式=半透明模糊无五官，已验证可行）；
+- 不泪痣/面纹/额饰；不默认纯黑背景；不竖幅普通卡图（先古牌除外）；不锁死家族色；
+- 机制数值一律以代码为准；怪物联动只作对手/彩蛋；删除内容必须三处同步（代码/本地化/Verify）。

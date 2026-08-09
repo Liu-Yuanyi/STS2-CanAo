@@ -22,7 +22,7 @@ public sealed class StarMoonStrike : CardModel
     public override bool GainsBlock => true;
 
     /// <summary>Use CanAoCardPool for visual rendering.</summary>
-    public override CardPoolModel Pool => ModelDb.CardPool<CanAoCardPool>();
+    public override CardPoolModel Pool => ModelDb.CardPool<CanAoTokenPool>();
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [

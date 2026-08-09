@@ -17,10 +17,13 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class ManMuXingChenCard : CardModel
 {
-    private int _currentStars = 2;
+    private const int _baseStars = 2;
 
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    private int _currentStars = 2;
+    private int _increasedStars;
+
+    public override string PortraitPath => "res://images/card_portraits/canao/man_mu_xing_chen.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/man_mu_xing_chen.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
@@ -44,6 +47,17 @@ public sealed class ManMuXingChenCard : CardModel
             AssertMutable();
             _currentStars = value;
             DynamicVars["Stars"].BaseValue = value;
+        }
+    }
+
+    [SavedProperty]
+    public int IncreasedStars
+    {
+        get => _increasedStars;
+        set
+        {
+            AssertMutable();
+            _increasedStars = value;
         }
     }
 
@@ -76,11 +90,23 @@ public sealed class ManMuXingChenCard : CardModel
             owner.Creature,
             this);
 
-        CurrentStars++;
+        BuffFromPlay(1);
+        (DeckVersion as ManMuXingChenCard)?.BuffFromPlay(1);
     }
 
     protected override void OnUpgrade()
     {
         EnergyCost.UpgradeBy(-1);
+    }
+
+    private void BuffFromPlay(int extraStars)
+    {
+        IncreasedStars += extraStars;
+        UpdateStars();
+    }
+
+    private void UpdateStars()
+    {
+        CurrentStars = _baseStars + IncreasedStars;
     }
 }

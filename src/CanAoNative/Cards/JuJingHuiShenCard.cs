@@ -1,5 +1,6 @@
 using CanAoNative.Pools;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,8 +13,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class JuJingHuiShenCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/ju_jing_hui_shen.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/ju_jing_hui_shen.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
@@ -22,6 +23,11 @@ public sealed class JuJingHuiShenCard : CardModel
     [
         CardKeyword.Ethereal,
         CardKeyword.Exhaust
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new EnergyVar(3)
     ];
 
     public JuJingHuiShenCard()

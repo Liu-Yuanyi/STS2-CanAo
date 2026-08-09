@@ -1,6 +1,7 @@
 using CanAoNative.Powers;
 using CanAoNative.Rules.FengWei;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -15,8 +16,8 @@ namespace CanAoNative.Cards;
 /// </summary>
 public sealed class WangQuanCard : CardModel
 {
-    public override string PortraitPath => CardModel.MissingPortraitPath;
-    protected override string PortraitPngPath => CardModel.MissingPortraitPath;
+    public override string PortraitPath => "res://images/card_portraits/canao/wang_quan.png";
+    protected override string PortraitPngPath => "res://images/card_portraits/canao/wang_quan.png";
 
     public override CardPoolModel Pool =>
         ModelDb.CardPool<CanAoCardPool>();
@@ -24,6 +25,11 @@ public sealed class WangQuanCard : CardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromCard<EdictCard>()
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new EnergyVar(1)
     ];
 
     public WangQuanCard()
