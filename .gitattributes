@@ -1,0 +1,37 @@
+# AI 审查包导出规则：git archive 时排除二进制美术/音频/视频/模型/压缩包，
+# 让 `git archive --format=zip HEAD -o repo-for-ai.zip` 只导出源码与文本资源。
+# 文件存在性通过根目录 FILE_TREE.txt / ASSET_LIST.txt 保留可见。
+
+# 图片
+*.png export-ignore
+*.jpg export-ignore
+*.jpeg export-ignore
+*.webp export-ignore
+*.gif export-ignore
+*.psd export-ignore
+*.tga export-ignore
+*.bmp export-ignore
+*.exr export-ignore
+*.hdr export-ignore
+
+# 音频
+*.wav export-ignore
+*.mp3 export-ignore
+*.ogg export-ignore
+*.flac export-ignore
+
+# 视频
+*.mp4 export-ignore
+*.mov export-ignore
+
+# 3D 模型
+*.fbx export-ignore
+*.blend export-ignore
+*.glb export-ignore
+*.gltf export-ignore
+
+# 压缩包与二进制
+*.zip export-ignore
+*.7z export-ignore
+*.rar export-ignore
+*.bin export-ignore
