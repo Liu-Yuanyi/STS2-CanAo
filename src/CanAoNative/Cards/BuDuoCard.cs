@@ -3,13 +3,15 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using CanAoNative.Pools;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 不堕：你的星月合击不受小于 0 的凤威影响。升级后获得固有。
+/// 不堕（v12 重做）：你每回合前 1（2）次打出的【星月合击】
+/// 不受小于 0 的凤威影响。叠加打出 = 前 n 次不受（Counter）。
 /// </summary>
 public sealed class BuDuoCard : CardModel
 {
@@ -23,6 +25,11 @@ public sealed class BuDuoCard : CardModel
     [
         HoverTipFactory.FromCard<StarMoonStrike>(),
         HoverTipFactory.FromPower<FengWeiPower>()
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new CardsVar(1)
     ];
 
     public BuDuoCard()
@@ -41,13 +48,13 @@ public sealed class BuDuoCard : CardModel
         await PowerCmd.Apply<BuDuoPower>(
             choiceContext,
             Owner.Creature,
-            1m,
+            DynamicVars.Cards.IntValue,
             Owner.Creature,
             this);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

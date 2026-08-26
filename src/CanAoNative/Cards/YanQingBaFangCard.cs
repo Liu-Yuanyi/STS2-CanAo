@@ -1,17 +1,16 @@
 using CanAoNative.Pools;
-using CanAoNative.Powers;
-using CanAoNative.Rules.FengWei;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 宴请八方：（多人游戏专属）所有玩家恢复等同于你的凤威点数的血量。消耗。
+/// 宴请八方（v12 重做）：稀有能力牌，2 费。（多人游戏专属）
+/// 所有玩家恢复 3（5）点生命，抽 1 张牌。
 /// </summary>
 public sealed class YanQingBaFangCard : CardModel
 {
@@ -24,20 +23,16 @@ public sealed class YanQingBaFangCard : CardModel
     public override CardMultiplayerConstraint MultiplayerConstraint =>
         CardMultiplayerConstraint.MultiplayerOnly;
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        CardKeyword.Exhaust
-    ];
-
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipFactory.FromPower<FengWeiPower>()
+        new DynamicVar("Heal", 3m),
+        new CardsVar(1)
     ];
 
     public YanQingBaFangCard()
         : base(
-            canonicalEnergyCost: 3,
-            type: CardType.Skill,
+            canonicalEnergyCost: 2,
+            type: CardType.Power,
             rarity: CardRarity.Rare,
             targetType: TargetType.Self)
     {
@@ -47,30 +42,24 @@ public sealed class YanQingBaFangCard : CardModel
         PlayerChoiceContext choiceContext,
         CardPlay cardPlay)
     {
-        Player owner = Owner
-            ?? throw new InvalidOperationException(
-                "YanQing BaFang requires a card owner.");
-
         if (CombatState is not { } combatState)
-            return;
-
-        decimal heal = Math.Max(
-            0m,
-            FengWeiService.GetEffectiveAmount(owner));
-
-        if (heal <= 0m)
             return;
 
         foreach (Player player in combatState.Players)
         {
             await CreatureCmd.Heal(
                 player.Creature,
-                heal);
+                DynamicVars["Heal"].BaseValue);
+
+            await CardPileCmd.Draw(
+                choiceContext,
+                DynamicVars.Cards.BaseValue,
+                player);
         }
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars["Heal"].UpgradeValueBy(2m);
     }
 }

@@ -53,6 +53,7 @@ public sealed class GuJianDaJiCard : CardModel
         if (combatState == null)
         {
             await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+                .WithHitFx("vfx/vfx_attack_blunt")
                 .FromCard(this, cardPlay)
                 .Execute(choiceContext);
             return;

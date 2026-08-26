@@ -1,6 +1,5 @@
 using CanAoNative.Pools;
 using CanAoNative.Powers;
-using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -12,8 +11,8 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 观星问月：选择：获得 2 星，或获得 2 月。
-/// 若没有因本牌生成【星月合击】，抽 1（2）张牌。
+/// 观星问月（v12 重做）：选择：获得 2（3）星，或获得 2（3）月。
+/// 选项令牌与自身升级状态同步（选项文本随之显示 2 或 3）。
 /// </summary>
 public sealed class GuanXingWenYueCard : CardModel
 {
@@ -26,13 +25,12 @@ public sealed class GuanXingWenYueCard : CardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<StarPower>(),
-        HoverTipFactory.FromPower<MoonPower>(),
-        HoverTipFactory.FromCard<StarMoonStrike>()
+        HoverTipFactory.FromPower<MoonPower>()
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(1)
+        new CardsVar(2)
     ];
 
     public GuanXingWenYueCard()
@@ -60,8 +58,12 @@ public sealed class GuanXingWenYueCard : CardModel
         CardModel wenYue =
             combatState.CreateCard<WenYueOptionCard>(owner);
 
-        int generatedBefore =
-            StarMoonService.GetGeneratedThisTurn(owner);
+        // 选项令牌与自身升级同步，使选项文本显示正确的 2/3。
+        if (IsUpgraded)
+        {
+            CardCmd.Upgrade(guanXing);
+            CardCmd.Upgrade(wenYue);
+        }
 
         CardModel? choice =
             await CardSelectCmd.FromChooseACardScreen(
@@ -70,38 +72,24 @@ public sealed class GuanXingWenYueCard : CardModel
                 owner,
                 canSkip: false);
 
-        if (choice != null)
+        if (choice is GuanXingOptionCard)
         {
-            if (choice is GuanXingOptionCard)
-            {
-                await PowerCmd.Apply<StarPower>(
-                    choiceContext,
-                    owner.Creature,
-                    2m,
-                    owner.Creature,
-                    this);
-            }
-            else
-            {
-                await PowerCmd.Apply<MoonPower>(
-                    choiceContext,
-                    owner.Creature,
-                    2m,
-                    owner.Creature,
-                    this);
-            }
+            await PowerCmd.Apply<StarPower>(
+                choiceContext,
+                owner.Creature,
+                DynamicVars.Cards.IntValue,
+                owner.Creature,
+                this);
         }
-
-        if (StarMoonService.GetGeneratedThisTurn(owner)
-            != generatedBefore)
+        else if (choice is WenYueOptionCard)
         {
-            return;
+            await PowerCmd.Apply<MoonPower>(
+                choiceContext,
+                owner.Creature,
+                DynamicVars.Cards.IntValue,
+                owner.Creature,
+                this);
         }
-
-        await CardPileCmd.Draw(
-            choiceContext,
-            DynamicVars.Cards.BaseValue,
-            owner);
     }
 
     protected override void OnUpgrade()

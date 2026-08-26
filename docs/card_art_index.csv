@@ -18,7 +18,7 @@ YUE_HUA_PING_ZHANG_CARD,月华屏障,Skill,Common,1,B,art/cards/raw/card_yue_hua
 XING_HUI_HU_ZHEN_CARD,星辉护阵,Skill,Common,1,B,art/cards/raw/card_xing_hui_hu_zhen_v02.png,v02,v02,五批通过（已实装）,Kimi,-,已接入（已部署）
 GUAN_XING_WEN_YUE_CARD,观星问月,Skill,Common,1,B,art/cards/raw/card_guan_xing_wen_yue_v01.png,v01,v01,五批通过（已实装）,Kimi,-,已接入（已部署）
 FEN_YU_SHOU_SHI_CARD,焚羽守势,Skill,Common,2,A,art/cards/raw/card_fen_yu_shou_shi_v03.png,v03,v03,五批通过（已实装）,未开始,-,已接入（已部署）
-GU_YUE_MING_CARD,孤月明,Skill,Common,2,F,art/cards/raw/card_gu_yue_ming_v03.png,v03,v03,五批通过（已实装）,未开始,-,已接入（已部署）
+GU_YUE_MING_CARD,孤月明,Skill,Common,2,F,art/cards/raw/card_gu_yue_ming_v03.png,v03,v03,弃稿（v12 删除，代码/本地化/卡池已移除）,未开始,-,已接入（已部署）
 CHUAN_LING_CARD,传令,Skill,Common,1,C,art/cards/raw/card_chuan_ling_v01.png,v01,v01,二批通过（原生画风）,Kimi,-,已接入（已部署）
 FEATHER_RANKS_CARD,羽列千军,Attack,Common,1,A,art/cards/raw/card_feather_ranks_v01.png,v01,v01,五批通过（已实装）,Kimi,-,已接入（已部署）
 SHI_WEI_CARD,示威,Attack,Common,1,D,art/cards/raw/card_shi_wei_v01.png,v01,v01,五批通过（已实装）,Kimi,-,已接入（已部署）
@@ -40,7 +40,7 @@ JIN_YU_HUI_XUAN_CARD,烬羽回旋,Attack,Uncommon,1,E,art/cards/raw/card_jin_yu_
 WANG_WEI_YA_JING_CARD,王威压境,Attack,Uncommon,2,D,art/cards/raw/card_wang_wei_ya_jing_v03.png,v03,v03,五批通过（已实装）,未开始,-,已接入（已部署）
 HUI_JIN_FENG_BAO_CARD,灰烬风暴,Attack,Uncommon,2,A,art/cards/raw/card_hui_jin_feng_bao_v02.png,v02,v02,五批通过（已实装）,未开始,-,已接入（已部署）
 PO_MO_REN_CARD,破魔刃,Attack,Uncommon,1,D,art/cards/raw/card_po_mo_ren_v03.png,v03,v03,五批通过（已实装）,未开始,-,已接入（已部署）
-WANG_SHI_QIN_ZHENG_CARD,王师亲征,Attack,Uncommon,2,D,art/cards/raw/card_wang_shi_qin_zheng_v02.png,v02,v02,五批通过（已实装）,未开始,-,已接入（已部署）
+WANG_SHI_QIN_ZHENG_CARD,王师亲征,Attack,Uncommon,2,D,art/cards/raw/card_wang_shi_qin_zheng_v02.png,v02,v02,弃稿（v12 删除，代码/本地化/卡池已移除）,未开始,-,已接入（已部署）
 PO_ZHEN_CARD,破阵,Attack,Uncommon,2,D,art/cards/raw/card_po_zhen_v01.png,v01,v01,五批通过（已实装）,未开始,-,已接入（已部署）
 ZHUI_XING_WEI_YUE_CARD,坠星为月,Skill,Uncommon,0,B,art/cards/raw/card_zhui_xing_wei_yue_v02.png,v02,v02,五批通过（已实装）,未开始,-,已接入（已部署）
 ZHAO_YUE_CHENG_XING_CARD,照月成星,Skill,Uncommon,1,B,art/cards/raw/card_zhao_yue_cheng_xing_v01.png,v01,v01,五批通过（已实装）,未开始,-,已接入（已部署）
@@ -77,7 +77,7 @@ NIE_PAN_CARD,涅槃,Skill,Rare,3,E,art/cards/raw/card_nie_pan_v02.png,v02,v02,�
 YAN_QING_BA_FANG_CARD,宴请八方,Skill,Rare,3,C,art/cards/raw/card_yan_qing_ba_fang_v01.png,v01,v01,五批通过（已实装）,未开始,-,已接入（已部署）
 DI_GUO_DA_JI_CARD,帝国大祭,Skill,Rare,X,E,art/cards/raw/card_di_guo_da_ji_v02.png,v02,v02,五批通过（已实装）,未开始,-,已接入（已部署）
 WANG_QUAN_CARD,王权,Skill,Rare,2,C,art/cards/raw/card_wang_quan_v01.png,v01,v01,五批通过（已实装）,Kimi,-,已接入（已部署）
-CHENG_TIAN_SHOU_MING_CARD,承天受命,Skill,Rare,3,C,art/cards/raw/card_cheng_tian_shou_ming_v02.png,v02,v02,首轮通过（原生画风）,Kimi,-,已接入（已部署）
+CHENG_TIAN_SHOU_MING_CARD,承天受命,Skill,Rare,3,C,art/cards/raw/card_cheng_tian_shou_ming_v02.png,v02,v02,弃稿（v12 删除，代码/本地化/卡池已移除）,Kimi,-,已接入（已部署）
 TIAN_FENG_XING_TAI_CARD,天凤形态,Power,Rare,3,D,art/cards/raw/card_tian_feng_xing_tai_v01.png,v01,v01,二批通过（原生画风）,Kimi,-,已接入（已部署）
 XING_YUE_WANG_GUAN_CARD,星月王冠,Power,Rare,1,B,art/cards/raw/card_xing_yue_wang_guan_v02.png,v02,v02,五批通过（已实装）,未开始,-,已接入（已部署）
 ZHONG_ZHANG_CARD,终章,Power,Rare,1,F,art/cards/raw/card_zhong_zhang_v01.png,v01,v01,五批通过（已实装）,未开始,-,已接入（已部署）
@@ -98,3 +98,5 @@ CAN_AO_PROBE_POWER_CARD,残傲探针能力,Skill,Test,1,X,,,,,无需卡图,测�
 GAIN_STAR_CARD,获得星,Skill,Test,0,X,,,,,无需卡图,测试牌不入池,否
 GAIN_MOON_CARD,获得月,Skill,Test,0,X,,,,,无需卡图,测试牌不入池,否
 GAIN_FENG_WEI_CARD,获得凤威,Skill,Test,0,X,,,,,无需卡图,测试牌不入池,否
+AN_JIAN_CARD,按剑,Skill,Common,1,D,art/cards/raw/card_an_jian_v01.png,v01,v01,批62通过（已实装）,用户,-,已接入（已部署）
+XING_YUE_LUN_ZHUAN_CARD,星月轮转,Power,Rare,1,B,art/cards/raw/card_xing_yue_lun_zhuan_v01.png,v01,v01,批62通过（已实装）,用户,-,已接入（已部署）

@@ -72,6 +72,7 @@ public sealed class QuShiBaiZhongCard : CardModel
             owner);
     }
 
+
     protected override void OnUpgrade()
     {
         AddKeyword(CardKeyword.Retain);

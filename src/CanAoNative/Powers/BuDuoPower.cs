@@ -1,4 +1,5 @@
 using CanAoNative.Cards;
+using CanAoNative.Rules.StarMoon;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -8,16 +9,16 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 不堕：星月合击不受小于 0 的凤威影响。
-/// 凤威对星月合击的修正由 FengWeiPower 与 TemporaryFengWeiPower 的
-/// 增量 Hook 叠加而成；本 Power 追加一个非负补偿量，
-/// 使合计修正等于 max(0, 永久凤威 + 临时凤威)。
-/// 效果与层数无关，重复打出不叠加（StackType.Single，壁垒式）。
+/// 不堕（v12 重做）：每回合前 Amount 次打出的星月合击不受小于 0 的
+/// 凤威影响。凤威对星月合击的修正由 FengWeiPower 与
+/// TemporaryFengWeiPower 的增量 Hook 叠加而成；命中前 n 次时本 Power
+/// 追加一个非负补偿量，使合计修正等于 max(0, 永久凤威 + 临时凤威)。
+/// 叠加语义：层数 = 每回合免疫次数（Counter，R11 叠加统一）。
 /// </summary>
 public sealed class BuDuoPower : PowerModel
 {
     public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Single;
+    public override PowerStackType StackType => PowerStackType.Counter;
 
     public override decimal ModifyDamageAdditive(
         Creature? target,
@@ -27,7 +28,7 @@ public sealed class BuDuoPower : PowerModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (cardSource is StarMoonStrike)
+        if (cardSource is StarMoonStrike && WithinImmunePlays())
             return NegativeFengWeiOffset();
 
         return 0m;
@@ -40,10 +41,22 @@ public sealed class BuDuoPower : PowerModel
         CardModel? cardSource,
         CardPlay? cardPlay)
     {
-        if (cardSource is StarMoonStrike)
+        if (cardSource is StarMoonStrike && WithinImmunePlays())
             return NegativeFengWeiOffset();
 
         return 0m;
+    }
+
+    /// <summary>
+    /// 本回合已打出数（打出记录在 AfterCardPlayedLate 才递增，
+    /// 当前这张合击尚未计入）小于层数时，本张免疫。
+    /// </summary>
+    private bool WithinImmunePlays()
+    {
+        if (Amount <= 0 || Owner.Player is not { } player)
+            return false;
+
+        return StarMoonService.GetPlayedThisTurn(player) < Amount;
     }
 
     /// <summary>

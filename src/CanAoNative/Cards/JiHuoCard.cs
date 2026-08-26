@@ -84,6 +84,7 @@ public sealed class JiHuoCard : CardModel
         }
     }
 
+
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1m);

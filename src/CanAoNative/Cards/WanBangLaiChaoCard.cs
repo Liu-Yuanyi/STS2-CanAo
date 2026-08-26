@@ -7,14 +7,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using CanAoNative.Pools;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 万邦来朝：获得 1（2）点凤威。
-/// 每当你生成星月合击时，对所有敌人施加 1 层虚弱。
+/// 万邦来朝（v12 重做）：获得 1（2）点凤威。在你的回合开始时，
+/// 将 1 张其他角色的随机能力牌加入手牌，它获得虚无。
 /// </summary>
 public sealed class WanBangLaiChaoCard : CardModel
 {
@@ -26,9 +25,7 @@ public sealed class WanBangLaiChaoCard : CardModel
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromPower<FengWeiPower>(),
-        HoverTipFactory.FromCard<StarMoonStrike>(),
-        HoverTipFactory.FromPower<WeakPower>()
+        HoverTipFactory.FromPower<FengWeiPower>()
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -66,6 +63,7 @@ public sealed class WanBangLaiChaoCard : CardModel
             owner.Creature,
             this);
     }
+
 
     protected override void OnUpgrade()
     {

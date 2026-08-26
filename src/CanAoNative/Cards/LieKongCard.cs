@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 裂空：造成 7（10）点伤害。若你有星，失去 1 星并重复 2 次伤害。
+/// 裂空：造成 7（10）点伤害。若你有星，失去 1 星并重复 1 次伤害。
 /// </summary>
 public sealed class LieKongCard : CardModel
 {
@@ -57,10 +57,12 @@ public sealed class LieKongCard : CardModel
         if (await StarMoonService.LoseStar(
                 choiceContext, owner, 1m, this) > 0m)
         {
-            hitCount = 3;
+            hitCount = 2;
         }
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)

@@ -45,6 +45,8 @@ public sealed class CanAoStrikeCard : CardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);

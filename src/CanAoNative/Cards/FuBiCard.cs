@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 复辟：将凤威调整至 0（1），本回合不再受临时凤威的影响。
+/// 复辟：将凤威调整至 0（1），本回合不再受临时凤威的影响。消耗。
 /// 每调整 1 点，获得 1 张【星月合击】。
 /// </summary>
 public sealed class FuBiCard : CardModel
@@ -28,6 +28,11 @@ public sealed class FuBiCard : CardModel
     [
         HoverTipFactory.FromPower<FengWeiPower>(),
         HoverTipFactory.FromCard<StarMoonStrike>()
+    ];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        CardKeyword.Exhaust
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -87,6 +92,7 @@ public sealed class FuBiCard : CardModel
                 this);
         }
     }
+
 
     protected override void OnUpgrade()
     {

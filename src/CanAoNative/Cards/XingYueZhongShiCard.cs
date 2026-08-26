@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 星月终式：造成 8（11）点伤害。本局游戏每打出过 1 张【星月合击】，重复一次。
+/// 星月终式：造成 7（9）点伤害。本场战斗每打出过 1 张【星月合击】，重复一次。
 /// Uses CalculatedVar to show hit count on the card, mirroring PullFromBelow.
 /// </summary>
 public sealed class XingYueZhongShiCard : CardModel
@@ -31,7 +31,7 @@ public sealed class XingYueZhongShiCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8m, ValueProp.Move),
+        new DamageVar(7m, ValueProp.Move),
         new CalculationBaseVar(0m),
         new CalculationExtraVar(1m),
         new CalculatedVar("ExtraHits").WithMultiplier((CardModel card, Creature? _) =>
@@ -65,6 +65,8 @@ public sealed class XingYueZhongShiCard : CardModel
             .Calculate(cardPlay.Target);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_heavy_blunt")
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
@@ -73,6 +75,6 @@ public sealed class XingYueZhongShiCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
     }
 }

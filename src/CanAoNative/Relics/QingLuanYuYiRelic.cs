@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Relics;
 
 /// <summary>
-/// 青鸾羽衣：在你的回合开始时，若敌方攻击后你仍剩余至少 5 点格挡，
+/// 青鸾羽衣：在你的回合开始时，若敌方攻击后你仍剩余至少 3 点格挡，
 /// 获得 1 月。敌方 side-turn 结束（敌人已行动完）是"被打完之后"的
 /// 快照点；己方回合开始时结算。
 /// </summary>
@@ -26,7 +26,7 @@ public sealed class QingLuanYuYiRelic : RelicModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(5m, ValueProp.Unpowered)
+        new BlockVar(3m, ValueProp.Unpowered)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

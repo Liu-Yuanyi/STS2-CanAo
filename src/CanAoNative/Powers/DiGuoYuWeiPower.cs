@@ -7,7 +7,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Powers;
 
 /// <summary>
-/// 帝国余威：每回合第二次打出诏令时，获得 Amount 点凤威。
+/// 帝国威严（v12：原帝国余威）：每回合第一次打出诏令时，获得 Amount 点凤威。
 /// </summary>
 public sealed class DiGuoYuWeiPower :
     PowerModel,
@@ -26,7 +26,7 @@ public sealed class DiGuoYuWeiPower :
             return;
         }
 
-        if (EdictService.GetPlayedThisTurn(context.Player) != 2)
+        if (EdictService.GetPlayedThisTurn(context.Player) != 1)
             return;
 
         Flash();

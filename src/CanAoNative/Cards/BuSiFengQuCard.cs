@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 不死凤躯：2（3）回合内，下一次你将受到致命伤害时，
+/// 不死凤躯：保留。2（3）回合内，下一次你将受到致命伤害时，
 /// 改为保留 1 点生命。消耗。
 /// </summary>
 public sealed class BuSiFengQuCard : CardModel
@@ -23,7 +23,8 @@ public sealed class BuSiFengQuCard : CardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
-        CardKeyword.Exhaust
+        CardKeyword.Exhaust,
+        CardKeyword.Retain
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>

@@ -47,6 +47,8 @@ public sealed class JinYuHuiXuanCard : CardModel
                 "JinYu HuiXuan requires a card owner.");
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);

@@ -49,6 +49,9 @@ public static class ModEntry
             new($"{ModId}.RuntimePatches");
         harmony.PatchAll(typeof(YuHuoExhaustPatch).Assembly);
         CanAoPowerIconPatch.TryApply(harmony, Log);
+        CanAoRelicIconPatch.TryApply(harmony, Log);
+        CanAoPotionIconPatch.TryApply(harmony, Log);
+        CanAoCardPoolIconPatch.TryApply(harmony, Log);
 
         Log.Info(
             $"CANAO_MODELS: " +

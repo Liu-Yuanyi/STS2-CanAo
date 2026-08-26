@@ -46,6 +46,7 @@ public sealed class FengYanBuXiCard : CardModel
             this);
     }
 
+
     protected override void OnUpgrade()
     {
         EnergyCost.UpgradeBy(-1);

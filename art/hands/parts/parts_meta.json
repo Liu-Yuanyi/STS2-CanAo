@@ -1,0 +1,72 @@
+{
+ "finger_thumb": {
+  "pivot": [
+   42,
+   245
+  ],
+  "size": [
+   85,
+   130
+  ]
+ },
+ "finger_index": {
+  "pivot": [
+   130,
+   140
+  ],
+  "size": [
+   70,
+   140
+  ]
+ },
+ "finger_middle": {
+  "pivot": [
+   192,
+   145
+  ],
+  "size": [
+   65,
+   145
+  ]
+ },
+ "finger_ring": {
+  "pivot": [
+   252,
+   160
+  ],
+  "size": [
+   65,
+   145
+  ]
+ },
+ "finger_pinky": {
+  "pivot": [
+   307,
+   200
+  ],
+  "size": [
+   65,
+   130
+  ]
+ },
+ "base_fist": {
+  "pivot": [
+   211,
+   600
+  ],
+  "size": [
+   422,
+   1200
+  ]
+ },
+ "base_open": {
+  "pivot": [
+   211,
+   600
+  ],
+  "size": [
+   422,
+   1200
+  ]
+ }
+}

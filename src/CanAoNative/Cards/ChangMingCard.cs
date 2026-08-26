@@ -6,11 +6,13 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 长鸣：将至多 2 张牌从消耗牌堆移至抽牌堆。消耗。升级后不消耗。
+/// 长鸣（v12）：获得 6（7）点格挡。将 1 张牌从消耗牌堆移至抽牌堆。
+    /// 消耗。升级后格挡 +1 且不消耗。
 /// </summary>
 public sealed class ChangMingCard : CardModel
 {
@@ -27,7 +29,8 @@ public sealed class ChangMingCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(2)
+        new BlockVar(6m, ValueProp.Move),
+        new CardsVar(1)
     ];
 
     public ChangMingCard()
@@ -46,6 +49,11 @@ public sealed class ChangMingCard : CardModel
         Player owner = Owner
             ?? throw new InvalidOperationException(
                 "ChangMing requires a card owner.");
+
+        await CreatureCmd.GainBlock(
+            Owner.Creature,
+            DynamicVars.Block,
+            cardPlay);
 
         CardPile exhaustPile = owner.PlayerCombatState.ExhaustPile;
 
@@ -73,6 +81,7 @@ public sealed class ChangMingCard : CardModel
 
     protected override void OnUpgrade()
     {
+        DynamicVars.Block.UpgradeValueBy(1m);
         RemoveKeyword(CardKeyword.Exhaust);
     }
 }

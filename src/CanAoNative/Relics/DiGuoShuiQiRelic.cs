@@ -4,21 +4,30 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rewards;
+using MegaCrit.Sts2.Core.Rooms;
 
 namespace CanAoNative.Relics;
 
 /// <summary>
-/// 帝国税契：每场战斗开始时，将 1 张诏令加入手牌。
-/// 你每次打出诏令后，失去 1 金币。
+/// 帝国税契（v12 重做，2026-08-16 修正）：每场战斗开始时，将 1 张诏令
+/// 加入手牌。战斗结束时，敌人额外掉落等同于本场战斗中你打出过的
+/// 诏令数目的金币——走战斗奖励系统（TryModifyRewards + GoldReward，
+/// 参考原生紫水晶茄子），不再是战斗结束瞬间直接加金币。
+/// 打出计数经 EdictService 事件层（IAfterEdictPlayed）。
 /// </summary>
-public sealed class DiGuoShuiQiRelic : RelicModel
+public sealed class DiGuoShuiQiRelic :
+    RelicModel,
+    IAfterEdictPlayed
 {
     private bool _combatStartPending;
+    private int _edictsPlayedThisCombat;
 
     public override RelicRarity Rarity => RelicRarity.Shop;
 
@@ -35,6 +44,7 @@ public sealed class DiGuoShuiQiRelic : RelicModel
     public override Task BeforeCombatStart()
     {
         _combatStartPending = true;
+        _edictsPlayedThisCombat = 0;
         return Task.CompletedTask;
     }
 
@@ -59,20 +69,43 @@ public sealed class DiGuoShuiQiRelic : RelicModel
             1);
     }
 
-    public override async Task AfterCardPlayedLate(
+    public Task AfterEdictPlayed(
         PlayerChoiceContext choiceContext,
-        CardPlay cardPlay)
+        EdictPlayedContext context)
     {
-        if (cardPlay.Card is not EdictCard
-            || cardPlay.Card.Owner != Owner)
+        if (context.Player != Owner)
+            return Task.CompletedTask;
+
+        _edictsPlayedThisCombat++;
+        return Task.CompletedTask;
+    }
+
+    public override bool TryModifyRewards(
+        Player player,
+        List<Reward> rewards,
+        AbstractRoom? room)
+    {
+        if (player != Owner
+            || room == null
+            || !room.RoomType.IsCombatRoom()
+            || _edictsPlayedThisCombat <= 0)
         {
-            return;
+            return false;
         }
 
-        Flash();
+        rewards.Add(new GoldReward(_edictsPlayedThisCombat, player));
+        return true;
+    }
 
-        await PlayerCmd.LoseGold(
-            DynamicVars.Cards.IntValue,
-            Owner);
+    public override Task AfterModifyingRewards()
+    {
+        Flash();
+        return Task.CompletedTask;
+    }
+
+    public override Task AfterCombatEnd(CombatRoom room)
+    {
+        _edictsPlayedThisCombat = 0;
+        return Task.CompletedTask;
     }
 }

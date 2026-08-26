@@ -1,0 +1,17 @@
+{
+  "rock": [
+    {"part": "base_fist"}
+  ],
+  "paper": [
+    {"part": "base_open"}
+  ],
+  "scissors": [
+    {"part": "base_fist"},
+    {"part": "finger_index", "at": [168, 132], "rot": -14},
+    {"part": "finger_middle", "at": [212, 126], "rot": 6}
+  ],
+  "point": [
+    {"part": "base_fist"},
+    {"part": "finger_index", "at": [182, 130], "rot": -6}
+  ]
+}

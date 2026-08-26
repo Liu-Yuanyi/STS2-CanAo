@@ -114,6 +114,7 @@ public sealed class EdictCard : CardModel
         }
     }
 
+
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1m);

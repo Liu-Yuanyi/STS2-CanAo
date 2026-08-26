@@ -17,8 +17,8 @@
   "PAN_XUAN_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold] this turn, gain {Amount} [gold]Block[/gold].",
   "TIAN_FENG_JUN_ZHEN_POWER.title": "Heavenly Phoenix Formation",
   "TIAN_FENG_JUN_ZHEN_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold], deal {Amount} damage to ALL enemies.",
-  "DI_GUO_YU_WEI_POWER.title": "Imperial Legacy",
-  "DI_GUO_YU_WEI_POWER.description": "The second time you play an [gold]Edict[/gold] each turn, gain {Amount} [gold]FengWei[/gold].",
+  "DI_GUO_YU_WEI_POWER.title": "Imperial Majesty",
+  "DI_GUO_YU_WEI_POWER.description": "The first time you play an [gold]Edict[/gold] each turn, gain {Amount} [gold]FengWei[/gold].",
   "TIAN_FENG_XING_TAI_POWER.title": "Heavenly Phoenix Form",
   "TIAN_FENG_XING_TAI_POWER.description": "At the start of your turn, add {Amount} [gold]Edict[/gold] to your [gold]Hand[/gold].",
   "XING_YUE_WANG_GUAN_POWER.title": "Star-Moon Crown",
@@ -32,7 +32,7 @@
   "GUI_YIN_YUN_SHAN_POWER.title": "Retreat to the Fallen Mountain",
   "GUI_YIN_YUN_SHAN_POWER.description": "Skills cost {Amount} less.",
   "BU_DUO_POWER.title": "Unfallen",
-  "BU_DUO_POWER.description": "Your [gold]Star-Moon Strikes[/gold] are unaffected by negative [gold]FengWei[/gold].",
+  "BU_DUO_POWER.description": "The first {Amount} [gold]Star-Moon Strikes[/gold] you play each turn are unaffected by negative [gold]FengWei[/gold].",
   "FENG_HUN_POWER.title": "Phoenix Soul",
   "FENG_HUN_POWER.description": "The first {Amount} times a card is [gold]Exhausted[/gold] each turn, draw 2 cards.",
   "JIAO_HUI_POWER.title": "Twin Radiance",
@@ -55,7 +55,9 @@
   "BU_MIE_WANG_CHAO_POWER.title": "Eternal Dynasty",
   "BU_MIE_WANG_CHAO_POWER.description": "At the start of your turn, add a random Attack or Skill from your [gold]Discard Pile[/gold] to your [gold]Hand[/gold].",
   "WAN_BANG_LAI_CHAO_POWER.title": "Tribute of Nations",
-  "WAN_BANG_LAI_CHAO_POWER.description": "Whenever you generate a [gold]Star-Moon Strike[/gold], apply {Amount} [gold]Weak[/gold] to ALL enemies.",
+  "WAN_BANG_LAI_CHAO_POWER.description": "At the start of your turn, add {Amount} random {Amount:plural:Power|Powers} from other characters to your [gold]Hand[/gold]. They gain [gold]Ethereal[/gold].",
   "NEXT_TURN_STAR_POWER.title": "Moonlit Starforge",
-  "NEXT_TURN_STAR_POWER.description": "At the start of your next turn, gain 2 [gold]Star[/gold]."
+  "NEXT_TURN_STAR_POWER.description": "At the start of your next turn, gain 2 [gold]Star[/gold].",
+  "XING_YUE_LUN_ZHUAN_POWER.title": "Star-Moon Cycle",
+  "XING_YUE_LUN_ZHUAN_POWER.description": "When you generate your 2nd [gold]Star-Moon Strike[/gold] each turn, gain {Amount} [gold]Energy[/gold]."
 }

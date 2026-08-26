@@ -54,6 +54,8 @@ public sealed class YueZhanCard : CardModel
                 "YueZhan requires a card owner.");
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .WithHitCount(2)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)

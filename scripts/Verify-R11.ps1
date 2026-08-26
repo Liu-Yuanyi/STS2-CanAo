@@ -125,12 +125,12 @@ foreach ($RelativePath in $RequiredFiles) {
 # (colorless token frame, compendium-visibility fix per CLAUDE.md 待办);
 # frozen hashes updated accordingly.
 $VerifiedHashes = [ordered]@{
-    "Cards\FeatherRanksCard.cs" = "cf2ba587e953b6796c23d51bc3d1f5e8dddec01028b0eecde6e42e8ba33aa5d0"
-    "Cards\SacrificialPreparationCard.cs" = "df03aa8ad465f7a4a9d26acacfcc4e644e220fd2b49ba5215b1bb53f530897e5"
-    "Cards\StarMoonStrike.cs" = "a4690194c08aa250cb1134b3a691359d756242ed34f2fe4ef4a4076b874720ac"
+    "Cards\FeatherRanksCard.cs" = "449cda097e3f09f717ffda63ef66cb6389b4681a436feb1e7dcf3eb0bf3f3313"
+    "Cards\SacrificialPreparationCard.cs" = "0ab05be4f61b8ed89e00272f1d8d604d89b5d51151222efc94fa23e0fdeb1a4e"
+    "Cards\StarMoonStrike.cs" = "438cf85f14c32cab189704947cdcb01bfc1bf23113b56b216dc26a76136e04fc"
     "Cards\YuHuoBannerCard.cs" = "57001c76c7ba23c9f684db1f3e24e713f38bebf0e02ee8034eb304d011497a01"
-    "Cards\ShiWeiCard.cs" = "0756fdca2db52d7739320913742258cf1cdf7d32ea2d43d03a7126b0452e4ef9"
-    "Cards\ZanBiFengMangCard.cs" = "9902a026d62972ddccc06e6eccaaa70743b2afad20427334c7c8d4478f0bce92"
+    "Cards\ShiWeiCard.cs" = "186a05cacc855ba747378ce93265b954b51d09ff2c57a2a0dd6363fb504fe177"
+    "Cards\ZanBiFengMangCard.cs" = "9bed9bb3be5bcc0fb505fea28484f3840f0609e1752d2b81ceee4461da81e126"
     "Powers\FengWeiPower.cs" = "1d3df1fdfd1a7f272ca3c9e7fe44a38c0b7b6ebde470fda8b07010c542eb716b"
     "Powers\YuHuoBannerPower.cs" = "3f497726be9b58122f2fd5495d6f6b435b8b371bdd3ae13379521f654e659de9"
     "Powers\YuHuoBannerTemporaryStrengthPower.cs" = "66e32ad32cc12d7fc4bc415e2b19a2b6c65fe1e62809fd45f1538747d3054d27"
@@ -161,6 +161,9 @@ $VerifiedHashes = [ordered]@{
     "Cards\YuHuoStrikeCard.cs" = "7aee5e99b999001955dd9a04a2bde60bb535b8ccc003115fa94983b34859f5e2"
     "Cards\FenGaoJiGuiCard.cs" = "224777870625e84b93212bcaedbae5cd8c364eddf0d6838c0ad381ed0dec7882"
     # QingGongCard removed — moved to 弃稿
+    # 2026-08-15 intentional change (v12 修改.md): WangShiQinZhengCard /
+    # GuYueMingCard / ChengTianShouMingCard 删除（卡池/本地化同步移除）；
+    # 本文件冻结哈希同步移除。详见 v12修改.md 与残傲.md 弃稿。
     "Cards\FengGuZaiRanCard.cs" = "cfd7d7c60d5b40a3f5859cf97284506d33562c5cdeab88de158af3f588393616"
     "Rules\YuHuo\YuHuoDisplay.cs" = "37ddcc6bcc69421de4c65cb2d9178b6ce4319f10740a488714c797d2e24da2d7"
     "Rules\CanAoHoverTips.cs" = "e4dcbef7fb3f0dc77aae53f9b532771014ed99d91714b00dd2c009dc5e260c44"
@@ -171,25 +174,32 @@ $VerifiedHashes = [ordered]@{
     "Rules\Edict\IEdictEvents.cs" = "ffec96a14cbe24b529ca11b40ae00afb941ef631fbbce443a12b73f43ad2cca1"
     "Rules\Edict\EdictListenerRegistry.cs" = "b6635a61eb8f857cac9790b1c8522abb933f8a6636101df4761d3edb87d102f3"
     "Rules\Edict\EdictService.cs" = "95973b773ce77263faf995ac5f6909c590daf7733cf2836305080d408beabef6"
-    "Cards\EdictCard.cs" = "644dc7fed645bfc3165826496ad4859a41bc5782b828c92b42a5cd1aa9aac9ac"
+    "Cards\EdictCard.cs" = "5b33a636c8b93453cca909675d9340aa4797f8df85bcfe96950ba82dd10668ed"
     "Cards\ChuanLingCard.cs" = "e25ab8ff1dc4ab6f649f564d11124bf8c2801ea076cb1835945dc35d941e9f3c"
     "Cards\MiZhaoCard.cs" = "92548a54705d5300de40ab819d8d4c6a39bd4299a234e9bbb35158ec65a66694"
     "Cards\WangQuanCard.cs" = "3deb6a555ac2df6e4dd2c14642b323eb294b38b20833aaa30afb478614a278df"
-    "Cards\DiGuoYuWeiCard.cs" = "774c56a402f0e0739ce7130c37f32874c6e1ad3f70fd4ce7eeb66298d4bf621b"
-    "Powers\DiGuoYuWeiPower.cs" = "8ce5226b0b95ca5b22aab54f88f2ca22ec988f237aee0c084ca7d38afdd6709b"
-    "Cards\ChengTianShouMingCard.cs" = "63a146194a299b154842935065ccefb6becf9c764e2a7719dca8e61e78bf78e3"
-    "Cards\TianFengXingTaiCard.cs" = "cf32f7cbe02b628ec6af1cedc7fe09f0343c41703ba102082ba4706614cec3a0"
+    "Cards\DiGuoYuWeiCard.cs" = "23704382bca567ff597f2354f432114cdc60da0b3a342e47061d3f513bc823e6"
+    "Powers\DiGuoYuWeiPower.cs" = "8aaef427fc0ebfb99d009eaad60f7bfd9891e7b666c22cd07d9ce3e828f17898"
+    # ChengTianShouMingCard removed — v12 删除（弃稿）
+    # 2026-08-15 intentional change (v12 修改.md): 数值/关键词/重做涉及冻结类——
+    # FeatherRanksCard(9/12+保留)、SacrificialPreparationCard(删力量)、
+    # ZanBiFengMangCard(永久-1凤威)、DiGuoYuWeiCard/Power(第一次+改名帝国威严)、
+    # TianFengJunYinRelic(3)、QingLuanYuYiRelic(阈值3)、ZhanBeiRelic(3)、
+    # GuWangYuZuoRelic(抽牌替代能量)、FengWeiJiuPotion(临时凤威 3→2)、
+    # DiGuoShuiQiRelic(重做:奖励系统结算金币 GoldReward,2026-08-16 修正)；
+    # 机制均为 v12 用户逐项拍板，冻结哈希同步更新。
+    "Cards\TianFengXingTaiCard.cs" = "a5a5708abcf00cee8242b79488b5d73362864a67d9a5e264e0a3be5b70c4c6f0"
     "Powers\TianFengXingTaiPower.cs" = "69d3fbda5dbeaa05cdb42d67a6061379c26d2054d0a3473c0747ee4db17fc7ad"
     "Relics\NiePanHuoZhongRelic.cs" = "10252fa3aa167c2abb239e9312a3cec9b942e24c20064532e0955c2191afbeac"
-    "Relics\TianFengJunYinRelic.cs" = "7285187fb95144e7ff8140f780c54c868dc125f2edcc4ffb92752f5346303d08"
-    "Relics\QingLuanYuYiRelic.cs" = "ad62ba2cb3e773d580257b8967f81057eedfd19e1cbe89d24f4037a74a3df773"
+    "Relics\TianFengJunYinRelic.cs" = "64ac474f885c2d9bf01f50c6411896b3990778bd5e290354d1b6a7cd96bda4a1"
+    "Relics\QingLuanYuYiRelic.cs" = "19a74db5e1287524051176240f3911b1375f50f67da928c5a3ba9d9cb71bea50"
     "Relics\HeJiWuDianRelic.cs" = "b8bca024db348e206e26a2bac6aaa879df2588c7c8265dbc4ee189b06d7070b7"
-    "Relics\ZhanBeiRelic.cs" = "4a36cc39bea3ba30ab49f8a591c51e51ff8f36aeec31b1dd5bbe33354aead037"
-    "Relics\GuWangYuZuoRelic.cs" = "6819be49a5f8f41edd714411f84e7e99d07498d5af6ddf98c3e68528e3b43d29"
-    "Relics\DiGuoShuiQiRelic.cs" = "ee3b02b2be5c2ed6bf243ce31234124ad9dbdd3dba372032398712c703736a31"
+    "Relics\ZhanBeiRelic.cs" = "fcd0339aad35e41af0aee3097938e929f70ead0fcfc96cbd0280a725a96f4a59"
+    "Relics\GuWangYuZuoRelic.cs" = "0b23dc0392e1b51076e2c09153a71d3bf3d1352191649bbeb2fc36fda91668ba"
+    "Relics\DiGuoShuiQiRelic.cs" = "e8488da2dd40163649ede70f9778cd5157d971ca3857cfaae16d465c25d4d935"
     "Cards\XingYueWangGuanCard.cs" = "b61e844ab80edb04eb0af09902ae81b9501a3d24de2d7edee37308bd56c880bd"
     "Powers\XingYueWangGuanPower.cs" = "a6fd4ee53433cecb5b17f603a27d5ccfed24fadd300410d36b433664bcbfe8d8"
-    "Potions\FengWeiJiuPotion.cs" = "36347c09f467016b19e4320d4a3fe05fcb265d9e4764c84d59770352340ca933"
+    "Potions\FengWeiJiuPotion.cs" = "22ae3e49a794f46b967053fd14efb53a7d01d9b46cd41e33c65ad26351d32b9e"
     "Potions\YuLingPingPotion.cs" = "332e628a13f8f2858972360f9b11d0de8b7673f60d55de3963a63ffd87ef0ec1"
     "Potions\QiongJiangPotion.cs" = "e6990887b1e66fa6d57296c8ad41ca404cac302c38492793dbefeed0c1d98bdb"
 }

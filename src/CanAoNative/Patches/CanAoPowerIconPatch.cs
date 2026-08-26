@@ -80,16 +80,31 @@ public static class CanAoPowerIconPatch
         PowerModel __instance,
         ref string __result)
     {
-        if (IsCanAoPower(__instance))
-            __result = SmallFallback;
+        if (!IsCanAoPower(__instance))
+            return;
+
+        // 2026-08-10 图标实装：优先使用每 Power 专属小图
+        // res://images/powers/small/<id>.png；缺失时回落原生占位。
+        string custom =
+            "res://images/powers/small/" +
+            __instance.Id.Entry.ToLowerInvariant() + ".png";
+
+        __result = Godot.ResourceLoader.Exists(custom) ? custom : SmallFallback;
     }
 
     private static void BigIconPostfix(
         PowerModel __instance,
         ref string __result)
     {
-        if (IsCanAoPower(__instance))
-            __result = BigFallback;
+        if (!IsCanAoPower(__instance))
+            return;
+
+        // 大图默认约定 res://images/powers/<id>.png，存在即用。
+        string custom =
+            "res://images/powers/" +
+            __instance.Id.Entry.ToLowerInvariant() + ".png";
+
+        __result = Godot.ResourceLoader.Exists(custom) ? custom : BigFallback;
     }
 
     /// <summary>

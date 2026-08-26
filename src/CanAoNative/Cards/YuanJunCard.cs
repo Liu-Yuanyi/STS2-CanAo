@@ -12,8 +12,9 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 援军：将 3 张带有浴火的火刃+加入手牌。消耗。
-/// 升级后费用降为 0。（2026-08-01 起由打击令牌改为火刃，打击（援军版）卡牌已删除）
+/// 援军：将 3 张带有浴火的火刃加入手牌。消耗。
+/// 升级后费用降为 0。（2026-08-01 起由打击令牌改为火刃，打击（援军版）卡牌已删除；
+/// 2026-08-15 悬浮预览修正为未升级版火刃，与实际产出一致）
 /// </summary>
 public sealed class YuanJunCard : CardModel
 {
@@ -31,7 +32,7 @@ public sealed class YuanJunCard : CardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         CanAoHoverTips.YuHuo,
-        HoverTipFactory.FromCard<HuoRenCard>(true)
+        HoverTipFactory.FromCard<HuoRenCard>()
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
@@ -70,6 +71,7 @@ public sealed class YuanJunCard : CardModel
                 owner);
         }
     }
+
 
     protected override void OnUpgrade()
     {

@@ -63,6 +63,7 @@ public sealed class XingHuiHuZhenCard : CardModel
             this);
     }
 
+
     protected override void OnUpgrade()
     {
         DynamicVars.Block.UpgradeValueBy(4m);

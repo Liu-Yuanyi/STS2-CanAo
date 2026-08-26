@@ -51,6 +51,8 @@ public sealed class RanYuTuXiCard : CardModel
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
         await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);

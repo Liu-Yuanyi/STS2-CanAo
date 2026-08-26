@@ -9,14 +9,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using CanAoNative.Pools;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 牺牲准备：获得 1 点力量。选择手牌中的 2（3）张没有浴火的
-/// 非能力牌，使其本回合获得浴火。消耗。合法候选不足时自动选择全部候选。
+/// 牺牲准备（v12）：选择手牌中的 2（3）张没有浴火的非能力牌，
+/// 使其本回合获得浴火。消耗。合法候选不足时自动选择全部候选。
 /// </summary>
 public sealed class SacrificialPreparationCard : CardModel
 {
@@ -63,14 +62,6 @@ public sealed class SacrificialPreparationCard : CardModel
 
         if (combatState == null)
             return;
-
-        // Gain 1 Strength unconditionally as a baseline.
-        await PowerCmd.Apply<StrengthPower>(
-            choiceContext,
-            owner.Creature,
-            1m,
-            owner.Creature,
-            this);
 
         // 已有浴火的牌不能再选（参考原生响指/雕琢打击的同类过滤）。
         bool IsEligible(CardModel candidate) =>

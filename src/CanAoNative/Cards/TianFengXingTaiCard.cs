@@ -64,6 +64,7 @@ public sealed class TianFengXingTaiCard : CardModel
             this);
     }
 
+
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(2m);

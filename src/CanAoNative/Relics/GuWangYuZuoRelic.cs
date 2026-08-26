@@ -15,7 +15,7 @@ namespace CanAoNative.Relics;
 
 /// <summary>
 /// 孤王玉座：回合结束时，若你手牌为空，下一回合开始时
-/// 获得 1 费和一张星月合击+。
+/// 额外抽 1 张牌并获得一张星月合击+。
 /// </summary>
 public sealed class GuWangYuZuoRelic : RelicModel
 {
@@ -25,13 +25,12 @@ public sealed class GuWangYuZuoRelic : RelicModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new EnergyVar(1)
+        new CardsVar(1)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromCard<StarMoonStrike>(upgrade: true),
-        HoverTipFactory.Static(StaticHoverTip.Energy)
+        HoverTipFactory.FromCard<StarMoonStrike>(upgrade: true)
     ];
 
     /// <summary>
@@ -68,8 +67,9 @@ public sealed class GuWangYuZuoRelic : RelicModel
         _handWasEmptyAtTurnEnd = false;
         Flash();
 
-        await PlayerCmd.GainEnergy(
-            DynamicVars.Energy.IntValue,
+        await CardPileCmd.Draw(
+            choiceContext,
+            DynamicVars.Cards.BaseValue,
             Owner);
 
         await StarMoonService.Generate(

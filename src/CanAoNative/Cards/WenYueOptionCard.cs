@@ -3,12 +3,13 @@ using CanAoNative.Powers;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 问月：观星问月的选项令牌（选择后获得 2 月）。
+/// 问月：观星问月的选项令牌（选择后获得 2（3）月）。
 /// </summary>
 public sealed class WenYueOptionCard : CardModel
 {
@@ -21,6 +22,11 @@ public sealed class WenYueOptionCard : CardModel
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
         HoverTipFactory.FromPower<MoonPower>()
+    ];
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new CardsVar(2)
     ];
 
     public WenYueOptionCard()
@@ -38,5 +44,10 @@ public sealed class WenYueOptionCard : CardModel
         CardPlay cardPlay)
     {
         return Task.CompletedTask;
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

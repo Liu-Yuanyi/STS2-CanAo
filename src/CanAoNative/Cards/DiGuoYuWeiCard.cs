@@ -9,7 +9,7 @@ using CanAoNative.Pools;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 帝国余威：你每回合第二次打出诏令时，获得 1 点凤威。升级后获得固有。
+/// 帝国威严：你每回合第二次打出诏令时，获得 1 点凤威。升级后获得固有。
 /// </summary>
 public sealed class DiGuoYuWeiCard : CardModel
 {

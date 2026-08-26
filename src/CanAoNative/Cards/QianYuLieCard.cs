@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 千羽裂：造成 2 点伤害 4（7）次，若你的凤威大于 0，
+/// 千羽裂：造成 3 点伤害 3（5）次，若你的凤威大于 0，
 /// 每拥有 1 点凤威，额外攻击一次。
 /// </summary>
 public sealed class QianYuLieCard : CardModel
@@ -31,8 +31,8 @@ public sealed class QianYuLieCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(2m, ValueProp.Move),
-        new DynamicVar("Hits", 4m)
+        new DamageVar(3m, ValueProp.Move),
+        new DynamicVar("Hits", 3m)
     ];
 
     public QianYuLieCard()
@@ -61,6 +61,8 @@ public sealed class QianYuLieCard : CardModel
             + (int)Math.Max(0m, fengWei);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_heavy_blunt")
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
@@ -69,6 +71,6 @@ public sealed class QianYuLieCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars["Hits"].UpgradeValueBy(3m);
+        DynamicVars["Hits"].UpgradeValueBy(2m);
     }
 }

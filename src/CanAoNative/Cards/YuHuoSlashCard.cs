@@ -12,16 +12,16 @@ namespace CanAoNative.Cards;
 
 /// <summary>
 /// YuHuo Slash (浴火斩): test card for the 浴火 (YuHuo) mechanism.
-/// 1-cost Attack, 6(8) damage. 浴火, Exhaust.
+/// 1-cost Attack, 7(9) damage. 浴火, Exhaust.
 ///
 /// When played normally by the player:
-///   Play → 6 damage → Exhaust keyword triggers → 浴火 intercepts →
-///   Auto-play → 6 damage → Exhaust keyword → recursion guard blocks → exhausted
-/// Result: 12(16) damage for 1 energy (2 plays)
+///   Play → 7 damage → Exhaust keyword triggers → 浴火 intercepts →
+///   Auto-play → 7 damage → Exhaust keyword → recursion guard blocks → exhausted
+/// Result: 14(18) damage for 1 energy (2 plays)
 ///
 /// When force-exhausted without being played (e.g. by Ethereal or Havoc):
-///   浴火 intercepts → Auto-play → 6(8) damage → exhausted
-/// Result: 6(8) damage for 0 energy (1 play)
+///   浴火 intercepts → Auto-play → 7(9) damage → exhausted
+/// Result: 7(9) damage for 0 energy (1 play)
 /// </summary>
 public sealed class YuHuoSlashCard : CardModel, IIntrinsicYuHuo
 {
@@ -41,7 +41,7 @@ public sealed class YuHuoSlashCard : CardModel, IIntrinsicYuHuo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6m, ValueProp.Move)
+        new DamageVar(7m, ValueProp.Move)
     ];
 
     public YuHuoSlashCard()
@@ -60,6 +60,8 @@ public sealed class YuHuoSlashCard : CardModel, IIntrinsicYuHuo
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);

@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 决断：造成 8 点伤害。若本回合打出过【诏令】，重复 1（2）次。
+/// 决断：造成 8（11）点伤害。若本回合打出过【诏令】，重复 1 次。
 /// </summary>
 public sealed class YuQianCaiJueCard : CardModel
 {
@@ -58,6 +58,8 @@ public sealed class YuQianCaiJueCard : CardModel
             hitCount += DynamicVars.Cards.IntValue;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
@@ -66,6 +68,6 @@ public sealed class YuQianCaiJueCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

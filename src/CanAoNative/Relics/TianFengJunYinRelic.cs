@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Relics;
 
 /// <summary>
-/// 天凤军印：你每次打出诏令后，获得 4 点格挡。
+/// 天凤军印：你每次打出诏令后，获得 3 点格挡。
 /// Uses the game's own card-play hook directly, mirroring native relics.
 /// </summary>
 public sealed class TianFengJunYinRelic : RelicModel
@@ -20,7 +20,7 @@ public sealed class TianFengJunYinRelic : RelicModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new BlockVar(4m, ValueProp.Unpowered)
+        new BlockVar(3m, ValueProp.Unpowered)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

@@ -13,7 +13,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 羽列千军：普通打出时攻击一个敌人；因浴火触发时改为攻击所有敌人。
+/// 羽列千军：保留。浴火。造成 9（12）点伤害；
+/// 因浴火触发时改为对所有敌人造成伤害。
 /// This is the first production card that consumes YuHuoExecutionContext.
 /// </summary>
 public sealed class FeatherRanksCard : CardModel, IIntrinsicYuHuo
@@ -26,9 +27,14 @@ public sealed class FeatherRanksCard : CardModel, IIntrinsicYuHuo
 
     public bool HasIntrinsicYuHuo => true;
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        CardKeyword.Retain
+    ];
+
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move)
+        new DamageVar(9m, ValueProp.Move)
     ];
 
     public FeatherRanksCard()
@@ -46,6 +52,7 @@ public sealed class FeatherRanksCard : CardModel, IIntrinsicYuHuo
     {
         AttackCommand attack =
             DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .WithHitFx("vfx/vfx_attack_slash")
                 .FromCard(this, cardPlay);
 
         if (YuHuoService.IsTriggeredByYuHuo(this))
@@ -76,6 +83,6 @@ public sealed class FeatherRanksCard : CardModel, IIntrinsicYuHuo
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);
+        DynamicVars.Damage.UpgradeValueBy(3m);
     }
 }

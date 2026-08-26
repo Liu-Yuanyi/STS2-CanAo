@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 青鸾勾法：造成 10（15）点伤害。获得 1（2）星。
+/// 青鸾勾法：造成 9（11）点伤害。获得 1（2）星。
 /// </summary>
 public sealed class QingLuanGouFaCard : CardModel
 {
@@ -29,7 +29,7 @@ public sealed class QingLuanGouFaCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10m, ValueProp.Move),
+        new DamageVar(9m, ValueProp.Move),
         new CardsVar(1)
     ];
 
@@ -53,6 +53,8 @@ public sealed class QingLuanGouFaCard : CardModel
                 "QingLuan GouFa requires a card owner.");
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
@@ -65,9 +67,10 @@ public sealed class QingLuanGouFaCard : CardModel
             this);
     }
 
+
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(5m);
+        DynamicVars.Damage.UpgradeValueBy(2m);
         DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

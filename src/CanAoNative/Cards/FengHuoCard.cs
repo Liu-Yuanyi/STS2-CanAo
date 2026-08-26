@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 烽火：浴火。获得 1（2）费，摸 2 张牌。
+/// 烽火：保留。浴火。获得 1（2）费，摸 2 张牌。
 /// </summary>
 public sealed class FengHuoCard : CardModel, IIntrinsicYuHuo
 {
@@ -21,6 +21,11 @@ public sealed class FengHuoCard : CardModel, IIntrinsicYuHuo
         ModelDb.CardPool<CanAoCardPool>();
 
     public bool HasIntrinsicYuHuo => true;
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords =>
+    [
+        CardKeyword.Retain
+    ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [

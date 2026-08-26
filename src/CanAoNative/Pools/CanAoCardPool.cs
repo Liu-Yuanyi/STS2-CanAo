@@ -10,10 +10,10 @@ namespace CanAoNative.Pools;
 public sealed class CanAoCardPool : CardPoolModel
 {
     public override string Title => "can_ao";
-    public override string EnergyColorName => "regent";
-    public override string CardFrameMaterialPath => "card_frame_orange";
-    public override Color DeckEntryCardColor => new("C88000");
-    public override Color EnergyOutlineColor => new("804820");
+    public override string EnergyColorName => "can_ao";
+    public override string CardFrameMaterialPath => "card_frame_canao";
+    public override Color DeckEntryCardColor => new("A6DFFF");
+    public override Color EnergyOutlineColor => new("0E2A3F");
     public override bool IsColorless => false;
 
     protected override CardModel[] GenerateAllCards() =>
@@ -37,7 +37,6 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<XingHuiHuZhenCard>(),
         ModelDb.Card<GuanXingWenYueCard>(),
         ModelDb.Card<FenYuShouShiCard>(),
-        ModelDb.Card<GuYueMingCard>(),
         ModelDb.Card<YuHuoSlashCard>(),
         ModelDb.Card<SacrificialPreparationCard>(),
         ModelDb.Card<FengYanBuXiCard>(),
@@ -52,6 +51,7 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<YuHuoStrikeCard>(),
         ModelDb.Card<FenGaoJiGuiCard>(),
         // QingGongCard removed — moved to 弃稿.
+        // v12: WangShiQinZhengCard / GuYueMingCard / ChengTianShouMingCard removed — 弃稿.
         ModelDb.Card<FengGuZaiRanCard>(),
         ModelDb.Card<LieKongCard>(),
         ModelDb.Card<FengYanLianZhanCard>(),
@@ -60,7 +60,6 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<WangWeiYaJingCard>(),
         ModelDb.Card<HuiJinFengBaoCard>(),
         ModelDb.Card<PoMoRenCard>(),
-        ModelDb.Card<WangShiQinZhengCard>(),
         ModelDb.Card<PoZhenCard>(),
         ModelDb.Card<ZhuiXingWeiYueCard>(),
         ModelDb.Card<ZhaoYueChengXingCard>(),
@@ -93,7 +92,6 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<MiZhaoCard>(),
         ModelDb.Card<WangQuanCard>(),
         ModelDb.Card<DiGuoYuWeiCard>(),
-        ModelDb.Card<ChengTianShouMingCard>(),
         ModelDb.Card<TianFengXingTaiCard>(),
         ModelDb.Card<XingYueWangGuanCard>(),
         ModelDb.Card<BuDuoCard>(),
@@ -107,6 +105,9 @@ public sealed class CanAoCardPool : CardPoolModel
         ModelDb.Card<WangZuoGuMingCard>(),
         ModelDb.Card<BuMieWangChaoCard>(),
         ModelDb.Card<WanBangLaiChaoCard>(),
+        // v12 新增
+        ModelDb.Card<AnJianCard>(),
+        ModelDb.Card<XingYueLunZhuanCard>(),
 
         // Derivative cards (CardRarity.Token) — registered here for
         // compendium visibility. Visuals use CanAoTokenPool (colorless frame).

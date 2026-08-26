@@ -50,6 +50,8 @@ public sealed class WangWeiYaJingCard : CardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_blunt")
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(combatState)
             .Execute(choiceContext);

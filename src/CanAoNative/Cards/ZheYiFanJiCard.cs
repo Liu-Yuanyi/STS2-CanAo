@@ -56,6 +56,8 @@ public sealed class ZheYiFanJiCard : CardModel
             FengWeiService.GetEffectiveAmount(owner) < 0m ? 2 : 1;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)

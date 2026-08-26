@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Relics;
 
 /// <summary>
-/// 战碑：每场战斗开始时，获得 2 点凤威。第一回合，
+/// 战碑：每场战斗开始时，获得 3 点凤威。第一回合，
 /// 你的星月合击只造成伤害，不获得格挡。
 /// </summary>
 public sealed class ZhanBeiRelic : RelicModel
@@ -25,7 +25,7 @@ public sealed class ZhanBeiRelic : RelicModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new CardsVar(2)
+        new CardsVar(3)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>

@@ -67,6 +67,8 @@ public sealed class ChenTuZhiZhanCard : CardModel
             + DynamicVars.Cards.BaseValue * (stars + moons);
 
         await DamageCmd.Attack(damage)
+
+            .WithHitFx("vfx/vfx_attack_blunt")
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(combatState)
             .Execute(choiceContext);

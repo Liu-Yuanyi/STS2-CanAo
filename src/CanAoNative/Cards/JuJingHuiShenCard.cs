@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 聚精会神：虚无。获得 3 费。消耗。升级后移除虚无。
+/// 聚精会神（v12 重做）：保留。获得 2（3）费。消耗。
 /// </summary>
 public sealed class JuJingHuiShenCard : CardModel
 {
@@ -21,13 +21,13 @@ public sealed class JuJingHuiShenCard : CardModel
 
     public override IEnumerable<CardKeyword> CanonicalKeywords =>
     [
-        CardKeyword.Ethereal,
+        CardKeyword.Retain,
         CardKeyword.Exhaust
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new EnergyVar(3)
+        new EnergyVar(2)
     ];
 
     public JuJingHuiShenCard()
@@ -47,11 +47,13 @@ public sealed class JuJingHuiShenCard : CardModel
             ?? throw new InvalidOperationException(
                 "JuJing HuiShen requires a card owner.");
 
-        await PlayerCmd.GainEnergy(3, owner);
+        await PlayerCmd.GainEnergy(
+            DynamicVars.Energy.IntValue,
+            owner);
     }
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Ethereal);
+        DynamicVars.Energy.UpgradeValueBy(1m);
     }
 }

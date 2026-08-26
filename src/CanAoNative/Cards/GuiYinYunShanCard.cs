@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 归隐陨山（先古牌）：失去 4（2）点凤威，失去 4（2）点力量，
+/// 归隐陨山（先古牌）：3 费。失去 4（2）点凤威，失去 4（2）点力量，
 /// 技能牌的费用 -1。
 /// 尘封魔典将它授予残傲。
 /// </summary>
@@ -38,7 +38,7 @@ public sealed class GuiYinYunShanCard : CardModel
 
     public GuiYinYunShanCard()
         : base(
-            canonicalEnergyCost: 2,
+            canonicalEnergyCost: 3,
             type: CardType.Power,
             rarity: CardRarity.Ancient,
             targetType: TargetType.Self)

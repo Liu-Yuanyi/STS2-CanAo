@@ -77,6 +77,7 @@ public sealed class ZheGuanCard : CardModel
             this);
     }
 
+
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1m);

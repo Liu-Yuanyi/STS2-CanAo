@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 焚诀（先古牌）：抽 2（4）张牌，然后消耗任意张手牌。消耗。
+/// 焚诀（先古牌）：抽 2（3）张牌，然后消耗任意张手牌。消耗。
 /// 古老牙齿把祭火替换为这张牌。
 /// </summary>
 public sealed class FenJueCard : CardModel
@@ -90,6 +90,6 @@ public sealed class FenJueCard : CardModel
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(2m);
+        DynamicVars.Cards.UpgradeValueBy(1m);
     }
 }

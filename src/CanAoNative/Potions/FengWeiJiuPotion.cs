@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace CanAoNative.Potions;
 
 /// <summary>
-/// 凤威酒：获得 2 点凤威，在本回合获得 3 点凤威。
+/// 凤威酒：获得 2 点凤威，在本回合获得 2 点凤威。
 /// </summary>
 public sealed class FengWeiJiuPotion : PotionModel
 {
@@ -23,7 +23,7 @@ public sealed class FengWeiJiuPotion : PotionModel
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new PowerVar<FengWeiPower>(2m),
-        new CardsVar(3)
+        new CardsVar(2)
     ];
 
     public override IEnumerable<IHoverTip> ExtraHoverTips =>

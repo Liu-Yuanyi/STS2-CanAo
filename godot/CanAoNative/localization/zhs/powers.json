@@ -17,8 +17,8 @@
   "PAN_XUAN_POWER.description": "本回合每生成1张[gold]星月合击[/gold]，获得{Amount}点[gold]格挡[/gold]。",
   "TIAN_FENG_JUN_ZHEN_POWER.title": "天凤军阵",
   "TIAN_FENG_JUN_ZHEN_POWER.description": "每当你生成[gold]星月合击[/gold]时，对所有敌人造成{Amount}点伤害。",
-  "DI_GUO_YU_WEI_POWER.title": "帝国余威",
-  "DI_GUO_YU_WEI_POWER.description": "每回合第二次打出[gold]诏令[/gold]时，获得{Amount}点[gold]凤威[/gold]。",
+  "DI_GUO_YU_WEI_POWER.title": "帝国威严",
+  "DI_GUO_YU_WEI_POWER.description": "每回合第一次打出[gold]诏令[/gold]时，获得{Amount}点[gold]凤威[/gold]。",
   "TIAN_FENG_XING_TAI_POWER.title": "天凤形态",
   "TIAN_FENG_XING_TAI_POWER.description": "每回合开始时，将{Amount}张[gold]诏令[/gold]加入[gold]手牌[/gold]。",
   "XING_YUE_WANG_GUAN_POWER.title": "星月王冠",
@@ -32,7 +32,7 @@
   "GUI_YIN_YUN_SHAN_POWER.title": "归隐陨山",
   "GUI_YIN_YUN_SHAN_POWER.description": "技能牌的费用-{Amount}。",
   "BU_DUO_POWER.title": "不堕",
-  "BU_DUO_POWER.description": "你的[gold]星月合击[/gold]不受小于0的[gold]凤威[/gold]影响。",
+  "BU_DUO_POWER.description": "你每回合前{Amount}次打出的[gold]星月合击[/gold]不受小于0的[gold]凤威[/gold]影响。",
   "FENG_HUN_POWER.title": "凤魂",
   "FENG_HUN_POWER.description": "每回合前{Amount}次有牌被[gold]消耗[/gold]时，各抽2张牌。",
   "JIAO_HUI_POWER.title": "交辉",
@@ -55,7 +55,9 @@
   "BU_MIE_WANG_CHAO_POWER.title": "不灭王朝",
   "BU_MIE_WANG_CHAO_POWER.description": "你的回合开始时，将[gold]弃牌堆[/gold]中1张随机攻击牌或技能牌加入[gold]手牌[/gold]。",
   "WAN_BANG_LAI_CHAO_POWER.title": "万邦来朝",
-  "WAN_BANG_LAI_CHAO_POWER.description": "每当你生成[gold]星月合击[/gold]时，对所有敌人施加{Amount}层[gold]虚弱[/gold]。",
+  "WAN_BANG_LAI_CHAO_POWER.description": "在你的回合开始时，将{Amount}张其他角色的随机能力牌加入你的[gold]手牌[/gold]，它们获得[gold]虚无[/gold]。",
   "NEXT_TURN_STAR_POWER.title": "照月成星",
-  "NEXT_TURN_STAR_POWER.description": "下回合开始时获得2点[gold]星[/gold]。"
+  "NEXT_TURN_STAR_POWER.description": "下回合开始时获得2点[gold]星[/gold]。",
+  "XING_YUE_LUN_ZHUAN_POWER.title": "星月轮转",
+  "XING_YUE_LUN_ZHUAN_POWER.description": "每回合你生成第2张[gold]星月合击[/gold]时，获得{Amount}点[gold]能量[/gold]。"
 }

@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 碎月一击：失去所有月，每失去 1 月，造成 11（15）点伤害。
+/// 碎月一击：失去所有月，每失去 1 月，造成 9（13）点伤害。
 /// </summary>
 public sealed class SuiYueYiJiCard : CardModel
 {
@@ -30,7 +30,7 @@ public sealed class SuiYueYiJiCard : CardModel
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(11m, ValueProp.Move)
+        new DamageVar(9m, ValueProp.Move)
     ];
 
     public SuiYueYiJiCard()
@@ -62,6 +62,8 @@ public sealed class SuiYueYiJiCard : CardModel
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .WithHitCount((int)moonLost)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)

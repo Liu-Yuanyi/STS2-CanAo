@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace CanAoNative.Cards;
 
 /// <summary>
-/// 灭世：浴火。造成 26（37）点伤害。消耗。
+/// 灭世：浴火。造成 24（32）点伤害。消耗。
 /// </summary>
 public sealed class MieShiCard : CardModel, IIntrinsicYuHuo
 {
@@ -29,7 +29,7 @@ public sealed class MieShiCard : CardModel, IIntrinsicYuHuo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(26m, ValueProp.Move)
+        new DamageVar(24m, ValueProp.Move)
     ];
 
     public MieShiCard()
@@ -48,6 +48,8 @@ public sealed class MieShiCard : CardModel, IIntrinsicYuHuo
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_heavy_blunt")
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)
             .Execute(choiceContext);
@@ -55,6 +57,6 @@ public sealed class MieShiCard : CardModel, IIntrinsicYuHuo
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(11m);
+        DynamicVars.Damage.UpgradeValueBy(8m);
     }
 }

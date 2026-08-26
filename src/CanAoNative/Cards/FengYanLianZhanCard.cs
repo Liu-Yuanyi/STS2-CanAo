@@ -53,6 +53,8 @@ public sealed class FengYanLianZhanCard : CardModel
             hitCount += DynamicVars.Cards.IntValue;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_slash")
             .WithHitCount(hitCount)
             .FromCard(this, cardPlay)
             .Targeting(cardPlay.Target)

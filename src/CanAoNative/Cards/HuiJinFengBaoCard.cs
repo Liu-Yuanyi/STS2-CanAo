@@ -45,6 +45,8 @@ public sealed class HuiJinFengBaoCard : CardModel, IIntrinsicYuHuo
             return;
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+
+            .WithHitFx("vfx/vfx_attack_blunt")
             .WithHitCount(3)
             .FromCard(this, cardPlay)
             .TargetingAllOpponents(combatState)
