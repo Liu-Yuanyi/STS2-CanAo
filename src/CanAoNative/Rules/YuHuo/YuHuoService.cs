@@ -79,6 +79,12 @@ public static class YuHuoService
         if (owner == null)
             return false;
 
+        // 非战斗场景（牌组预览、事件加入诅咒牌等）PlayerCombatState 为 null。
+        // 永久/临时浴火均为战斗作用域状态，直接返回 false；
+        // 同时避免用所有者残留的战斗引用读到已结束战斗的记录。
+        if (owner.PlayerCombatState == null)
+            return false;
+
         if (GetState(combatState).HasPermanentYuHuo(card, owner))
             return true;
 

@@ -120,6 +120,10 @@ foreach ($RelativePath in $RequiredFiles) {
 # same portrait integration (batch-30~33 art integration).
 # 2026-07-31 intentional change: FengGuZaiRanCard / DiGuoYuWeiCard
 # same portrait integration (batch-39~41 art integration).
+# 2026-08-26 intentional change (PUNCH_OFF 卡死修复): YuHuoService.HasYuHuo
+# 在 owner.PlayerCombatState == null（非战斗：事件加诅咒牌预览等）时提前
+# 返回 false，避免描述补丁渲染牌组外卡牌时抛 NRE 导致事件卡死；
+# 机制仅影响显示路径，战斗内行为不变，冻结哈希同步更新。
 # 2026-08-01 intentional change (user testing): StarMoonStrike / EdictCard /
 # HuoRenCard Pool switched from CanAoCardPool to new CanAoTokenPool
 # (colorless token frame, compendium-visibility fix per CLAUDE.md 待办);
@@ -137,7 +141,7 @@ $VerifiedHashes = [ordered]@{
     "Rules\FengWei\FengWeiService.cs" = "53c1bb467bcba03b9899cfec794beff32032949ddedd3562bbcf2a7e1eeddd49"
     "Rules\YuHuo\YuHuoCombatState.cs" = "598443d5ba9a8eb82adb141cdacbd5d73e35d6433280e0a03ff85d6e8ae9932e"
     "Rules\YuHuo\YuHuoResolver.cs" = "2e63f9cbb43fcd449d63d70d6f922c4fa91f951aa12c837cc69d436470c1468e"
-    "Rules\YuHuo\YuHuoService.cs" = "0c5fbffa9f7f88734c160a404f2b98c88921ff8ebe3b0e68b4ef9c13d64a8376"
+    "Rules\YuHuo\YuHuoService.cs" = "c4b58d17df03e1aa33694b99a5d5641f45676cd8e68aff755d061d66dfd4450a"
     "Patches\YuHuoExhaustPatch.cs" = "82441b3866502fc8087dfeec059f15eb3ab36b112911a2240a2a457a648e292b"
     "Cards\PanXuanCard.cs" = "de9d6b7a088d10c2e5ddbcc9e36855f323e978b0873fbb6a4e19b8774c699035"
     "Cards\XingYueFaMoCard.cs" = "dd8cb57fe280323da7de741a8d7292bee3c658284dccbcec1e0d9e7afdc46510"
